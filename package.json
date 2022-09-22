@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@emotion/babel-preset-css-prop": "^11.10.0",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4"
+  }
+}

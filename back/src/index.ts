@@ -26,7 +26,7 @@ app.use(
   })
 );
 
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 3001);
 
 // parsing
 app.use(bodyParser.json());
@@ -38,8 +38,8 @@ app.get("/", (req, res, next) => {
 
 // routes
 app.use("/users", userRouter);
+app.use("/reservation", reservationRouter);
+
 const server = app.listen(app.get("port"), () =>
   console.log(`App Listening on PORT ${app.get("port")}`)
 );
-
-app.use("/reservation", reservationRouter);

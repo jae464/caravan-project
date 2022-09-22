@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { reservationRegister } from "api/form";
 import useForm from "hooks/useForm";
 
 const ReservationForm = () => {
@@ -11,7 +12,7 @@ const ReservationForm = () => {
     },
     validate: (values: any) => {},
     onSubmit: (values: any) => {
-      alert("예약이 완료되었습니다.");
+      reservationRegister(values);
     },
     onCancel: () => {
       alert("예약이 취소되었습니다.");
@@ -22,7 +23,7 @@ const ReservationForm = () => {
     <StyledReservationForm>
       <h1>예약 정보 입력</h1>
       <StyledReservationFormInput
-        type="text" 
+        type="text"
         name="meetingRoom"
         id="meetingRoom"
         placeholder="회의실"
