@@ -1,12 +1,14 @@
 import React, { useEffect, useCallback } from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
+import { Link } from "react-router-dom"
+
 const Header = () => {
     return (
         <>
             <Container>
                 <div>1</div>
-                <div>2</div>
-                <div>3</div>
+                <h2>KT 회의실 예약</h2>
+                <Logo to="/"></Logo>
             </Container>
         </>
     )
@@ -18,8 +20,17 @@ const Container = styled.header`
     justify-content: space-between;
     width: 100%;
     height: 60px;
+    color: white;
     // border: 1px solid black;
-    background: pink;
+    background: #FFC3C3;
+`
+const Logo = styled(Link)`
+    display: block;
+    width: 3rem;
+    height: 100%;
+    background-image: url('/icon/home-button.png');
+    background: black;
+    font-size: 2rem;
 `
 
 export default Header;

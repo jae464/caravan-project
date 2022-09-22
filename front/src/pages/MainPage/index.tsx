@@ -1,6 +1,6 @@
 import React, {useState, useCallback} from 'react';
 import axios, {AxiosRequestConfig} from 'axios';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Header from 'components/Header';
 import { Link } from 'react-router-dom';
 const MainPage = () => {
@@ -39,7 +39,7 @@ const MainPage = () => {
             <MainContainer>
                 <Header />
                 <ItemList>
-                    <Item to="/reserve">예약하기</Item>
+                    <Item to="/reservation">예약하기</Item>
                     <Item to="/cancel">예약현황 및 취소</Item>
                     <Item to="/status">회의실 현황</Item>
                 </ItemList>
@@ -61,7 +61,7 @@ const MainContainer = styled.div`
     // align-items: center;
     margin: auto;
     margin-top: 160px;
-    background: #E0E0E0;
+    background: white;
     
 `
 
@@ -83,14 +83,17 @@ const Item = styled(Link)`
     font-size: 2rem;
     outline: none;
     height: 4rem;
-    width: 16rem;
+    width: 25rem;
     color: white;
     text-align: center;
     align-items: center;
     justify-content: center;
     // border: 1px solid black;
+    border-radius: 1.2rem;
     margin-bottom: 4rem;
-    background: #A5B5EC;
+    background: #EFEFEF;
+    color: black;
+    font-size: 1.4rem;
 `
 
 const ChatInput = styled.input`

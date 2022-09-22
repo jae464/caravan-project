@@ -1,15 +1,15 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 const useForm = ({ initialValues, onSubmit, validate, onCancel }: any) => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     const validationErrors = validate(values);
     setErrors(validationErrors);
