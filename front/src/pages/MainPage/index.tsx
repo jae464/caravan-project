@@ -2,6 +2,7 @@ import React, {useState, useCallback} from 'react';
 import axios, {AxiosRequestConfig} from 'axios';
 import styled from '@emotion/styled';
 import Header from 'components/Header';
+import Information from 'components/Information'
 import { Link } from 'react-router-dom';
 const MainPage = () => {
     const [email, setEmail] = useState('');
@@ -38,6 +39,7 @@ const MainPage = () => {
         <>
             <MainContainer>
                 <Header />
+                <Information />
                 <ItemList>
                     <Item to="/reservation">예약하기</Item>
                     <Item to="/cancel">예약현황 및 취소</Item>
@@ -57,7 +59,7 @@ const MainContainer = styled.div`
     // border: 1px solid black;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-between;
     // align-items: center;
     margin: auto;
     margin-top: 160px;
@@ -71,6 +73,8 @@ const ItemList = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: -2.5rem;
+    z-index: 1;
     li {
         font-size: 20px;
         style: none;
