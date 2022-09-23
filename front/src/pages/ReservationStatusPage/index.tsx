@@ -1,13 +1,17 @@
 import React, {useState, useCallback} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-const ReservationStatusPage = () => {
+import StatusItem from 'components/StatusItem'
 
+const ReservationStatusPage = () => {
+    const arr: string[] = ['1','2','3','4','5'];
     return (
         <>
             <MainContainer>
                 <ItemContainer>
-                    <Item />
+                    {arr.map( e =>
+                        <StatusItem date={e} time={"민재 바보"} ></StatusItem>
+                    )}
                 </ItemContainer>
                 <ButtonContainer>
                     <ReservationStatusButton to="/modify">수정하기</ReservationStatusButton>
@@ -28,7 +32,7 @@ const MainContainer = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    // margin: auto;
+    margin: auto;
     margin-top: 160px;
     // background: #E0E0E0;
     
@@ -71,11 +75,5 @@ const ItemContainer = styled.div `
     border: 1px solid black;
     flex-direction: column;
 `
-
-const Item = styled.div `
-    display: flex;
-    width: 100%;
-`
-
 
 export default ReservationStatusPage;

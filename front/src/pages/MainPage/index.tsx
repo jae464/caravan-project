@@ -40,7 +40,7 @@ const MainPage = () => {
                 <Header />
                 <ItemList>
                     <Item to="/reserve">예약하기</Item>
-                    <Item to="/cancel">예약현황 및 취소</Item>
+                    <Item to="/reservationStatus">예약현황 및 취소</Item>
                     <Item to="/status">회의실 현황</Item>
                 </ItemList>
                 <ChatInput />
