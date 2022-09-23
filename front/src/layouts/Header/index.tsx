@@ -29,14 +29,13 @@ const Container = styled.header`
 const Logo = styled(Link)`
     display: flex;
     flex-direction: row;
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     text-align: center;
+    margin-right: 0.5rem;
     // border: 1px solid black;
     background-size: cover;
-    // background-position: center;
     background-image: url('http://localhost:3001/icon/free-icon-home-button-61972.png')
-    // font-size: 2rem;
 `
 
 export default Header;

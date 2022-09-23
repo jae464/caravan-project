@@ -1,9 +1,10 @@
 import React, {useState, useCallback} from 'react';
 import axios, {AxiosRequestConfig} from 'axios';
 import styled from '@emotion/styled';
-import Header from 'components/Header';
+import Header from 'layouts/Header';
 import Information from 'components/Information'
 import { Link } from 'react-router-dom';
+import ChatLayout from 'layouts/ChatLayout';
 const MainPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -45,7 +46,12 @@ const MainPage = () => {
                     <Item to="/cancel">예약현황 및 취소</Item>
                     <Item to="/status">회의실 현황</Item>
                 </ItemList>
-                <ChatInput />
+                <ChatLayout />
+                {/* <ChatContainer>
+                    <MessageIcon src='http://localhost:3001/icon/messenger.png'/>
+                    <ChatInput placeholder='입력을 해주세요.' />
+                    <SendIcon src='http://localhost:3001/icon/send.png'/>
+                </ChatContainer> */}
             </MainContainer>
         </>
         
@@ -64,7 +70,7 @@ const MainContainer = styled.div`
     margin: auto;
     margin-top: 160px;
     background: white;
-    
+    position: relative;
 `
 
 const ItemList = styled.div`
@@ -99,13 +105,4 @@ const Item = styled(Link)`
     color: black;
     font-size: 1.4rem;
 `
-
-const ChatInput = styled.input`
-    display: flex;
-    width: 790px;
-    height: 2rem;
-    margin-left: auto;
-    margin-right: auto;
-`
-
 export default MainPage;
