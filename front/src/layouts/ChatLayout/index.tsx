@@ -12,7 +12,7 @@ const ChatLayout = () => {
 
 const ChatContainer = styled.div`
     display: flex;
-    position: absolute;
+    // position: absolute;
     height: 2.2rem;
     width: 100%;
     // border: none;

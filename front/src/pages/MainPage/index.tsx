@@ -5,6 +5,7 @@ import Header from 'layouts/Header';
 import Information from 'components/Information'
 import { Link } from 'react-router-dom';
 import ChatLayout from 'layouts/ChatLayout';
+import AppLayout from 'layouts/AppLayout';
 const MainPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -38,40 +39,19 @@ const MainPage = () => {
 
     return (
         <>
-            <MainContainer>
-                <Header />
+            <AppLayout>
                 <Information />
                 <ItemList>
                     <Item to="/reservation">예약하기</Item>
                     <Item to="/cancel">예약현황 및 취소</Item>
                     <Item to="/status">회의실 현황</Item>
                 </ItemList>
-                <ChatLayout />
-                {/* <ChatContainer>
-                    <MessageIcon src='http://localhost:3001/icon/messenger.png'/>
-                    <ChatInput placeholder='입력을 해주세요.' />
-                    <SendIcon src='http://localhost:3001/icon/send.png'/>
-                </ChatContainer> */}
-            </MainContainer>
+            </AppLayout>
         </>
         
 
     )
 }
-
-const MainContainer = styled.div`
-    width: 800px;
-    height: 800px;
-    // border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    // justify-content: space-between;
-    // align-items: center;
-    margin: auto;
-    margin-top: 160px;
-    background: white;
-    position: relative;
-`
 
 const ItemList = styled.div`
     display: flex;

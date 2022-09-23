@@ -5,26 +5,29 @@ import ChatLayout from 'layouts/ChatLayout'
 
 const AppLayout = ({ children }: {children: React.ReactNode}) => {
   return (
-    <MainContainer>
-        <Header />
-            {children}
-        <ChatLayout />
-    </MainContainer>
+    <>
+        <MainContainer>
+            <Header />
+                {children}
+            <ChatLayout />
+        </MainContainer>
+    </>
   )
 }
 
 const MainContainer = styled.div`
-    width: 800px;
-    height: 800px;
+    // width: 100%;
+    // height: 100%;
+    max-width: 1600px;
     // border: 1px solid black;
     display: flex;
     flex-direction: column;
     // justify-content: space-between;
     // align-items: center;
-    margin: auto;
-    margin-top: 160px;
+    margin: 4rem auto;
+    padding: 0 8rem;
     background: white;
-    position: relative;
+    // position: relative;
 `
 
 export default AppLayout
