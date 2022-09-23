@@ -1,13 +1,14 @@
 import styled from "@emotion/styled";
 import ReservationForm from "components/ReservationForm";
+import AppLayout from "layouts/AppLayout";
 
 const ReservationPage = () => {
   return (
-    <>
-      <StyledReservationPage>
+    <AppLayout>
+      {/* <StyledReservationPage>
         <ReservationForm />
-      </StyledReservationPage>
-    </>
+      </StyledReservationPage> */}
+    </AppLayout>
   );
 };
 

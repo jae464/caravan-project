@@ -1,10 +1,13 @@
+import AppLayout from 'layouts/AppLayout';
 import React from 'react';
 
 const DetailPage = () => {
     return (
-        <div>
-            DetailPage
-        </div>
+        <>
+            <AppLayout>
+                <h1>HI</h1>
+            </AppLayout>
+        </>
     )
 }
 
