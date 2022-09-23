@@ -5,9 +5,9 @@ import AppLayout from "layouts/AppLayout";
 const ReservationPage = () => {
   return (
     <AppLayout>
-      <StyledReservationPage>
+      {/* <StyledReservationPage>
         <ReservationForm />
-      </StyledReservationPage>
+      </StyledReservationPage> */}
     </AppLayout>
   );
 };

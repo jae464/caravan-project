@@ -12,19 +12,20 @@ const ChatLayout = () => {
 
 const ChatContainer = styled.div`
     display: flex;
-    // position: absolute;
-    height: 2.2rem;
+    position: absolute;
     width: 100%;
-    // border: none;
+    height: 2.6rem;
+    border: none;
     bottom: 0px;
     flex-direction: row;
-    padding: 0.5rem;
+    align-items: center;
     border: 1px solid #BEBEBE;
     justify-content: space-between;
 
 `
 const MessageIcon = styled.img`
-    height: 90%;
+    height: 60%;
+    margin-left: 1rem;
     padding: 0px;
 `
 const ChatInput = styled.input`
@@ -37,7 +38,8 @@ const ChatInput = styled.input`
     bottom: 0px;
 `
 const SendIcon = styled.img`
-    height: 90%;
+    height: 60%;
+    margin-right: 1rem;
     padding: 0px;
     // border: 1px solid yellow;
 `
