@@ -19,11 +19,10 @@ const AppLayout = ({ children }: {children: React.ReactNode}) => {
 
 const MainContainer = styled.div`
     max-width: 1600px;
-    // width: 80%;
-    // height: 90vh;
+    width: 80%;
+    height: 90vh;
     min-height: 600px;
     max-height: 900px;
-    overflow: scroll;
     // border: 1px solid black;
     display: flex;
     flex-direction: column;
@@ -35,7 +34,9 @@ const MainContainer = styled.div`
 `
 
 const Content = styled.div`
-    overflow: scroll;
+    // border: 1px solid black;
+    overflow-y: auto;
+    min-height: 700px;
 `
 
 export default AppLayout
