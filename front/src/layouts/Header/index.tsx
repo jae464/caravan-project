@@ -23,7 +23,7 @@ const Container = styled.header`
     width: 100%;
     height: 60px;
     color: white;
-    // border: 1px solid black;
+    // border: 1px solid blue;
     background: #FFC3C3;
 `
 const Logo = styled(Link)`

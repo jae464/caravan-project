@@ -14,13 +14,17 @@ const ChatContainer = styled.div`
     display: flex;
     position: absolute;
     width: 100%;
-    height: 2.6rem;
-    border: none;
+    height: 2.3rem;
+    // border: none;
+    overflow: scroll;
     bottom: 0px;
+    padding: 0px;
     flex-direction: row;
     align-items: center;
     border: 1px solid #BEBEBE;
+    // background: white;
     justify-content: space-between;
+    // z-index: 1;
 
 `
 const MessageIcon = styled.img`
@@ -29,13 +33,13 @@ const MessageIcon = styled.img`
     padding: 0px;
 `
 const ChatInput = styled.input`
-    display: inline-block;
-    width: 85%;
+    // display: inline-block;
+    width: 80%;
     height: 90%;
     font-size: 1rem;
     padding: 0px;
     border: none;
-    bottom: 0px;
+    // bottom: 0px;
 `
 const SendIcon = styled.img`
     height: 60%;

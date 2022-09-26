@@ -1,10 +1,31 @@
 import styled from "@emotion/styled";
 import ReservationForm from "components/ReservationForm";
 import AppLayout from "layouts/AppLayout";
+import ChatBotLayout from "layouts/ChatBotLayout";
 
 const ReservationPage = () => {
   return (
     <AppLayout>
+      <ChatBotLayout />
+      {/* <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout />
+      <ChatBotLayout /> */}
       {/* <StyledReservationPage>
         <ReservationForm />
       </StyledReservationPage> */}

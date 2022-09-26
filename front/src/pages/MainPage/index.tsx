@@ -71,6 +71,7 @@ const Item = styled(Link)`
     display: flex;
     text-decoration: none;
     font-size: 2rem;
+    font-weight: bold;
     outline: none;
     height: 4rem;
     width: 25rem;

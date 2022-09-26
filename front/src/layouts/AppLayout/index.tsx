@@ -8,7 +8,9 @@ const AppLayout = ({ children }: {children: React.ReactNode}) => {
     <>
         <MainContainer>
             <Header />
-                {children}
+                <Content>
+                    {children}
+                </Content>
             <ChatLayout />
         </MainContainer>
     </>
@@ -18,16 +20,22 @@ const AppLayout = ({ children }: {children: React.ReactNode}) => {
 const MainContainer = styled.div`
     max-width: 1600px;
     // width: 80%;
-    height: 90vh;
+    // height: 90vh;
     min-height: 600px;
+    max-height: 900px;
+    overflow: scroll;
     // border: 1px solid black;
     display: flex;
     flex-direction: column;
     // justify-content: space-between;
-    align-items: center;
+    // align-items: center;
     margin: 4rem auto;
     background: white;
     position: relative;
+`
+
+const Content = styled.div`
+    overflow: scroll;
 `
 
 export default AppLayout
