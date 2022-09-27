@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import CalendarForm from "components/CalendarForm";
 import ReservationForm from "components/ReservationForm";
 import AppLayout from "layouts/AppLayout";
 import ChatBotLayout from "layouts/ChatBotLayout";
@@ -6,7 +7,9 @@ import ChatBotLayout from "layouts/ChatBotLayout";
 const ReservationPage = () => {
   return (
     <AppLayout>
-      <ChatBotLayout />
+      <ChatBotLayout>
+        <CalendarForm />
+      </ChatBotLayout>
       {/* <ChatBotLayout />
       <ChatBotLayout />
       <ChatBotLayout />

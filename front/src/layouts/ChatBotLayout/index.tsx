@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from '@emotion/styled'
-
-const ChatBotLayout = () => {
+import 'react-calendar/dist/Calendar.css';
+const ChatBotLayout = ({ children }: {children: React.ReactNode}) => {
   return (
     <>
         <Container>
             <ChatbotImage src='http://localhost:3001/icon/bear.png' />
             <ChatbotContent>
                 <ChatbotNickname>곰돌이</ChatbotNickname>
-                <Content>채팅 내용</Content>
+                <Content>{children}</Content>
             </ChatbotContent>
         </Container>
     </>
@@ -43,14 +43,17 @@ const ChatbotContent = styled.div`
 
 const ChatbotNickname = styled.div`
     font-size: 0.8rem;
+    margin-bottom: 0.3rem;
 `
 
 const Content = styled.div`
-    width: 80%;
-    height:2rem;
-    padding: 0.4rem;
+    display: flex;
+    width: 60%;
+    padding: 1rem;
     border-radius: 0.3rem;
     background-color: #EFEFEF; 
+    align-items: center;
+    // justify-content: center;
     // border: 1px solid black;
 `
 export default ChatBotLayout
