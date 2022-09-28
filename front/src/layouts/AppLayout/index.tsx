@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import Header from 'layouts/Header'
 import ChatLayout from 'layouts/ChatLayout'
@@ -6,13 +6,12 @@ import ChatLayout from 'layouts/ChatLayout'
 const AppLayout = ({ children }: {children: React.ReactNode}) => {
   return (
     <>
-        <MainContainer>
-            <Header />
-                <Content>
-                    {children}
-                </Content>
-            <ChatLayout />
-        </MainContainer>
+      <MainContainer>
+        <Header />
+          <Content>              
+              {children}
+          </Content>     
+      </MainContainer>
     </>
   )
 }
@@ -31,6 +30,7 @@ const MainContainer = styled.div`
     margin: 4rem auto;
     background: white;
     position: relative;
+    // overflow-y: auto;
 `
 
 const Content = styled.div`

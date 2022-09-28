@@ -1,23 +1,36 @@
-import React, { useState } from 'react'
+import React, { MouseEventHandler, useState } from 'react'
 import styled from '@emotion/styled'
-const ChatLayout = () => {
 
-    const [chat, setChat] = useState([]);
+type Props = {
+    getText: (text: string)=>void;
+}
+const ChatLayout = ({getText}: Props) => {
+
+    const [chat, setChat] = useState("");
+
 
     const onClick = (e: any) => {
-        e.preventDefault()
-        console.log(e.target.value);
+        // e.preventDefault()
+        if(e.key !== 'Enter') {
+            // e.preventDefault()
+            return;
+        }
+        e.preventDefault();
+        // console.log(e.target.value);
+        getText(chat);
+        setChat("");
         // setChat([...chat, e.target.value]);
         // console.log(e.target.value)
     }
 
     const onChange = (e: any) => {
-        e.preventDefault();
+        setChat(e.target.value)
+        //
     }
   return (
     <ChatContainer>
         <MessageIcon src='http://localhost:3001/icon/messenger.png'/>
-        <ChatInput placeholder='입력을 해주세요.' onChange={onChange}/>
+        <ChatInput placeholder='입력을 해주세요.' onChange={onChange} value={chat} onKeyUp={onClick}/>
         <SendIcon onClick={onClick} src='http://localhost:3001/icon/send.png'/>
     </ChatContainer> 
   )
@@ -26,13 +39,15 @@ const ChatLayout = () => {
 const ChatContainer = styled.div`
     display: flex;
     // position: absolute;
-    width: 100%;
+    width: 80%;
+    // margin-top: -1rem;
     height: 2.6rem;
     // border: none;
     // overflow: scroll;
     bottom: 0px;
     padding: 0px;
     flex-direction: row;
+    margin: -1rem auto;
     align-items: center;
     border: 1px solid #BEBEBE;
     background: white;

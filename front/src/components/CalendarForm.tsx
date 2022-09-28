@@ -16,11 +16,16 @@ const CalendarForm = () => {
     <Container>
         <CustomCalendar onChange={onChange} value={value}/>
         <DateContainer><span className='date-title'>날짜 : </span>{moment(value).format("YYYY년 MM월 DD일")}</DateContainer>
-        <DatePicker
-            selected={startDate}
-            onChange={(date: Date) => setStartDate(date)}
-            showTimeSelect
-        >시간</DatePicker>
+        <TimePicker>
+            <span className='time-title'>시간 : </span>
+            <select className='time-from'>
+                <option>07:00</option>
+                <option>07:30</option>
+            </select>
+            <span>~</span>
+            <select className='time-to'></select>
+
+        </TimePicker>
         {/* <button onClick={onClick}>확인</button> */}
     </Container>
     
@@ -46,6 +51,28 @@ const DateContainer = styled.div`
         font-weight: bold;
     }
     
+`
+
+const TimePicker = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    font-size: 1.4rem;
+    margin-top: 0.4rem;
+    // font-weight: bold;
+    .time-title {
+        font-weight: bold;
+    }
+
+    .time-from {
+        width: 4rem;
+        margin: 0 1rem;
+    }
+
+    .time-to {
+        width: 4rem;
+        margin: 0 1rem;
+    }
 `
 
 
