@@ -17,7 +17,11 @@ const StatusItem = ({key, date, time, onClick}: Props): JSX.Element => {
 }
 
 const Content = styled.h2`
-    
+    border: 1px solid black;
+    background: orange;
+    cursor: pointer;
+    color: white;
+    padding: 2rem;
 `
 
 export default StatusItem;

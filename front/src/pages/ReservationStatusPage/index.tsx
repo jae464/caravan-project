@@ -21,9 +21,17 @@ const ReservationStatusPage = () => {
         return tmp
     }
 
+    const onClickCancel = () => {
+        alert("취소")
+    }
+
+    const onClickModify = () => {
+        alert("수정")
+    }
+
     const addInfo = () => {
         let tmp = getItemInfo('test')
-        setItemList([...itemList, <ReservationInfoForm roomName={tmp.roomName} conferenceName={tmp.conferenceName}  date={tmp.date} time={tmp.time} participant={tmp.participant} booker={tmp.booker} tel={tmp.tel} />])
+        setItemList([...itemList, <ReservationInfoForm onClickCancel={onClickCancel} onClickModify={onClickModify} conferenceInformationData={tmp}/>])
         console.log(itemList)
     }
 
@@ -31,65 +39,15 @@ const ReservationStatusPage = () => {
         <>
             <AppLayout>
                 {name.map( e =>
-                        <StatusItem onClick={addInfo} key={e} date={e} time={"민재 바보"} ></StatusItem>
+                        <StatusItem onClick={addInfo} key={e} date={e} time={"민재 바보"} />
                 )}
                 {itemList.map( e => {
                      return e
                  })}
-                {/* <ButtonContainer>
-                    <ReservationStatusButton>ttt</ReservationStatusButton>
-                    <ReservationStatusButton to="/modify">수정하기</ReservationStatusButton>
-                    <ReservationStatusButton to="/cancel">예약취소</ReservationStatusButton>
-                </ButtonContainer> */}
             </AppLayout>
         </>
-    
     )
 }
-
-const MainContainer = styled.div`
-    width: 800px;
-    height: 800px;
-    border: 1px solid black;
-    display: flex;
-    position: relative;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: auto;
-    margin-top: 160px;
-    // background: #E0E0E0;
-    
-`
-
-const ButtonContainer = styled.div `
-    display: flex;
-    width: 100%;
-    position: absolute;
-    // border: 1px solid black;
-    justify-content: space-around;
-    bottom: 0px;
-    flex-direction: row;
-
-`
-
-const ReservationStatusButton = styled.button`
-    display: flex;
-    text-decoration: none;
-    font-size: 2rem;
-    outline: none;
-    height: 3rem;
-    width: 8rem;
-    color: white;
-
-    text-align: center; 
-    align-items: center;
-    justify-content: center;
-    // border: 1px solid black;
-    // margin-bottom: 4rem;
-    background: #A5B5EC;
-`
-
 
 
 const ItemContainer = styled.div `
@@ -98,6 +56,7 @@ const ItemContainer = styled.div `
     height: 100%
     border: 1px solid black;
     flex-direction: column;
+    border: 1px solid black;
 `
 
 export default ReservationStatusPage;

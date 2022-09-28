@@ -7,9 +7,11 @@ const Information = () => {
         <>
             <Container>
                 <ChatbotImage  src="http://localhost:3001/icon/bear.png"/>
-                <h3>회의실 예약 서비스입니다.</h3>
-                <br />
-                <h3>원하는 메뉴를 선택해주세요.</h3>
+                <TextContainer>
+                    <span className="top">회의실 예약 서비스입니다.</span>
+                    <br />
+                    <span>원하는 메뉴를 선택해주세요.</span>
+                </TextContainer>
             </Container>
         </>
     )
@@ -32,6 +34,13 @@ const ChatbotImage = styled.img`
     width: 4rem;
     height: 4rem;
     margin: 3rem;
+`
+
+const TextContainer = styled.div`
+    .top {
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
 `
 
 
