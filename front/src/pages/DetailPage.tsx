@@ -5,7 +5,7 @@ const DetailPage = () => {
     return (
         <>
             <AppLayout>
-                <h1>HI</h1>a
+                <h1>HI</h1>
             </AppLayout>
         </>
     )

@@ -17,7 +17,7 @@ const ReservationInfoForm = ({conferenceInformationData, onClickCancel, onClickM
 
     // }
     return (
-        <>
+        <MainContainer>
             <Container>
                 <table>
                     <thead>
@@ -60,9 +60,22 @@ const ReservationInfoForm = ({conferenceInformationData, onClickCancel, onClickM
                 <ReservationStatusButton onClick={onClickModify}>수정하기</ReservationStatusButton>
                 <ReservationStatusButton onClick={onClickCancel}>예약취소</ReservationStatusButton>
             </ButtonContainer>
-        </>
+        </MainContainer>
     )
 }
+
+const MainContainer = styled.div`
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    // background: #0E0E0;
+    width: 100%;
+    height: 100%;
+    // border: 1px solid black;
+    // justify-content: space-;
+`
 
 const Container = styled.div`
     display: flex;
@@ -70,12 +83,12 @@ const Container = styled.div`
     flex-direction: row;
     align-items: center;
     margin: auto;
-    margin-top: 160px;
+    // margin-top: 160px;
     // background: #0E0E0;
     width: 40%;
-    border: 1px solid black;
+    // border: 1px solid black;
     justify-content: space-around;
-    bottom: 0px;
+    // bottom: 0px;
 `
 const ButtonContainer = styled.div`
     display: flex;  
