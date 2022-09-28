@@ -1,17 +1,18 @@
 import styled from '@emotion/styled'
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 
 type Props = {
+    key: string,
     date: string,
-    time: string
+    time: string,
+    onClick: MouseEventHandler
 }
 
-const StatusItem = ({date, time}: Props): JSX.Element => {
+const StatusItem = ({key, date, time, onClick}: Props): JSX.Element => {
   return (
-    <>
+    <div onClick={onClick}>
         <Content>{date} {time}</Content>
-    </>
-    
+    </div>
   )
 }
 
