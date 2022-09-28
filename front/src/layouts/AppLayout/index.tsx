@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import Header from 'layouts/Header'
 import ChatLayout from 'layouts/ChatLayout'
 
-const AppLayout = ({ children }: {children: React.ReactNode}) => {
+const AppLayout = ({ children }: {children: React.ReactNode[]}) => {
   return (
     <>
       <MainContainer>
