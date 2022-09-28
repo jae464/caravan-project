@@ -1,21 +1,24 @@
-import React, { MouseEventHandler } from 'react'
+import React, { MouseEventHandler, useEffect } from 'react'
 import styled from 'styled-components'
 import {ConferenceInformationData} from 'types/ConferenceInformationData'
 
 type Props = {
     conferenceInformationData: ConferenceInformationData,
-    onClickCancel: MouseEventHandler,
-    onClickModify: MouseEventHandler
+    onClickCancel: () => void,
+    onClickModify: () => void
 }
 
 const ReservationInfoForm = ({conferenceInformationData, onClickCancel, onClickModify}: Props): JSX.Element => {
-    // const onClickCancel = () => {
-
-    // }
+    const onClickcancel = () => {
+        onClickCancel()
+    }
 
     // const onClickModify = () => {
 
     // }
+    useEffect(()=>{
+        console.log(onClickCancel)
+    },[])
     return (
         <MainContainer>
             <Container>
@@ -57,7 +60,7 @@ const ReservationInfoForm = ({conferenceInformationData, onClickCancel, onClickM
                 </table>
             </Container>
             <ButtonContainer>
-                <ReservationStatusButton onClick={onClickModify}>수정하기</ReservationStatusButton>
+                <ReservationStatusButton onClick={onClickcancel}>수정하기</ReservationStatusButton>
                 <ReservationStatusButton onClick={onClickCancel}>예약취소</ReservationStatusButton>
             </ButtonContainer>
         </MainContainer>

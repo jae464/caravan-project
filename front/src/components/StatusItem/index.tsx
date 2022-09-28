@@ -5,7 +5,7 @@ type Props = {
     key: string,
     date: string,
     time: string,
-    onClick: MouseEventHandler
+    onClick: () => void
 }
 
 const StatusItem = ({key, date, time, onClick}: Props): JSX.Element => {
