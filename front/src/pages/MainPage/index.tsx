@@ -6,10 +6,19 @@ import Information from 'components/Information'
 import { Link } from 'react-router-dom';
 import ChatLayout from 'layouts/ChatLayout';
 import AppLayout from 'layouts/AppLayout';
+import UserChatLayout from "layouts/UserChatLayout";
 const MainPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    
+    const [arr, setArr] = useState<React.ReactNode[]>([]);
+  
+    const getChat = (text: string) => {
+        console.log(text);
+        if(text == "") return;
+        // setChat([...chat, text]);
+        setArr([...arr, <UserChatLayout>{text}</UserChatLayout>])
+    }
     const axiosConfig: AxiosRequestConfig = {
         baseURL: 'http://localhost:3000',
         withCredentials: true
@@ -47,6 +56,7 @@ const MainPage = () => {
                     <Item to="/status">회의실 현황</Item>
                 </ItemList>
             </AppLayout>
+            <ChatLayout getText={getChat}/>
         </>
         
 
@@ -71,6 +81,7 @@ const Item = styled(Link)`
     display: flex;
     text-decoration: none;
     font-size: 2rem;
+    font-weight: bold;
     outline: none;
     height: 4rem;
     width: 25rem;
