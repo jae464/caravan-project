@@ -17,11 +17,11 @@ const AppLayout = ({ children }: {children: React.ReactNode}) => {
 }
 
 const MainContainer = styled.div`
-    max-width: 1600px;
-    width: 80%;
+    width: 800px;
+    // width: 100%;
     height: 90vh;
     min-height: 600px;
-    max-height: 900px;
+    max-height: 800px;
     // border: 1px solid black;
     display: flex;
     flex-direction: column;

@@ -7,10 +7,14 @@ import { Link } from 'react-router-dom';
 import ChatLayout from 'layouts/ChatLayout';
 import AppLayout from 'layouts/AppLayout';
 import UserChatLayout from "layouts/UserChatLayout";
+import { useRecoilState } from 'recoil';
+import  {testAtom} from "recoil/test";
+
 const MainPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
+    const [test, setTest] = useRecoilState(testAtom);
+
     const [arr, setArr] = useState<React.ReactNode[]>([]);
   
     const getChat = (text: string) => {
@@ -18,6 +22,7 @@ const MainPage = () => {
         if(text == "") return;
         // setChat([...chat, text]);
         setArr([...arr, <UserChatLayout>{text}</UserChatLayout>])
+        setTest({test: 2});
     }
     const axiosConfig: AxiosRequestConfig = {
         baseURL: 'http://localhost:3000',

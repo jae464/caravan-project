@@ -11,10 +11,6 @@ const ChatLayout = ({getText}: Props) => {
 
     const onClick = (e: any) => {
         // e.preventDefault()
-        if(e.key !== 'Enter') {
-            // e.preventDefault()
-            return;
-        }
         e.preventDefault();
         // console.log(e.target.value);
         getText(chat);
@@ -23,6 +19,13 @@ const ChatLayout = ({getText}: Props) => {
         // console.log(e.target.value)
     }
 
+    const onKeyUp = (e: any) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            getText(chat);
+            setChat("");
+        }
+    }
     const onChange = (e: any) => {
         setChat(e.target.value)
         //
@@ -30,7 +33,7 @@ const ChatLayout = ({getText}: Props) => {
   return (
     <ChatContainer>
         <MessageIcon src='http://localhost:3001/icon/messenger.png'/>
-        <ChatInput placeholder='입력을 해주세요.' onChange={onChange} value={chat} onKeyUp={onClick}/>
+        <ChatInput placeholder='입력을 해주세요.' onChange={onChange} value={chat} onKeyUp={onKeyUp}/>
         <SendIcon onClick={onClick} src='http://localhost:3001/icon/send.png'/>
     </ChatContainer> 
   )
@@ -38,8 +41,9 @@ const ChatLayout = ({getText}: Props) => {
 
 const ChatContainer = styled.div`
     display: flex;
+    width: 800px;
     // position: absolute;
-    width: 80%;
+    // width: 80%;
     // margin-top: -1rem;
     height: 2.6rem;
     // border: none;

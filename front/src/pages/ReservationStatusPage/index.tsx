@@ -1,4 +1,4 @@
-import React, {useState, useCallback, MouseEventHandler} from 'react';
+import React, {useState, useCallback, MouseEventHandler, useEffect} from 'react';
 import styled from 'styled-components';
 import StatusItem from 'components/StatusItem'
 import AppLayout from 'layouts/AppLayout';
@@ -9,12 +9,18 @@ import ChatBotLayout from 'layouts/ChatBotLayout';
 import ChatLayout from 'layouts/ChatLayout';
 import UserChatLayout from 'layouts/UserChatLayout';
 import CancelForm from 'components/CancelForm';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { testAtom } from 'recoil/test';
 
 const ReservationStatusPage = () => {
     const name: string[] = ['1','2','3','4','5'];
 
     const [arr, setArr] = useState<React.ReactNode[]>([]);
-  
+    const [test, setTest] = useRecoilState(testAtom);
+    const test2 = useRecoilValue(testAtom);
+    useEffect(()=>{
+        console.log(test2);
+    },[])
     const getChat = (text: string) => {
         console.log(text);
         console.log(arr);
