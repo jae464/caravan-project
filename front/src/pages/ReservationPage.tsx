@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import styled from "@emotion/styled";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import CalendarForm from "components/CalendarForm";
 import ReservationForm from "components/ReservationForm";
@@ -7,26 +7,30 @@ import AppLayout from "layouts/AppLayout";
 import ChatBotLayout from "layouts/ChatBotLayout";
 import ChatLayout from "layouts/ChatLayout";
 import UserChatLayout from "layouts/UserChatLayout";
+import useAutoScroll from "hooks/useAutoScroll";
+import useComponentHooks from "hooks/useComponentAdd";
 
 const ReservationPage = () => {
-
-  const [count, setCount] = useState(0);
-  const [arr, setArr] = useState<React.ReactNode[]>([]);
-
+  
+  const {components, setComponent, addComponent} = useComponentHooks([]);
+  const [scrollRef, scrollToBottom] = useAutoScroll();
+  
   const getChat = (text: string) => {
       console.log(text);
-      if(text == "") return;
-      // setChat([...chat, text]);
-      setArr([...arr, <UserChatLayout>{text}</UserChatLayout>])
+      if(text === "") return;
+      // setArr([...arr, <UserChatLayout>{text}</UserChatLayout>])
+      addComponent(<UserChatLayout>{text}</UserChatLayout>)
   }
 
   const onClick = () => {
-    // const temp: React.ReactNode[] = Array.from({length: 5000}, () => {return <CalendarForm />})
-    setArr([...arr,<ChatBotLayout><CalendarForm /></ChatBotLayout>]);
-    setCount(count + 1);
-    // setChat([])
-    console.log(arr);
+    addComponent(<ChatBotLayout><CalendarForm /></ChatBotLayout>);
+    console.log(components);
   }
+
+  useEffect(()=>{
+    scrollToBottom()
+  },[components]);
+  
   return (
     <>
 
@@ -35,16 +39,15 @@ const ReservationPage = () => {
             <ChatBotLayout>
               <CalendarForm />
             </ChatBotLayout>
-            {arr.map(v=>{
+            <div ref={scrollRef}>
+            {components.components.map(v=>{
               return (
-
-              // <UserChatLayout>
               <>
                 {v}
               </>
-            // </UserChatLayout>
               )
             })}
+            </div>
             <button onClick={onClick}>다음</button>
           {/* </ContentLayout> */}
         {/* <StyledReservationPage>

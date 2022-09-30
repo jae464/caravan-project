@@ -5,12 +5,17 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'react-calendar/dist/Calendar.css';
 import styled from '@emotion/styled';
 import moment from 'moment';
+import useComponentHooks from 'hooks/useComponentAdd';
 import { time_range } from 'utils/consts';
+import ChatBotLayout from 'layouts/ChatBotLayout';
+import ReservationForm from 'components/ReservationForm';
 const CalendarForm = () => {
     const [value, onChange] = useState(new Date());
+    const {components, setComponent, addComponent} = useComponentHooks([]);
     const [startDate, setStartDate] = useState(new Date());
     const onClick = () => {
         console.log(value);
+        addComponent(<ChatBotLayout><ReservationForm /></ChatBotLayout>)
     }
   return (
     <Container>
@@ -66,11 +71,10 @@ const TimePicker = styled.div`
     flex-direction: row;
     margin: 0 auto;
     font-size: 1.4rem;
-    margin-top: 0.4rem;
+    margin-top: 1rem;
     // font-weight: bold;
     .select-container {
         height: 4rem;
-        overflow-y: scroll;
     }
     .time-title {
         font-weight: bold;
@@ -95,6 +99,7 @@ const NextButton = styled.button`
     border: none;
     border-radius: 4px;
     font-size: 1.3rem;
+    cursor: pointer;
 `
 
 export default CalendarForm
