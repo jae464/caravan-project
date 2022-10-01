@@ -9,6 +9,8 @@ import ChatLayout from "layouts/ChatLayout";
 import UserChatLayout from "layouts/UserChatLayout";
 import useAutoScroll from "hooks/useAutoScroll";
 import useComponentHooks from "hooks/useComponentAdd";
+import { useResetRecoilState } from "recoil";
+import reservationPageAtom from "recoil/reservationPage/atom";
 
 const ReservationPage = () => {
   
@@ -35,7 +37,7 @@ const ReservationPage = () => {
     <>
 
       <Wrapper>
-        <AppLayout>
+        <AppLayout name="예약하기">
             <ChatBotLayout>
               <CalendarForm />
             </ChatBotLayout>

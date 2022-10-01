@@ -2,12 +2,15 @@ import React, { FC, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import Header from 'layouts/Header'
 import ChatLayout from 'layouts/ChatLayout'
+import { useResetRecoilState } from 'recoil'
+import reservationPageAtom from 'recoil/reservationPage/atom'
 
-const AppLayout = ({ children }: {children: React.ReactNode}) => {
+const AppLayout = ({ children, name }: {children: React.ReactNode, name?: string}) => {
+  
   return (
     <>
       <MainContainer>
-        <Header />
+        <Header name={name}/>
           <Content>              
               {children}
           </Content>     

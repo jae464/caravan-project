@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Calendar from 'react-calendar'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -10,16 +10,33 @@ import { time_range } from 'utils/consts';
 import ChatBotLayout from 'layouts/ChatBotLayout';
 import ReservationForm from 'components/ReservationForm';
 const CalendarForm = () => {
-    const [value, onChange] = useState(new Date());
-    const {components, setComponent, addComponent} = useComponentHooks([]);
-    const [startDate, setStartDate] = useState(new Date());
+    const [value, setValue] = useState(new Date());
+    const {addComponent} = useComponentHooks([]);
+
+    // 이미 지난 날짜인지 확인
+    const checkDateValidation = () => {
+        const today = new Date();
+        console.log("입력받은 날짜 : ", value, "오늘 날짜 : ", today);
+        if(value < today) {
+            console.log("이미 지난 날짜입니다.");
+            return false;
+        }
+        return true;
+    }
+
     const onClick = () => {
         console.log(value);
+        if (!checkDateValidation()) {
+            alert("이미 지난 날짜입니다. 다시 선택해주세요.");
+            setValue(new Date());
+            return;
+        }
         addComponent(<ChatBotLayout><ReservationForm /></ChatBotLayout>)
     }
+    
   return (
     <Container>
-        <CustomCalendar onChange={onChange} value={value}/>
+        <CustomCalendar onChange={setValue} value={value}/>
         <DateContainer><span className='date-title'>날짜 : </span>{moment(value).format("YYYY년 MM월 DD일")}</DateContainer>
         <TimePicker>
             <span className='time-title'>시간 : </span>

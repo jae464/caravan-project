@@ -53,7 +53,7 @@ const MainPage = () => {
 
     return (
         <>
-            <AppLayout>
+            <AppLayout name='KT 회의실 예약'>
                 <Information />
                 <ItemList>
                     <Item to="/reservation">예약하기</Item>

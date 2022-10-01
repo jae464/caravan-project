@@ -1,14 +1,18 @@
 import React, { useEffect, useCallback } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom"
+import { useResetRecoilState } from "recoil";
+import reservationPageAtom from "recoil/reservationPage/atom";
 
-const Header = () => {
+const Header = ({name="KT 회의실 예약"}:{name?: string}) => {
+    const resetComponents = useResetRecoilState(reservationPageAtom);
+
     return (
         <>
             <Container>
                 <div style={{width: "4rem"}}></div>
-                <h2>KT 회의실 예약</h2>
-                <Logo to="/"></Logo>
+                <h2>{name}</h2>
+                <div onClick={() => resetComponents()}><Logo to="/"></Logo></div>
             </Container>
         </>
     )
