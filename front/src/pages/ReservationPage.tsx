@@ -11,36 +11,35 @@ import useAutoScroll from "hooks/useAutoScroll";
 import useComponentHooks from "hooks/useComponentAdd";
 import { useResetRecoilState } from "recoil";
 import reservationPageAtom from "recoil/reservationPage/atom";
+import ChatBotText from "design/ChatBotText";
 
 const ReservationPage = () => {
   
   const {components, setComponent, addComponent} = useComponentHooks([]);
   const [scrollRef, scrollToBottom] = useAutoScroll();
   
-  const getChat = (text: string) => {
-      console.log(text);
-      if(text === "") return;
-      // setArr([...arr, <UserChatLayout>{text}</UserChatLayout>])
-      addComponent(<UserChatLayout>{text}</UserChatLayout>)
-  }
-
   const onClick = () => {
-    addComponent(<ChatBotLayout><CalendarForm /></ChatBotLayout>);
+    addComponent([<ChatBotLayout><CalendarForm /></ChatBotLayout>]);
     console.log(components);
   }
 
   useEffect(()=>{
+    initComponents();
+  },[]);
+
+  const initComponents = async () => {
+    addComponent([<ChatBotLayout><ChatBotText>원하는 날짜와 시간을 선택해주세요.</ChatBotText></ChatBotLayout>
+    ,<ChatBotLayout><CalendarForm /></ChatBotLayout>])
+  }
+
+  useEffect(()=>{
     scrollToBottom()
-  },[components]);
-  
+  },[components]);  
   return (
     <>
 
       <Wrapper>
         <AppLayout name="예약하기">
-            <ChatBotLayout>
-              <CalendarForm />
-            </ChatBotLayout>
             <div ref={scrollRef}>
             {components.components.map(v=>{
               return (
@@ -50,7 +49,7 @@ const ReservationPage = () => {
               )
             })}
             </div>
-            <button onClick={onClick}>다음</button>
+            {/* <button onClick={onClick}>다음</button> */}
           {/* </ContentLayout> */}
         {/* <StyledReservationPage>
             <ReservationForm />
@@ -58,7 +57,7 @@ const ReservationPage = () => {
           
           {/* <ChatLayout getText={getChat}/> */}
         </AppLayout>
-        <ChatLayout getText={getChat}/>
+        <ChatLayout/>
       </Wrapper>
     </>
   );

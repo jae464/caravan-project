@@ -86,10 +86,10 @@ const Item = styled(Link)`
     display: flex;
     text-decoration: none;
     font-size: 2rem;
-    font-weight: bold;
+    // font-weight: bold;
     outline: none;
     height: 4rem;
-    width: 25rem;
+    width: 30rem;
     color: white;
     text-align: center;
     align-items: center;

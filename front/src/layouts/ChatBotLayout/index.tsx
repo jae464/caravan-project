@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import 'react-calendar/dist/Calendar.css';
+import useComponentHooks from 'hooks/useComponentAdd';
+
 const ChatBotLayout = ({ children }: {children: React.ReactNode}) => {
   return (
     <>

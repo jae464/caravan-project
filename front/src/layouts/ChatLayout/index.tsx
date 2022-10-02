@@ -1,39 +1,49 @@
 import React, { MouseEventHandler, useState } from 'react'
 import styled from '@emotion/styled'
+import useComponentHooks from 'hooks/useComponentAdd';
+import UserChatLayout from 'layouts/UserChatLayout';
 
 type Props = {
-    getText: (text: string)=>void;
+    getText?: (text: string)=>void;
 }
 const ChatLayout = ({getText}: Props) => {
 
     const [chat, setChat] = useState("");
-
+    const {components, setComponent, addComponent} = useComponentHooks([]);
 
     const onClick = (e: any) => {
         // e.preventDefault()
         e.preventDefault();
         // console.log(e.target.value);
-        getText(chat);
+        // getText(chat);
+        addComponent([<UserChatLayout>{chat}</UserChatLayout>])
         setChat("");
         // setChat([...chat, e.target.value]);
         // console.log(e.target.value)
     }
 
-    const onKeyUp = (e: any) => {
+    const onKeyDown = (e: any) => {
         if (e.key === 'Enter') {
+            console.log(e.nativeEvent.isComposing);
+            if(e.nativeEvent.isComposing === true || e.previouseKey === 'Shift') return;
             e.preventDefault();
-            getText(chat);
+            if (chat === "") return;
+            addComponent([<UserChatLayout>{chat}</UserChatLayout>])
             setChat("");
         }
     }
     const onChange = (e: any) => {
         setChat(e.target.value)
-        //
     }
   return (
     <ChatContainer>
         <MessageIcon src='http://localhost:3001/icon/messenger.png'/>
-        <ChatInput placeholder='입력을 해주세요.' onChange={onChange} value={chat} onKeyUp={onKeyUp}/>
+        <ChatInput 
+            placeholder='입력을 해주세요.'
+            onChange={onChange}
+            value={chat}
+            onKeyDown={onKeyDown}
+        />
         <SendIcon onClick={onClick} src='http://localhost:3001/icon/send.png'/>
     </ChatContainer> 
   )

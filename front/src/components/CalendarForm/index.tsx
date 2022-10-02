@@ -9,6 +9,8 @@ import useComponentHooks from 'hooks/useComponentAdd';
 import { time_range } from 'utils/consts';
 import ChatBotLayout from 'layouts/ChatBotLayout';
 import ReservationForm from 'components/ReservationForm';
+import MeetingRoomForm from 'components/MeetingRoomForm';
+import ChatBotText from 'design/ChatBotText';
 const CalendarForm = () => {
     const [value, setValue] = useState(new Date());
     const {addComponent} = useComponentHooks([]);
@@ -17,7 +19,10 @@ const CalendarForm = () => {
     const checkDateValidation = () => {
         const today = new Date();
         console.log("입력받은 날짜 : ", value, "오늘 날짜 : ", today);
-        if(value < today) {
+        if(value.getFullYear() < today.getFullYear() || 
+        (value.getFullYear() === today.getFullYear() && value.getMonth() < today.getMonth())
+        || (value.getFullYear() === today.getFullYear() && value.getMonth() === today.getMonth() &&
+        value.getDate() < today.getDate())) {
             console.log("이미 지난 날짜입니다.");
             return false;
         }
@@ -31,9 +36,12 @@ const CalendarForm = () => {
             setValue(new Date());
             return;
         }
-        addComponent(<ChatBotLayout><ReservationForm /></ChatBotLayout>)
+        addComponent([
+        <ChatBotLayout><ChatBotText>원하는 층과 회의실을 선택해주세요.</ChatBotText></ChatBotLayout>,
+        <ChatBotLayout><MeetingRoomForm /></ChatBotLayout>
+        ])
     }
-    
+
   return (
     <Container>
         <CustomCalendar onChange={setValue} value={value}/>
@@ -100,6 +108,7 @@ const TimePicker = styled.div`
     .time-from {
         width: 4rem;
         margin: 0 1rem;
+        // background: #D9D9D9;
     }
 
     .time-to {

@@ -10,7 +10,7 @@ const Header = ({name="KT 회의실 예약"}:{name?: string}) => {
     return (
         <>
             <Container>
-                <div style={{width: "4rem"}}></div>
+                <div><MyPage to='/login'></MyPage></div>
                 <h2>{name}</h2>
                 <div onClick={() => resetComponents()}><Logo to="/"></Logo></div>
             </Container>
@@ -29,6 +29,15 @@ const Container = styled.header`
     color: white;
     // border: 1px solid blue;
     background: #FFC3C3;
+`
+const MyPage = styled(Link)`
+    display: flex;
+    margin-left: 0.5rem;
+    
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    background-image: url('http://localhost:3001/icon/free-icon-user-5264565.png')
 `
 const Logo = styled(Link)`
     display: flex;
