@@ -1,5 +1,5 @@
 import React from 'react'
-import { time_range } from 'utils/consts';
+import { floor_list, time_range } from 'utils/consts';
 import styled from '@emotion/styled';
 import useComponentHooks from 'hooks/useComponentAdd';
 import ChatBotText from 'design/ChatBotText';
@@ -22,7 +22,11 @@ const MeetingRoomForm = () => {
     <Container>
         <FloorContainer>
           <span className='title'>층 선택</span>
-          <FloorSelector></FloorSelector>
+          <FloorSelector>
+            {floor_list.map(floor => {
+              return (<option className='floor'>{floor}F</option>)
+            })}
+          </FloorSelector>
         </FloorContainer>
         <TimePicker>
           <span className='title'>시간</span>
@@ -86,7 +90,7 @@ const FloorContainer = styled.div`
 
 const FloorSelector = styled.select`
   width: 60%;
-  height: 1.4rem;
+  height: 1.6rem;
   background: #D9D9D9;
   margin-left: 2rem;
   border: none;

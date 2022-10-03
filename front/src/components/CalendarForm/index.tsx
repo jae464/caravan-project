@@ -64,7 +64,7 @@ const CalendarForm = () => {
                 </select>
             </div>
         </TimePicker>
-        <NextButton onClick={onClick}>확인</NextButton>
+        <NextButton onClick={onClick}>다음</NextButton>
     </Container>
     
   )

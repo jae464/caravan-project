@@ -22,5 +22,8 @@ const time_range = [
     '18:00',
     '18:30',
     '19:00'
-]
-export { API_DESTINATION, time_range };
+];
+
+const floor_list = [4,5,6,7,8,9,10,11,12,13,14,16];
+
+export { API_DESTINATION, time_range, floor_list };

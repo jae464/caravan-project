@@ -7,6 +7,7 @@ import ReservationPage from "pages/ReservationPage";
 import ReservationStatusPage from "pages/ReservationStatusPage";
 import {RecoilRoot} from "recoil"
 import LoginPage from "pages/LoginPage";
+import SignUpPage from "pages/SignUpPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/reservation" element={<ReservationPage />} />
             <Route path="/reservationStatus" element={<ReservationStatusPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
             <Route path="*" element={<>404</>} />
           </Routes>
         </BrowserRouter>
