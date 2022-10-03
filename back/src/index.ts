@@ -26,7 +26,7 @@ app.use(
   })
 );
 
-app.set("port", process.env.PORT || 3001);
+app.set("port", process.env.PORT || 3000);
 
 // parsing
 app.use(bodyParser.json());

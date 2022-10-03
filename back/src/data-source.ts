@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
   username: "root",
   // password: "12345678",
   password: '426153',
-  database: "test_db",
+  database: "caravan-project",
   synchronize: true,
   logging: false,
   entities: [User],

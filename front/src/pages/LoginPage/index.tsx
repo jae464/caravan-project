@@ -6,19 +6,16 @@ import ChatLayout from 'layouts/ChatLayout';
 import LoginForm from 'components/LoginForm';
 const LoginPage = () => {
 
-  const onClick = () => {
-
-  }
   return (
     <>
-    <AppLayout name='로그인'>
-      <Container>
-        <LoginForm />
-        <Link to='/signup'>회원가입</Link>
-      </Container>
-    </AppLayout>
-    <ChatLayout/>
-</>
+      <AppLayout name='로그인'>
+        <Container>
+          <LoginForm />
+          <Link to='/signup'>회원가입</Link>
+        </Container>
+      </AppLayout>
+      <ChatLayout/>
+    </>
   )
 }
 
