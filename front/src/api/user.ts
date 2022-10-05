@@ -23,3 +23,15 @@ export const getUserByEmployeeNumber = async (employeeNumber: string) => {
 
     }
 }
+
+export const doLogin = async (employeeNumber: string, password: string) => {
+    try {
+        console.log(employeeNumber, password)
+        const result = await axios.post(`${API_DESTINATION}/users/login`,{employeeNumber, password});
+        console.log(result);
+        return result.data;
+    }
+    catch (e) {
+
+    }
+}

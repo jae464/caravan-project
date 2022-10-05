@@ -1,20 +1,49 @@
 import React from 'react'
 import styled from '@emotion/styled';
+import useInput from 'hooks/useInput';
+import { doLogin } from 'api/user';
 
 
 const LoginForm = () => {
+    const [employeeNumber, onChangeEmployeeNumber] = useInput('');
+    const [password, onChangePassword] = useInput('');
+    
+
+    const onClick = async () => {
+        const user = await doLogin(employeeNumber, password);
+        console.log(`LoginForm ${user}`);
+        console.log(user);
+        if (!user) {
+            alert('사번 혹은 비밀번호를 확인해주세요.')
+            return;
+        }
+
+        alert('로그인 완료');
+
+
+    }
+
   return (
     <Container>
         <h2>로그인</h2>
         <InputContainer>
             <TextContainer>사번</TextContainer>
-            <FormInput />
+            <FormInput
+                value={employeeNumber}
+                onChange={onChangeEmployeeNumber}
+                placeholder='사번을 입력하세요.'
+            />
         </InputContainer>
         <InputContainer>
             <TextContainer>비밀번호</TextContainer>
-            <FormInput />
+            <FormInput 
+                type="password"
+                placeholder='비밀번호를 입력하세요.'
+                value={password}
+                onChange={onChangePassword}
+            />
         </InputContainer>
-        <LoginButton>로그인</LoginButton>
+        <LoginButton onClick={onClick}>로그인</LoginButton>
     </Container>    
   )
 }

@@ -4,14 +4,14 @@ import styled from '@emotion/styled';
 import AppLayout from 'layouts/AppLayout';
 import ChatLayout from 'layouts/ChatLayout';
 import LoginForm from 'components/LoginForm';
+import useInput from 'hooks/useInput';
 const LoginPage = () => {
-
   return (
     <>
       <AppLayout name='로그인'>
         <Container>
           <LoginForm />
-          <Link to='/signup'>회원가입</Link>
+          <Link to='/signup' style={{marginTop: '1rem'}}>회원가입</Link>
         </Container>
       </AppLayout>
       <ChatLayout/>

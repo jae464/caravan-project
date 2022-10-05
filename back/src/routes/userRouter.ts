@@ -28,4 +28,20 @@ router.post("/", async (req: Request, res: Response) => {
   return res.json(result);
 });
 
+router.post('/login', async (req: Request, res: Response) => {
+
+  console.log(req.body);
+  const employeeNumber = Number(req.body.employeeNumber);
+  // console.log(employeeNumber)
+  const password = req.body.password;
+  const user = await AppDataSource.getRepository(User).findOne({
+    where: {
+      employeeNumber,
+      password
+    }
+  })
+  console.log(user);
+  return res.json(user);
+})
+
 export default router;
