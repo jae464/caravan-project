@@ -28,7 +28,7 @@ const ReservationPage = () => {
   },[]);
 
   const initComponents = async () => {
-    addComponent([<ChatBotLayout><ChatBotText>원하는 날짜와 시간을 선택해주세요.</ChatBotText></ChatBotLayout>
+    addComponent([<ChatBotLayout><ChatBotText>원하는 날짜, 시간, 층, 회의실을 선택해주세요.</ChatBotText></ChatBotLayout>
     ,<ChatBotLayout><CalendarForm /></ChatBotLayout>])
   }
 

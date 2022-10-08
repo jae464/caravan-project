@@ -5,7 +5,8 @@ export type UserState = {
     employeeNumber?: number;
     name?: string;
 }
-export const user = atom<UserState>({
+
+export const userAtom = atom<UserState>({
     key: "user",
     default: {}
 })

@@ -5,15 +5,25 @@ import bodyParser = require("body-parser");
 import userRouter from "./routes/userRouter";
 import cors from "cors";
 import reservationRouter from "./routes/reservationRouter";
+import { meetingRooms } from "./const";
+import { MeetingRoom } from "./entity/MeetingRoom";
 
 AppDataSource.initialize()
   .then(async () => {
     console.log("DB Connected");
-    // const user = new User();
-    // user.firstName = "Timber";
-    // user.lastName = "Saw";
-    // user.age = 25
-    // await AppDataSource.manager.save(user);
+
+    // MeetingRoom 정보가 DataBase에 없을 경우 추가
+    meetingRooms.forEach(async v => {
+      const meetingRoomRepository = AppDataSource.getRepository(MeetingRoom);
+      const meetingRoom = await meetingRoomRepository.findOneBy({
+        name: v.name,
+      });
+      if(!meetingRoom) {
+        const newMeetingRoom = await meetingRoomRepository.create(v);
+        const result = await meetingRoomRepository.save(newMeetingRoom);
+        console.log(result);
+      }
+    })
   })
   .catch((error) => console.log(error));
 

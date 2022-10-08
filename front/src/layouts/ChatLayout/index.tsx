@@ -12,14 +12,9 @@ const ChatLayout = ({getText}: Props) => {
     const {components, setComponent, addComponent} = useComponentHooks([]);
 
     const onClick = (e: any) => {
-        // e.preventDefault()
         e.preventDefault();
-        // console.log(e.target.value);
-        // getText(chat);
         addComponent([<UserChatLayout>{chat}</UserChatLayout>])
         setChat("");
-        // setChat([...chat, e.target.value]);
-        // console.log(e.target.value)
     }
 
     const onKeyDown = (e: any) => {

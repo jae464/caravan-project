@@ -7,13 +7,15 @@ import { Link } from 'react-router-dom';
 import ChatLayout from 'layouts/ChatLayout';
 import AppLayout from 'layouts/AppLayout';
 import UserChatLayout from "layouts/UserChatLayout";
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import  {testAtom} from "recoil/test";
+import { userAtom } from 'recoil/user/atom';
 
 const MainPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [test, setTest] = useRecoilState(testAtom);
+    const userState = useRecoilValue(userAtom);
 
     const [arr, setArr] = useState<React.ReactNode[]>([]);
   
@@ -56,9 +58,9 @@ const MainPage = () => {
             <AppLayout name='KT 회의실 예약'>
                 <Information />
                 <ItemList>
-                    <Item to="/reservation">예약하기</Item>
-                    <Item to="/reservationStatus">예약현황 및 취소</Item>
-                    <Item to="/status">회의실 현황</Item>
+                    <Item to={userState.id ? "/reservation" : "/login"}>예약하기</Item>
+                    <Item to={userState.id ? "/reservationStatus" : "/login"}>예약현황 및 취소</Item>
+                    <Item to={userState.id ? "/status" : "/login"}>회의실 현황</Item>
                 </ItemList>
             </AppLayout>
             <ChatLayout getText={getChat}/>

@@ -1,5 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
+import { MeetingRoom } from "./entity/MeetingRoom";
+import { Reservation } from "./entity/Reservation";
 import { User } from "./entity/User";
 
 export const AppDataSource = new DataSource({
@@ -12,7 +14,7 @@ export const AppDataSource = new DataSource({
   database: "caravan-project",
   synchronize: true,
   logging: false,
-  entities: [User],
+  entities: [User, MeetingRoom, Reservation],
   migrations: [],
   subscribers: [],
 });

@@ -1,19 +1,33 @@
 import React, { useEffect, useCallback } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom"
+import { useRecoilValue } from "recoil";
+import { userAtom } from "recoil/user/atom";
 
 const Information = () => {
+    const userState = useRecoilValue(userAtom);
+
     return (
         <>
             <Container>
                 <ChatbotImage  src="http://localhost:3001/icon/bear.png"/>
                 <TextContainer>
                     <div className="chatbot-nickname">곰돌이</div>
-                    <span>안녕하세요!</span>
-                    <br />
-                    <span>회의실 예약 서비스입니다.</span>
-                    <br />
-                    <span>원하는 메뉴를 선택해주세요.</span>
+                    {userState.id ? (
+                        <>
+                            <span>안녕하세요! {userState.name} 님</span>
+                            <span>회의실 예약 서비스입니다.</span>
+                            <span>원하는 메뉴를 선택해주세요.</span>
+                        </>
+                    ) : 
+                    (
+                        <>
+                            <span>안녕하세요!</span>
+                            <span>회의실 예약 서비스입니다.</span>
+                            <span>먼저 로그인을 해주세요.</span>
+                        </>
+                    )
+                    }
                 </TextContainer>
             </Container>
         </>
@@ -28,6 +42,9 @@ const Container = styled.div`
     // padding: 4rem;
     background: rgb(255, 195, 195, 20%)
     // opacity: 0.2;
+    // span {
+    //     display: block;
+    // }
 `
 
 const ChatbotImage = styled.img`
@@ -50,6 +67,10 @@ const TextContainer = styled.div`
         font-weight: bold;
         margin-bottom: 0.6rem;
         // font-weight: bold;
+    }
+    span {
+        display: block;
+        margin-bottom: 1rem;
     }
 `
 
