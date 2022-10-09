@@ -1,36 +1,89 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { floor_list, time_range } from 'utils/consts';
 import styled from '@emotion/styled';
+import { reservationAtom } from 'recoil/reservation/atom';
+import { useRecoilState } from 'recoil';
 
 const MeetingRoomForm = () => {
 
+  const [reservation, setReservation] = useRecoilState(reservationAtom);
+  const [startTimeArr, setStartTimeArr] = useState(time_range);
+  const [endTimeArr, setEndTimeArr] = useState(time_range);
+  const [floor, setFloor] = useState(15); // default 15층
+
+  const onChangeFloor = (e: any) => {
+    setFloor(e.target.value);
+  }
+
+  const onChangeStartTime = (e: any) => {
+    console.log(e.target.value);
+    setReservation(prev => ({
+      ...prev,
+      startTime: Number(e.target.value)
+    }))
+
+    // 끝 시간을 현재 시작 시간 기준으로 더 나중 값만 가져옴
+    const needEndTimeArr = time_range.filter(v => {
+      return v.value >= e.target.value;
+    });
+
+    setEndTimeArr(needEndTimeArr);
+  }
+
+  const onChangeEndTime = (e: any) => {
+    console.log('onChangeEndTime');
+    setReservation(prev => ({
+      ...prev,
+      endTime: Number(e.target.value)
+    }))
+  }
+  useEffect(() => {
+    setReservation(prev => ({
+      ...prev,
+      endTime: Number(endTimeArr[0].value)
+    }));  
+  },[endTimeArr]);
+
+  useEffect(() => {
+    console.log(`floor 가 ${floor}층으로 변경되었습니다.`);
+
+    // TODO 해당 Floor 의 회의실을 가져오는 API 호출
+    
+  }, [floor])
 
   return (
         <>
     <Container>
         <FloorContainer>
           <span className='title'>층 선택</span>
-          <FloorSelector>
-            {floor_list.map(floor => {
-              return (<option className='floor'>{floor}F</option>)
+          <FloorSelector defaultValue={floor} onChange={onChangeFloor}>
+            {floor_list.map(item => {
+              return (<option className='floor' value={item}>{item}F</option>)
             })}
           </FloorSelector>
         </FloorContainer>
         <TimePicker>
           <span className='title'>시간</span>
           <div className='select-container'>
-                <select className='time-from'>
-                    {time_range.map(time => {
-                        return <option>{time.label}</option>
+                <select 
+                  className='time-from'
+                  onChange={onChangeStartTime}
+                >
+                    {startTimeArr.map(time => {
+                        return <option value={time.value}>{time.label}</option>
                     })}
                 </select>
 
             </div>
             <span>~</span>
             <div className='select-container'>
-                <select className='time-to'>
-                    {time_range.map(time => {
-                        return <option>{time.label}</option>
+                <select
+                  className='time-to'
+                  onChange={onChangeEndTime}
+                  defaultValue={endTimeArr[0].value}
+                >
+                    {endTimeArr.map(time => {
+                        return <option value={time.value}>{time.label}</option>
                     })}
                 </select>
             </div>

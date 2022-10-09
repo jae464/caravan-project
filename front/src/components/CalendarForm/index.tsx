@@ -1,23 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css';
-import styled from '@emotion/styled';
-import moment from 'moment';
-import Select from 'react-select';
-import useComponentHooks from 'hooks/useComponentAdd';
-import { time_range } from 'utils/consts';
 import ChatBotLayout from 'layouts/ChatBotLayout';
 import MeetingRoomForm from 'components/MeetingRoomForm';
 import ChatBotText from 'design/ChatBotText';
 import ReservationForm from 'components/ReservationForm';
-import { useRecoilState } from 'recoil';
+
+import 'react-calendar/dist/Calendar.css';
+import styled from '@emotion/styled';
+import moment from 'moment';
+import useComponentHooks from 'hooks/useComponentAdd';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { reservationAtom } from 'recoil/reservation/atom';
 
 const CalendarForm = () => {
     const [value, setValue] = useState(new Date());
     const {addComponent} = useComponentHooks([]);
     const [reservation, setReservation] = useRecoilState(reservationAtom);
-
+    const resetReservation = useResetRecoilState(reservationAtom);
+    
     // 이미 지난 날짜인지 확인
     const checkDateValidation = () => {
         const today = new Date();
@@ -39,7 +39,9 @@ const CalendarForm = () => {
     const onClick = () => {
         console.log(value);
         console.log(`reservation ${reservation.meetingDate}`);
-        if(!reservation.roomId || !reservation.meetingDate || !reservation.startTime ||
+
+        // 이 컴포넌트에서는 meetingDate가 설정되
+        if(!reservation.meetingDate || !reservation.startTime ||
             !reservation.endTime) {
                 alert('모든 정보를 입력해주세요.');
                 return;
@@ -49,26 +51,37 @@ const CalendarForm = () => {
             setValue(new Date());
             return;
         }
+
         addComponent([
         <ChatBotLayout><ChatBotText>세부 내용을 입력해주세요.</ChatBotText></ChatBotLayout>,
         <ChatBotLayout><ReservationForm /></ChatBotLayout>
         ])
     }
 
+    const onChangeDate = (value: Date) => {
+        console.log(value);
+        setReservation(prev => ({
+            ...prev,
+            meetingDate: value
+        }));
+    }
+
   return (
     <Container>
         <CustomCalendar 
-            onChange={setValue} 
-            value={value}
+            onChange={onChangeDate} 
+            value={reservation.meetingDate}
             formatDay={(locale, date) => moment(date).format('DD')}
             showNeighboringMonth={false}
             />
         <DateContainer>
             <span className='date-title'>날짜</span>
-            <span style={{marginLeft:'2rem', fontSize: '1.2rem'}}>{moment(value).format("YYYY년 MM월 DD일")}</span>
+            <span style={{marginLeft:'2rem', fontSize: '1.2rem'}}>{moment(reservation.meetingDate).format("YYYY년 MM월 DD일")}</span>
         </DateContainer>
         <MeetingRoomForm />
         <NextButton onClick={onClick}>다음</NextButton>
+        <button onClick={() => {console.log(reservation)}}>확인용 버튼</button>
+        <button onClick={resetReservation}>리코일 초기화</button>
     </Container>
     
   )

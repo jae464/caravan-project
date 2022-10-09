@@ -9,5 +9,9 @@ export type ReservationState = {
 
 export const reservationAtom = atom<ReservationState>({
     key: 'reservation',
-    default: {}
+    default: {
+        meetingDate: new Date(),
+        startTime: 900,
+        endTime: 900,
+    }
 })
