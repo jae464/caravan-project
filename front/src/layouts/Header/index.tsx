@@ -3,16 +3,22 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom"
 import { useResetRecoilState } from "recoil";
 import reservationPageAtom from "recoil/reservationPage/atom";
+import { reservationAtom } from "recoil/reservation/atom";
 
 const Header = ({name="KT 회의실 예약"}:{name?: string}) => {
     const resetComponents = useResetRecoilState(reservationPageAtom);
+    const resetReservation = useResetRecoilState(reservationAtom)
 
+    const goToHome = () => {
+        resetComponents();
+        resetReservation();
+    }
     return (
         <>
             <Container>
                 <div><MyPage to='/login'></MyPage></div>
                 <h2>{name}</h2>
-                <div onClick={() => resetComponents()}><Logo to="/"></Logo></div>
+                <div onClick={goToHome}><Logo to="/"></Logo></div>
             </Container>
         </>
     )

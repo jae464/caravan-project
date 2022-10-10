@@ -41,7 +41,7 @@ const CalendarForm = () => {
         console.log(`reservation ${reservation.meetingDate}`);
 
         // 이 컴포넌트에서는 meetingDate가 설정되
-        if(!reservation.meetingDate || !reservation.startTime ||
+        if(!reservation.roomId || !reservation.meetingDate || !reservation.startTime ||
             !reservation.endTime) {
                 alert('모든 정보를 입력해주세요.');
                 return;
@@ -79,7 +79,7 @@ const CalendarForm = () => {
             <span style={{marginLeft:'2rem', fontSize: '1.2rem'}}>{moment(reservation.meetingDate).format("YYYY년 MM월 DD일")}</span>
         </DateContainer>
         <MeetingRoomForm />
-        <NextButton onClick={onClick}>다음</NextButton>
+        <NextButton onClick={onClick} clickable={!reservation.done}>다음</NextButton>
         <button onClick={() => {console.log(reservation)}}>확인용 버튼</button>
         <button onClick={resetReservation}>리코일 초기화</button>
     </Container>
@@ -141,7 +141,7 @@ const TimePicker = styled.div`
     //     margin: 0 1rem;
     // }
 `
-const NextButton = styled.button`
+const NextButton = styled.button<{clickable: boolean}>`
     width: 10rem;
     margin: 1rem auto;
     height: 3rem;
@@ -151,6 +151,7 @@ const NextButton = styled.button`
     border-radius: 4px;
     font-size: 1.3rem;
     cursor: pointer;
+    pointer-events: ${(props) => props.clickable ? 'auto' : 'none'}
 `
 
 export default CalendarForm

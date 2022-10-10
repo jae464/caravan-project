@@ -3,6 +3,7 @@ import { User } from "./entity/User";
 import express, { Request, Response } from "express";
 import bodyParser = require("body-parser");
 import userRouter from "./routes/userRouter";
+import meetingRoomRouter from "./routes/meetingRoomRouter";
 import cors from "cors";
 import reservationRouter from "./routes/reservationRouter";
 import { meetingRooms } from "./const";
@@ -49,6 +50,7 @@ app.get("/", (req, res, next) => {
 // routes
 app.use("/users", userRouter);
 app.use("/reservation", reservationRouter);
+app.use("/meetingroom", meetingRoomRouter);
 
 const server = app.listen(app.get("port"), () =>
   console.log(`App Listening on PORT ${app.get("port")}`)

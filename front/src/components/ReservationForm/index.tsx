@@ -1,8 +1,22 @@
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import { reservationRegister } from "api/form";
 import useForm from "hooks/useForm";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { reservationAtom } from "recoil/reservation/atom";
+import moment from 'moment';
+import { time_range } from "utils/consts";
+import { addReservation } from "api/reservation";
+import { userAtom } from "recoil/user/atom";
+import useComponentHooks from "hooks/useComponentAdd";
+import ChatBotLayout from "layouts/ChatBotLayout";
+import ChatBotText from "design/ChatBotText";
 
 const ReservationForm = () => {
+  const user = useRecoilValue(userAtom);
+  const [reservation, setReservation] = useRecoilState(reservationAtom);
+  const {addComponent} = useComponentHooks([]);
+  const resetReservation = useResetRecoilState(reservationAtom);
+
   const [values, errors, handleChange, handleSubmit] = useForm({
     initialValues: {
       meetingRoom: "",
@@ -12,13 +26,40 @@ const ReservationForm = () => {
     },
     validate: (values: any) => {},
     onSubmit: (values: any) => {
-      reservationRegister(values);
+      console.log(reservation);
+      if(!reservation.name) {
+        alert('회의명을 입력해주세요.')
+        return
+      }
+      addReservation({
+        userId: user.id,
+        roomId: reservation.roomId,
+        name: reservation.name,
+        meetingDate: reservation.meetingDate,
+        startTime: reservation.startTime,
+        endTime: reservation.endTime
+      });
+      addComponent([
+        <ChatBotLayout><ChatBotText>예약이 완료되었습니다.</ChatBotText></ChatBotLayout>
+      ])
+
+      setReservation(prev => ({
+        ...prev,
+        done: true,
+      }));
+
     },
     onCancel: () => {
       alert("예약이 취소되었습니다.");
     },
   });
 
+  const onChangeMeetingName = (e: any) => {
+    setReservation(prev => ({
+      ...prev,
+      name: e.target.value,
+    }));
+  }
   return (
     <StyledReservationForm>
       <StyledReservationInputContainer>
@@ -27,7 +68,8 @@ const ReservationForm = () => {
           type="text"
           name="meetingRoom"
           id="meetingRoom"
-          placeholder="회의실"
+          disabled
+          placeholder={reservation.roomId?.toString()}
           onChange={handleChange}
           value={values.meetingRoom}
         />
@@ -40,8 +82,8 @@ const ReservationForm = () => {
           name="meetingName"
           id="meetingName"
           placeholder="회의명"
-          onChange={handleChange}
-          value={values.meetingDate}
+          onChange={onChangeMeetingName}
+          // value={values.meetingDate}
         />
       </StyledReservationInputContainer>
 
@@ -51,7 +93,8 @@ const ReservationForm = () => {
           type="text"
           name="meetingDate"
           id="meetingDate"
-          placeholder="회의 일자"
+          placeholder={moment(reservation.meetingDate).format("YYYY년 MM월 DD일")}
+          disabled
           onChange={handleChange}
           value={values.meetingTime}
         />  
@@ -63,7 +106,10 @@ const ReservationForm = () => {
           type="text"
           name="meetingTime"
           id="meetingTime"
-          placeholder="회의시간"
+          placeholder={[time_range.find(time => time.value === reservation.startTime)?.label,
+            time_range.find(time => time.value === reservation.endTime)?.label]
+            .join(' ~ ')}
+          disabled
           onChange={handleChange}
           value={values.attendees}
         />
@@ -83,7 +129,7 @@ const ReservationForm = () => {
 
   
       <AttendeeButtonContainer>
-        <StyledReservationFormButton id="reservation" onClick={handleSubmit}>
+        <StyledReservationFormButton id="reservation">
           참석자 추가
         </StyledReservationFormButton>
         <StyledReservationFormButton id="cancel">
@@ -92,10 +138,10 @@ const ReservationForm = () => {
       </AttendeeButtonContainer>
 
       <ReservationButtonContainer>
-        <ReservationButton>
+        <ReservationButton onClick={handleSubmit} clickable={!reservation.done}>
           예약
         </ReservationButton>
-        <ReservationButton>
+        <ReservationButton onClick={()=>console.log('취소')} clickable={!reservation.done}>
           취소
         </ReservationButton>
       </ReservationButtonContainer>
@@ -161,7 +207,7 @@ const ReservationButtonContainer = styled.div`
   justify-content: center;
 `
 
-const ReservationButton = styled.button`
+const ReservationButton = styled.button<{clickable: boolean}>`
   width: 8rem;
   height: 2.5rem;
   border: none;
@@ -172,5 +218,7 @@ const ReservationButton = styled.button`
   margin-left: 1rem;
   margin-right: 1rem;
   cursor: pointer;
+  pointer-events: ${(props) => props.clickable ? 'auto' : 'none'}
+
 `
 export default ReservationForm;

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne, OneToOne } from "typeorm";
 import { MeetingRoom } from "./MeetingRoom";
 import { User } from "./User";
 
@@ -7,6 +7,9 @@ export class Reservation {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  name: string;
+  
   @Column()
   meetingDate: Date;
 
@@ -22,4 +25,8 @@ export class Reservation {
 
   @ManyToOne(() => MeetingRoom, (meetingRoom) => meetingRoom.id, {cascade: true})
   meetingRoom: MeetingRoom;
+
+  @ManyToOne(() => User, (user) => user.id)
+  user: User
+
 }

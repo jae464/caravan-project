@@ -3,13 +3,16 @@ import { floor_list, time_range } from 'utils/consts';
 import styled from '@emotion/styled';
 import { reservationAtom } from 'recoil/reservation/atom';
 import { useRecoilState } from 'recoil';
+import { getAllRoom } from 'api/meetingRoom';
+import { Room } from 'types/room';
 
 const MeetingRoomForm = () => {
 
   const [reservation, setReservation] = useRecoilState(reservationAtom);
   const [startTimeArr, setStartTimeArr] = useState(time_range);
   const [endTimeArr, setEndTimeArr] = useState(time_range);
-  const [floor, setFloor] = useState(15); // default 15층
+  const [floor, setFloor] = useState('15'); // default 15층
+  const [roomList, setRoomList] = useState<Room[]>([]);
 
   const onChangeFloor = (e: any) => {
     setFloor(e.target.value);
@@ -37,6 +40,21 @@ const MeetingRoomForm = () => {
       endTime: Number(e.target.value)
     }))
   }
+
+  const onChangeRoom = (e: any) => {
+    console.log(e.target.value);
+    setReservation(prev => ({
+      ...prev,
+      roomId: Number(e.target.value)
+    }))
+  }
+
+  const fetchRoomList = async () => {
+    const result = await getAllRoom(floor);
+    setRoomList(result);
+    console.log(result);
+  }
+
   useEffect(() => {
     setReservation(prev => ({
       ...prev,
@@ -48,7 +66,7 @@ const MeetingRoomForm = () => {
     console.log(`floor 가 ${floor}층으로 변경되었습니다.`);
 
     // TODO 해당 Floor 의 회의실을 가져오는 API 호출
-    
+    fetchRoomList();
   }, [floor])
 
   return (
@@ -100,7 +118,17 @@ const MeetingRoomForm = () => {
             </div>
           </div>
           <MeetingRoomImage>
-                  
+            {roomList && roomList.map( (room: Room) => {
+                return (
+       
+                  <div>
+                    <label>{room.name}</label>
+                    <input name='room' type='radio' value={room.id} onChange={onChangeRoom}/>
+                  </div> 
+                                   
+                )
+              }
+            )}
           </MeetingRoomImage>
         </MeetingRoomContainer>
       </Container>  
