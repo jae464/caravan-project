@@ -1,24 +1,29 @@
 import React, { MouseEventHandler, useEffect } from 'react'
 import styled from 'styled-components'
 import {ConferenceInformationData} from 'types/ConferenceInformationData'
+import { Reservation } from 'types/reservation'
 
 type Props = {
-    conferenceInformationData: ConferenceInformationData,
-    onClickCancel: () => void,
-    onClickModify: () => void
+    // conferenceInformationData: ConferenceInformationData,
+    // onClickCancel: () => void,
+    // onClickModify: () => void
+    reservation: Reservation
 }
 
-const ReservationInfoForm = ({conferenceInformationData, onClickCancel, onClickModify}: Props): JSX.Element => {
+const ReservationInfoForm = ({reservation}: Props): JSX.Element => {
+
     const onClickcancel = () => {
-        onClickCancel()
+        // onClickCancel()
     }
 
     // const onClickModify = () => {
 
     // }
     useEffect(()=>{
-        console.log(onClickCancel)
-    },[])
+        // console.log(onClickCancel)
+        console.log(reservation);
+    },[]);
+
     return (
         <MainContainer>
             <Container>
@@ -29,39 +34,39 @@ const ReservationInfoForm = ({conferenceInformationData, onClickCancel, onClickM
                     <tbody>
                     <tr>
                         <td>
-                            <span>회의실명</span>{conferenceInformationData.roomName}
+                            <span>회의실명</span>{reservation.roomId}
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span>회의 제목</span>{conferenceInformationData.conferenceName}
+                            <span>회의 제목</span>{reservation.name}
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span>회의 일자</span>{conferenceInformationData.date}
+                            {/* <span>회의 일자</span>{reservation.meetingDate} */}
                         </td>
                         <td>
-                            <span>회의 시간</span>{conferenceInformationData.time}
+                            <span>회의 시간</span>{reservation.startTime}
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span>예약자</span>{conferenceInformationData.booker}
+                            <span>예약자</span>{reservation.userId}
                         </td>
                         <td>
-                            <span>참석자</span>{conferenceInformationData.participant}
+                            <span>참석자</span>{}
                         </td>
                     </tr>
                     <tr>
-                        <span>연락처</span>{conferenceInformationData.tel}
+                        <span>연락처</span>{}
                     </tr>
                     </tbody>
                 </table>
             </Container>
             <ButtonContainer>
                 <ReservationStatusButton onClick={onClickcancel}>수정하기</ReservationStatusButton>
-                <ReservationStatusButton onClick={onClickCancel}>예약취소</ReservationStatusButton>
+                <ReservationStatusButton onClick={onClickcancel}>예약취소</ReservationStatusButton>
             </ButtonContainer>
         </MainContainer>
     )

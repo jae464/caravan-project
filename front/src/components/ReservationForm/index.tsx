@@ -10,6 +10,7 @@ import { userAtom } from "recoil/user/atom";
 import useComponentHooks from "hooks/useComponentAdd";
 import ChatBotLayout from "layouts/ChatBotLayout";
 import ChatBotText from "design/ChatBotText";
+import ReservationInfoForm from "components/ReservationInfoForm";
 
 const ReservationForm = () => {
   const user = useRecoilValue(userAtom);
@@ -40,7 +41,8 @@ const ReservationForm = () => {
         endTime: reservation.endTime
       });
       addComponent([
-        <ChatBotLayout><ChatBotText>예약이 완료되었습니다.</ChatBotText></ChatBotLayout>
+        <ChatBotLayout><ChatBotText>예약이 완료되었습니다.</ChatBotText></ChatBotLayout>,
+        <ChatBotLayout><ReservationInfoForm reservation={reservation}/></ChatBotLayout>
       ])
 
       setReservation(prev => ({

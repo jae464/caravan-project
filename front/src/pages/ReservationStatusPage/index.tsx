@@ -52,7 +52,7 @@ const ReservationStatusPage = () => {
 
     const addInfo = () => {
         let tmp = getItemInfo('test')
-        setArr([...arr, <ChatBotLayout><ReservationInfoForm onClickCancel={() => onClickCancel(arr)} onClickModify={onClickModify} conferenceInformationData={tmp}/></ChatBotLayout>])
+        // setArr([...arr, <ChatBotLayout><ReservationInfoForm onClickCancel={() => onClickCancel(arr)} onClickModify={onClickModify} conferenceInformationData={tmp}/></ChatBotLayout>])
         console.log(arr)
     }
 
