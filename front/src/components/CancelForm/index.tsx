@@ -1,32 +1,110 @@
 import styled from '@emotion/styled'
-import React from 'react'
+import React, { useState } from 'react'
 
-type Props = {}
+import { removeReservation } from "api/reservation";
 
-const CancelForm = (props: Props) => {
-  return (
-    <Container>
-        <span>해당 회의실 예약을 취소하시겠습니까?</span>
-        <ButtonContainer>
-            <CancelButton>YES</CancelButton>
-            <CancelButton>NO</CancelButton>
-        </ButtonContainer>
-    </Container>
-  )
+import useComponentHooks from 'hooks/useComponentAdd';
+import ChatBotLayout from 'layouts/ChatBotLayout';
+import ChatBotText from 'design/ChatBotText';
+import StatusItem from 'components/StatusItem';
+import { Reservation } from 'types/reservation';
+
+type Props = {
+    key: number
 }
+
+const CancelForm = ({key}: Props) => {
+    const [reservationList, setReservationList] = useState<Reservation[]>([]);
+
+    const {components, setComponent, addComponent} = useComponentHooks([]);
+
+    const onClickY = () => {
+        removeReservation(key)
+        if (reservationList?.length == 0) {
+            addComponent([
+                <ChatBotLayout><ChatBotText>해당 회의실 예약이 취소되었습니다</ChatBotText></ChatBotLayout>, 
+                <ChatBotLayout>
+                    <ChatBotText>
+                        예약 정보가 없습니다.
+                    </ChatBotText>
+                </ChatBotLayout>
+            ])
+        }
+        else{
+            addComponent([
+                <ChatBotLayout><ChatBotText>해당 회의실 예약이 취소되었습니다</ChatBotText></ChatBotLayout>, 
+                <ChatBotLayout>
+                    <ChatBotText>
+                        예약 상세정보를 확인하고자 할 경우 목록 선택하고, 변경 or 취소를 원하는 경우 체크박스 선택 후 버튼을 눌러주세요. (변경은 1개만 선택가능합니다.)
+                    </ChatBotText>
+                </ChatBotLayout>,
+                <ChatBotLayout>
+                    <ItemContainer>
+                        {reservationList!.map( m => {
+                            return (<StatusItem reservation={m}/>)
+                        })}
+                    </ItemContainer>
+                </ChatBotLayout>
+            ])
+        }
+    }
+
+    const onClickN = () => {
+        if (reservationList?.length == 0) {
+            addComponent([
+                <ChatBotLayout>
+                    <ChatBotText>
+                        예약 정보가 없습니다.
+                    </ChatBotText>
+                </ChatBotLayout>
+            ])
+        }
+        else{
+            addComponent([
+                <ChatBotLayout>
+                    <ChatBotText>
+                        예약 상세정보를 확인하고자 할 경우 목록 선택하고, 변경 or 취소를 원하는 경우 체크박스 선택 후 버튼을 눌러주세요. (변경은 1개만 선택가능합니다.)
+                    </ChatBotText>
+                </ChatBotLayout>,
+                <ChatBotLayout>
+                    <ItemContainer>
+                        {reservationList!.map( m => {
+                            return (<StatusItem reservation={m}/>)
+                        })}
+                    </ItemContainer>
+                </ChatBotLayout>
+            ])
+        }
+    }
+    return (
+        <Container>
+            <ChatBotText>해당 회의실 예약을 취소하시겠습니까?</ChatBotText>
+            <ButtonContainer>
+                <CancelButton onClick={onClickY}>YES</CancelButton>
+                <CancelButton onClick={onClickN}>NO</CancelButton>
+            </ButtonContainer>
+        </Container>
+    )
+}
+
+const ItemContainer = styled.div `
+    dispaly: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    // border: 1px solid black;
+`
 
 const Container = styled.div`
     display: flex;
     position: relative;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     margin: auto;
-    margin-top: 160px;
     // background: #0E0E0;
-    width: 40%;
-    border: 1px solid black;
+    // border: 1px solid black;
     justify-content: space-around;
-    bottom: 0px;
+    // bottom: 0px;
 `
 const ButtonContainer = styled.div`
     display: flex;  
@@ -39,17 +117,16 @@ const CancelButton = styled.button`
     text-decoration: none;
     font-size: 1rem;
     outline: none;
-    height: 3rem;
-    width: 8rem;
+    height: 2rem;
+    width: 5rem;
     color: white;
  
     align-items: center;
     justify-content: center;
     // border: 1px solid black;
-    // margin-bottom: 4rem;
+    margin: 0.5rem;
     background: #A5B5EC;
 
-    margin-bottom: 10px;
     border-radius: 5px;
 `
 export default CancelForm

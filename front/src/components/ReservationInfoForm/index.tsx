@@ -1,7 +1,10 @@
 import React, { MouseEventHandler, useEffect } from 'react'
 import styled from 'styled-components'
-import {ConferenceInformationData} from 'types/ConferenceInformationData'
 import { Reservation } from 'types/reservation'
+
+import useComponentHooks from 'hooks/useComponentAdd';
+import ChatBotLayout from 'layouts/ChatBotLayout';
+import CancelForm from 'components/CancelForm';
 
 type Props = {
     // conferenceInformationData: ConferenceInformationData,
@@ -12,13 +15,18 @@ type Props = {
 
 const ReservationInfoForm = ({reservation}: Props): JSX.Element => {
 
-    const onClickcancel = () => {
-        // onClickCancel()
+    const {components, setComponent, addComponent} = useComponentHooks([]);
+
+    const onClickModify = () => {
+        // alert("수정")
+        addComponent([<ChatBotLayout>{}</ChatBotLayout>])
     }
 
-    // const onClickModify = () => {
+    const onClickCancel = () => {
+        // alert("삭제")
+        addComponent([<ChatBotLayout><CancelForm key={reservation.id!}/></ChatBotLayout>])
+    }
 
-    // }
     useEffect(()=>{
         // console.log(onClickCancel)
         console.log(reservation);
@@ -65,8 +73,8 @@ const ReservationInfoForm = ({reservation}: Props): JSX.Element => {
                 </table>
             </Container>
             <ButtonContainer>
-                <ReservationStatusButton onClick={onClickcancel}>수정하기</ReservationStatusButton>
-                <ReservationStatusButton onClick={onClickcancel}>예약취소</ReservationStatusButton>
+                <ReservationStatusButton onClick={onClickModify}>변경</ReservationStatusButton>
+                <ReservationStatusButton onClick={onClickCancel}>삭제</ReservationStatusButton>
             </ButtonContainer>
         </MainContainer>
     )

@@ -11,3 +11,13 @@ export const addReservation = async (reservation: Reservation) => {
         
     }
 }
+
+export const removeReservation = async (key: number) => {
+    try{
+        const result = await axios.delete(`${API_DESTINATION}/reservation?id=${key}`);
+        console.log(result);    
+    }
+    catch (e) {
+        
+    }
+}

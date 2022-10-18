@@ -1,85 +1,93 @@
 import React, {useState, useCallback, MouseEventHandler, useEffect} from 'react';
-import styled from 'styled-components';
-import StatusItem from 'components/StatusItem'
+import styled from "@emotion/styled";
+
+import { Reservation } from 'types/reservation'
+
 import AppLayout from 'layouts/AppLayout';
-import ReservationInfoForm from 'components/ReservationInfoForm'
-import {ConferenceInformationData} from 'types/ConferenceInformationData'
-import ReservationForm from 'components/ReservationForm';
 import ChatBotLayout from 'layouts/ChatBotLayout';
 import ChatLayout from 'layouts/ChatLayout';
 import UserChatLayout from 'layouts/UserChatLayout';
+import StatusItem from 'components/StatusItem'
+import ReservationForm from 'components/ReservationForm';
 import CancelForm from 'components/CancelForm';
+import ReservationInfoForm from 'components/ReservationInfoForm'
+
+import ChatBotText from "design/ChatBotText";
+
+import useAutoScroll from "hooks/useAutoScroll";
+import useComponentHooks from "hooks/useComponentAdd";
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { testAtom } from 'recoil/test';
+import e from 'express';
 
 const ReservationStatusPage = () => {
-    const name: string[] = ['1','2','3','4','5'];
+    const [reservationList, setReservationList] = useState<Reservation[]>([]);
 
-    const [arr, setArr] = useState<React.ReactNode[]>([]);
-    const [test, setTest] = useRecoilState(testAtom);
-    const test2 = useRecoilValue(testAtom);
-    useEffect(()=>{
-        console.log(test2);
-    },[])
-    const getChat = (text: string) => {
-        console.log(text);
-        console.log(arr);
-        if(text == "") return;
-        // setChat([...chat, text]);
-        setArr([...arr, <UserChatLayout>{text}</UserChatLayout>])
-        console.log(arr);
+    const {components, setComponent, addComponent} = useComponentHooks([]);
+    const [scrollRef, scrollToBottom] = useAutoScroll();
+    
+    const onClick = (info: Reservation) => {
+      addComponent([<ChatBotLayout><ReservationInfoForm reservation={info}/></ChatBotLayout>]);
+      console.log(components);
     }
-
-    const getItemInfo = (key: string):ConferenceInformationData => {
+  
+    const getItemInfo = (key: string):Reservation => {
         // db에 저장된 data 가져와야함
-        let tmp: ConferenceInformationData;
-        tmp = { roomName:'1', conferenceName:'2', date:'3', time:'4', participant:'5', booker:'6', tel:'7'}
+        let tmp: Reservation;
+        tmp = { userId:1, roomId:2, name:'3', meetingDate: new Date(4), startTime:5, endTime:6}
         return tmp
-    }
+    }    
 
-    const onClickCancel = (arr: React.ReactNode[]) => {
-        setArr([...arr, (<ChatBotLayout>2</ChatBotLayout>)])
-        console.log(arr);
-        // alert("취소")
+    useEffect(()=>{
+      initComponents();
+    },[]);
+  
+    const initComponents = async () => {
+        console.log(reservationList?.length)
+        if (reservationList?.length == 0) {
+            addComponent([
+                <ChatBotLayout>
+                    <ChatBotText>
+                        예약 정보가 없습니다.
+                    </ChatBotText>
+                </ChatBotLayout>
+            ])
+        }
+        else{
+            addComponent([
+                <ChatBotLayout>
+                    <ChatBotText>
+                        예약 상세정보를 확인하고자 할 경우 목록 선택하고, 변경 or 취소를 원하는 경우 체크박스 선택 후 버튼을 눌러주세요. (변경은 1개만 선택가능합니다.)
+                    </ChatBotText>
+                </ChatBotLayout>,
+                <ChatBotLayout>
+                    <ItemContainer>
+                        {reservationList!.map( m => {
+                            return (<StatusItem reservation={m}/>)
+                        })}
+                    </ItemContainer>
+                </ChatBotLayout>
+            ])
+        }
     }
-
-    const onClickModify = () => {
-        console.log("수정")
-        console.log(arr);
-        setArr([...arr, <ChatBotLayout><ReservationForm /></ChatBotLayout>])
-        // alert("수정")
-    }
-
-    const addInfo = () => {
-        let tmp = getItemInfo('test')
-        // setArr([...arr, <ChatBotLayout><ReservationInfoForm onClickCancel={() => onClickCancel(arr)} onClickModify={onClickModify} conferenceInformationData={tmp}/></ChatBotLayout>])
-        console.log(arr)
-    }
+  
+    useEffect(()=>{
+      scrollToBottom()
+    },[components]);  
 
     return (
         <>
             <AppLayout>
-                <MainContainer>
-                    <ChatBotLayout>
-                        <ItemContainer>
-                            {name.map( m => {
-
-                                return (<StatusItem onClick={addInfo} key={m} date={m} time={"민재 바보"} />)
-                                // return (<div>{m}</div>)
-                            })}
-                        </ItemContainer>
-                    </ChatBotLayout>
-                    {arr.map( e => {
-                        console.log(e)
-                        return <>{e}</>
-                    })}       
-                </MainContainer>
+                <div ref={scrollRef}>
+                    {components.components.map(v=>{
+                        return (
+                            <>
+                                {v}
+                            </>
+                        )
+                    })}
+                </div>
             </AppLayout>
-            <ChatLayout getText={getChat}/>
-            <button onClick={() => {
-                console.log(arr)
-                addInfo()
-            }}>확인</button>
+            <ChatLayout />
         </>
     )
 }

@@ -1,4 +1,5 @@
 export interface Reservation {
+    id?: number;
     userId?: number;
     roomId?: number;
     name?: string;
