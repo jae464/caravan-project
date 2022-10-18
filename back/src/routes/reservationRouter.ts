@@ -6,6 +6,12 @@ import { User } from "../entity/User";
 
 const router = express.Router();
 
+router.get("/", async (req: Request, res: Response) => {
+  // console.log('test')
+  const reservations = await AppDataSource.getRepository(Reservation).find();
+  res.json(reservations);
+});
+
 router.post('/', async(req: Request, res: Response) => {
   console.log(req.body.roomId);
   const meetingRoomRepository = AppDataSource.getRepository(MeetingRoom);

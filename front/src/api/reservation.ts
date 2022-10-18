@@ -2,6 +2,17 @@ import axios from "axios";
 import { Reservation } from "types/reservation";
 import { API_DESTINATION } from "utils/consts";
 
+export const getAllReservation = async () => {
+    try{
+        const result = await axios.get(`${API_DESTINATION}/reservation`);
+        console.log(result);
+        return result.data;
+    }
+    catch (e) {
+        
+    }
+}
+
 export const addReservation = async (reservation: Reservation) => {
     try{
         const result = await axios.post(`${API_DESTINATION}/reservation`, reservation);

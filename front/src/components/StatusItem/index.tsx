@@ -28,11 +28,12 @@ const StatusItem = ({reservation}:Props): JSX.Element => {
   }
 
   const dDay = (date: Date):string => {
+    console.log(typeof(date));
     const today = new Date()
 
     const diff = date.getTime() - today.getTime();
     const result = Math.floor(diff / (1000 * 60 * 60 * 24));
-    console.log(diff);
+    // console.log(diff);
     if (result < 0 && result >= -1) {
       return 'Today';
     }
@@ -47,8 +48,8 @@ const StatusItem = ({reservation}:Props): JSX.Element => {
   return (
     <Container onClick={addInfoItem}>
       <input type='checkbox'/>
-      <span>{dDay(reservation.meetingDate!)}</span>
-        <Content>{reservation.meetingDate!.getFullYear()+'-'+(reservation.meetingDate!.getMonth()+1)+'-'+reservation.meetingDate!.getDate()} {reservation.startTime!.toString()}</Content>
+      <span>{dDay(new Date(reservation.meetingDate!))}</span>
+        <Content>{new Date(reservation.meetingDate!).getFullYear()+'-'+(new Date(reservation.meetingDate!).getMonth()+1)+'-'+new Date(reservation.meetingDate!).getDate()} {reservation.startTime!.toString()}</Content>
     </Container>
   )
 }

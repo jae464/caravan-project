@@ -18,32 +18,32 @@ import useAutoScroll from "hooks/useAutoScroll";
 import useComponentHooks from "hooks/useComponentAdd";
 import { useRecoilState, useRecoilValue } from 'recoil';
 import e from 'express';
+import useReservationListHooks from 'hooks/useReservationList';
+
+import { getAllReservation } from "api/reservation";
+import { ReservationList } from 'recoil/reservationStatusPage/atom';
 
 const ReservationStatusPage = () => {
-    const [reservationList, setReservationList] = useState<Reservation[]>([]);
+    // const [reservationList, setReservationList] = useState<Reservation[]>([{ id:0, userId:1, roomId:2, name:'3', meetingDate: new Date(), startTime:5, endTime:6}]);
 
+    const {reservationList, setReservationList, addReservation} = useReservationListHooks([]);
     const {components, setComponent, addComponent} = useComponentHooks([]);
     const [scrollRef, scrollToBottom] = useAutoScroll();
-    
-    const onClick = (info: Reservation) => {
-      addComponent([<ChatBotLayout><ReservationInfoForm reservation={info}/></ChatBotLayout>]);
-      console.log(components);
-    }
-  
-    const getItemInfo = (key: string):Reservation => {
+      
+    const setItemList = async () => {
         // db에 저장된 data 가져와야함
-        let tmp: Reservation;
-        tmp = { userId:1, roomId:2, name:'3', meetingDate: new Date(4), startTime:5, endTime:6}
-        return tmp
+        const reservList = await getAllReservation();
+        setReservationList(reservList)
     }    
 
     useEffect(()=>{
-      initComponents();
+        setItemList();
+        initComponents();
     },[]);
   
     const initComponents = async () => {
-        console.log(reservationList?.length)
-        if (reservationList?.length == 0) {
+        console.log(reservationList)
+        if (reservationList.length == 0) {
             addComponent([
                 <ChatBotLayout>
                     <ChatBotText>
@@ -61,7 +61,7 @@ const ReservationStatusPage = () => {
                 </ChatBotLayout>,
                 <ChatBotLayout>
                     <ItemContainer>
-                        {reservationList!.map( m => {
+                        {reservationList.map( m => {
                             return (<StatusItem reservation={m}/>)
                         })}
                     </ItemContainer>
