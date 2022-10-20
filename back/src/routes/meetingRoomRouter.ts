@@ -14,4 +14,15 @@ router.get('/:floor', async (req, res) => {
     return res.json(roomList);
 })
 
+router.get('/room/:roomId', async (req, res) => {
+    const roomId = Number(req.params.roomId);
+    const room = await AppDataSource.getRepository(MeetingRoom).findOne({
+        where: {id: roomId}
+    });
+
+    console.log(room);
+
+    return res.json(room);
+})
+
 export default router;

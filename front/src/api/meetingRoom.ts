@@ -11,3 +11,13 @@ export const getAllRoom= async (floor: string) => {
 
     }
 }
+
+export const getRoomById = async (roomId: number) => {
+    try {
+        const result = await axios.get(`${API_DESTINATION}/meetingroom/room/${roomId}`);
+        return result.data;
+    }
+    catch (e) {
+
+    }
+}

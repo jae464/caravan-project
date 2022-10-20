@@ -13,10 +13,12 @@ import ChatBotText from "design/ChatBotText";
 import ReservationInfoForm from "components/ReservationInfoForm";
 import { useEffect, useState } from "react";
 import { Reservation } from "types/reservation";
+import { getRoomById } from "api/meetingRoom";
 
 const ReservationForm = ({info}: {info?: Reservation} ) => {
   const user = useRecoilValue(userAtom);
   const [reservation, setReservation] = useRecoilState(reservationAtom);
+  const [room, setRoom] = useState('');
   const {addComponent} = useComponentHooks([]);
   const resetReservation = useResetRecoilState(reservationAtom);
   // const [isLogin, setIsLogin] = useState(false);
@@ -101,9 +103,20 @@ const ReservationForm = ({info}: {info?: Reservation} ) => {
     }));
   }
 
+  const updateRoom = async () => {
+    const result = await getRoomById(reservation.meetingRoomId!);
+    console.log(result);
+    setRoom(result.name);
+    
+  }
   useEffect(()=>{
     console.log(reservation)
     setValues({meetingRoom: info?.meetingRoomId});
+  }, [])
+
+  // room 의 이름 가져오기
+  useEffect(() => {
+    updateRoom();
   }, [])
   return (
     <StyledReservationForm>
@@ -115,9 +128,9 @@ const ReservationForm = ({info}: {info?: Reservation} ) => {
           name="meetingRoom"
           id="meetingRoom"
           disabled
-          placeholder={reservation.meetingRoomId?.toString()}
+          placeholder={room}
           onChange={handleChange}
-          value={reservation.meetingRoomId}
+          value={room}
         />
       </StyledReservationInputContainer>
 
