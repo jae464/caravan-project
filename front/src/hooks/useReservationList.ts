@@ -18,7 +18,7 @@ const useReservationListHooks: useReservationListFn = (initialValues = []) => {
     const addReservation = (reservation: Reservation[]): void => {
         setReservationList({...reservationList, ...reservation});
     }
-    console.log(reservationList);
+    // console.log(reservationList);
     return {reservationList, setReservationList, addReservation};
 }
 

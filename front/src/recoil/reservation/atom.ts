@@ -1,12 +1,13 @@
 import { atom } from 'recoil';
 
 export type ReservationState = {
-    roomId?: number;
+    id?: number;
+    meetingRoomId?: number;
     name?: string;
     meetingDate?: Date;
     startTime?: number;
     endTime?: number;
-    done: boolean;
+    done?: boolean;
 }
 
 export const reservationAtom = atom<ReservationState>({

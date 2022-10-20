@@ -24,7 +24,7 @@ const useForm = ({ initialValues, onSubmit, validate, onCancel }: any) => {
     onCancel();
   };
 
-  return [values, errors, handleChange, handleSubmit, handleCancel];
+  return [values, errors, setValues, handleChange, handleSubmit, handleCancel];
 };
 
 export default useForm;

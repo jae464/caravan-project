@@ -6,29 +6,38 @@ import useComponentHooks from 'hooks/useComponentAdd';
 import ReservationInfoForm from 'components/ReservationInfoForm';
 import ChatBotLayout from 'layouts/ChatBotLayout';
 import ChatBotText from 'design/ChatBotText';
+import { reservationAtom } from 'recoil/reservation/atom';
+import { useRecoilState } from 'recoil';
 
 type Props = {
-  reservation: Reservation
+  info: Reservation
 }
 
-const StatusItem = ({reservation}:Props): JSX.Element => {
+const StatusItem = ({info}:Props): JSX.Element => {
   var arrDayStr = ['일','월','화','수','목','금','토'];
 
-  const [info, setInfo] = useState("");
   const {components, setComponent, addComponent} = useComponentHooks([]);
-
+  const [reservation, setReservation] = useRecoilState(reservationAtom);
 
   const addInfoItem = (e: any) => {
     // 클릭한 item의 key에 따라 컴포넌트 추가
     e.preventDefault();
+    setReservation({
+      id: info.id,
+      meetingRoomId: info.meetingRoomId,
+      name: info.name,
+      meetingDate: info.meetingDate,
+      startTime: info.startTime,
+      endTime: info.endTime
+    });
     addComponent([
       <ChatBotLayout><ChatBotText>선택한 회의실의 예약 세부 정보를 확인하세요.</ChatBotText></ChatBotLayout>,
-      <ChatBotLayout><ReservationInfoForm reservation={reservation}/></ChatBotLayout>
+      <ChatBotLayout><ReservationInfoForm reservation={info}/></ChatBotLayout>
     ])
   }
 
   const dDay = (date: Date):string => {
-    console.log(typeof(date));
+    // console.log(typeof(date));
     const today = new Date()
 
     const diff = date.getTime() - today.getTime();
@@ -48,8 +57,8 @@ const StatusItem = ({reservation}:Props): JSX.Element => {
   return (
     <Container onClick={addInfoItem}>
       <input type='checkbox'/>
-      <span>{dDay(new Date(reservation.meetingDate!))}</span>
-        <Content>{new Date(reservation.meetingDate!).getFullYear()+'-'+(new Date(reservation.meetingDate!).getMonth()+1)+'-'+new Date(reservation.meetingDate!).getDate()} {reservation.startTime!.toString()}</Content>
+      <span>{dDay(new Date(info.meetingDate!))}</span>
+        <Content>{new Date(info.meetingDate!).getFullYear()+'-'+(new Date(info.meetingDate!).getMonth()+1)+'-'+new Date(info.meetingDate!).getDate()} {info.startTime!.toString()}</Content>
     </Container>
   )
 }

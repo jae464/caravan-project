@@ -5,6 +5,7 @@ import { Reservation } from 'types/reservation'
 import useComponentHooks from 'hooks/useComponentAdd';
 import ChatBotLayout from 'layouts/ChatBotLayout';
 import CancelForm from 'components/CancelForm';
+import ReservationForm from 'components/ReservationForm';
 
 type Props = {
     // conferenceInformationData: ConferenceInformationData,
@@ -19,17 +20,17 @@ const ReservationInfoForm = ({reservation}: Props): JSX.Element => {
 
     const onClickModify = () => {
         // alert("수정")
-        addComponent([<ChatBotLayout>{}</ChatBotLayout>])
+        addComponent([<ChatBotLayout><ReservationForm info={reservation}></ReservationForm></ChatBotLayout>])
     }
 
     const onClickCancel = () => {
         // alert("삭제")
-        addComponent([<ChatBotLayout><CancelForm key={reservation.id!}/></ChatBotLayout>])
+        addComponent([<ChatBotLayout><CancelForm id={reservation.id!}/></ChatBotLayout>])
     }
 
     useEffect(()=>{
         // console.log(onClickCancel)
-        console.log(reservation);
+        // console.log(reservation);
     },[]);
 
     return (
@@ -42,7 +43,7 @@ const ReservationInfoForm = ({reservation}: Props): JSX.Element => {
                     <tbody>
                     <tr>
                         <td>
-                            <span>회의실명</span>{reservation.roomId}
+                            <span>회의실명</span>{reservation.meetingRoomId}
                         </td>
                     </tr>
                     <tr>

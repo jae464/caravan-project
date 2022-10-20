@@ -9,7 +9,7 @@ export const getAllReservation = async () => {
         return result.data;
     }
     catch (e) {
-        
+        console.log(e)
     }
 }
 
@@ -23,9 +23,19 @@ export const addReservation = async (reservation: Reservation) => {
     }
 }
 
-export const removeReservation = async (key: number) => {
+export const removeReservation = async (id: number) => {
     try{
-        const result = await axios.delete(`${API_DESTINATION}/reservation?id=${key}`);
+        const result = await axios.delete(`${API_DESTINATION}/reservation/${id}`);
+        console.log(result);    
+    }
+    catch (e) {
+        
+    }
+}
+
+export const updateReservation =async (reservation:Reservation) => {
+    try{
+        const result = await axios.patch(`${API_DESTINATION}/reservation`, reservation);
         console.log(result);    
     }
     catch (e) {

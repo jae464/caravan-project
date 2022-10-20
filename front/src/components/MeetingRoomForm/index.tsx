@@ -45,7 +45,7 @@ const MeetingRoomForm = () => {
     console.log(e.target.value);
     setReservation(prev => ({
       ...prev,
-      roomId: Number(e.target.value)
+      meetingRoomId: Number(e.target.value)
     }))
   }
 

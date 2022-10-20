@@ -1,51 +1,68 @@
 import styled from '@emotion/styled'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { removeReservation } from "api/reservation";
+import { getAllReservation, removeReservation } from "api/reservation";
+import { useNavigate } from 'react-router';
 
 import useComponentHooks from 'hooks/useComponentAdd';
 import ChatBotLayout from 'layouts/ChatBotLayout';
 import ChatBotText from 'design/ChatBotText';
 import StatusItem from 'components/StatusItem';
 import { Reservation } from 'types/reservation';
+import useReservationListHooks from 'hooks/useReservationList';
 
 type Props = {
-    key: number
+    id: number
 }
 
-const CancelForm = ({key}: Props) => {
-    const [reservationList, setReservationList] = useState<Reservation[]>([]);
-
+const CancelForm = ({ id }: Props): JSX.Element => {
+    const {reservationList, setReservationList, addReservation} = useReservationListHooks([]);
     const {components, setComponent, addComponent} = useComponentHooks([]);
+    const [reservList, setReservList] = useState<Reservation[]>([]);
+    const navigate = useNavigate();
+    const setItemList = async () => {
+        // db에 저장된 data 가져와야함
+        const reservList = await getAllReservation();
+        setReservationList(reservList)
+        navigate('/reservationStatus')
+        // console.log(reservList)
+    }
 
-    const onClickY = () => {
-        removeReservation(key)
+    useEffect(() => {
+        setReservationList(reservationList);
+    }, [reservationList])
+
+    const onClickY = async () => {
+        console.log(id)
+        await removeReservation(id);
+        setItemList();
+
         if (reservationList?.length == 0) {
             addComponent([
                 <ChatBotLayout><ChatBotText>해당 회의실 예약이 취소되었습니다</ChatBotText></ChatBotLayout>, 
-                <ChatBotLayout>
-                    <ChatBotText>
-                        예약 정보가 없습니다.
-                    </ChatBotText>
-                </ChatBotLayout>
-            ])
+                // <ChatBotLayout>
+                //     <ChatBotText>
+                //         예약 정보가 없습니다.
+                //     </ChatBotText>
+                // </ChatBotLayout>
+            ]);
         }
         else{
             addComponent([
                 <ChatBotLayout><ChatBotText>해당 회의실 예약이 취소되었습니다</ChatBotText></ChatBotLayout>, 
-                <ChatBotLayout>
-                    <ChatBotText>
-                        예약 상세정보를 확인하고자 할 경우 목록 선택하고, 변경 or 취소를 원하는 경우 체크박스 선택 후 버튼을 눌러주세요. (변경은 1개만 선택가능합니다.)
-                    </ChatBotText>
-                </ChatBotLayout>,
-                <ChatBotLayout>
-                    <ItemContainer>
-                        {reservationList!.map( m => {
-                            return (<StatusItem reservation={m}/>)
-                        })}
-                    </ItemContainer>
-                </ChatBotLayout>
-            ])
+                // <ChatBotLayout>
+                //     <ChatBotText>
+                //         예약 상세정보를 확인하고자 할 경우 목록 선택하고, 변경 or 취소를 원하는 경우 체크박스 선택 후 버튼을 눌러주세요. (변경은 1개만 선택가능합니다.)
+                //     </ChatBotText>
+                // </ChatBotLayout>,
+                // <ChatBotLayout>
+                //     <ItemContainer>
+                //         {reservationList!.map( m => {
+                //             return (<StatusItem reservation={m}/>)
+                //         })}
+                //     </ItemContainer>
+                // </ChatBotLayout>
+            ]);
         }
     }
 
@@ -69,7 +86,7 @@ const CancelForm = ({key}: Props) => {
                 <ChatBotLayout>
                     <ItemContainer>
                         {reservationList!.map( m => {
-                            return (<StatusItem reservation={m}/>)
+                            return (<StatusItem info={m}/>)
                         })}
                     </ItemContainer>
                 </ChatBotLayout>
@@ -77,13 +94,17 @@ const CancelForm = ({key}: Props) => {
         }
     }
     return (
-        <Container>
-            <ChatBotText>해당 회의실 예약을 취소하시겠습니까?</ChatBotText>
-            <ButtonContainer>
-                <CancelButton onClick={onClickY}>YES</CancelButton>
-                <CancelButton onClick={onClickN}>NO</CancelButton>
-            </ButtonContainer>
-        </Container>
+        
+        <>
+            <Container>
+                <ChatBotText>해당 회의실 예약을 취소하시겠습니까?</ChatBotText>
+                <ButtonContainer>
+                    <CancelButton onClick={onClickY}>YES</CancelButton>
+                    <CancelButton onClick={onClickN}>NO</CancelButton>
+                </ButtonContainer>
+            </Container>
+        </>
+        
     )
 }
 

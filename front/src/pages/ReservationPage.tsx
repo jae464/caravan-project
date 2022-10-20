@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import CalendarForm from "components/CalendarForm";
-import ReservationForm from "components/ReservationForm";
 import AppLayout from "layouts/AppLayout";
 import ChatBotLayout from "layouts/ChatBotLayout";
 import ChatLayout from "layouts/ChatLayout";

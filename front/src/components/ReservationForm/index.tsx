@@ -5,20 +5,23 @@ import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { reservationAtom } from "recoil/reservation/atom";
 import moment from 'moment';
 import { time_range } from "utils/consts";
-import { addReservation } from "api/reservation";
+import { addReservation, updateReservation } from "api/reservation";
 import { userAtom } from "recoil/user/atom";
 import useComponentHooks from "hooks/useComponentAdd";
 import ChatBotLayout from "layouts/ChatBotLayout";
 import ChatBotText from "design/ChatBotText";
 import ReservationInfoForm from "components/ReservationInfoForm";
+import { useEffect, useState } from "react";
+import { Reservation } from "types/reservation";
 
-const ReservationForm = () => {
+const ReservationForm = ({info}: {info?: Reservation} ) => {
   const user = useRecoilValue(userAtom);
   const [reservation, setReservation] = useRecoilState(reservationAtom);
   const {addComponent} = useComponentHooks([]);
   const resetReservation = useResetRecoilState(reservationAtom);
+  // const [isLogin, setIsLogin] = useState(false);
 
-  const [values, errors, handleChange, handleSubmit] = useForm({
+  const [values, errors,setValues, handleChange, handleSubmit] = useForm({
     initialValues: {
       meetingRoom: "",
       meetingDate: "",
@@ -28,13 +31,39 @@ const ReservationForm = () => {
     validate: (values: any) => {},
     onSubmit: (values: any) => {
       console.log(reservation);
+      if(info) {
+        if(!reservation.name) {
+          alert('회의명을 입력해주세요.')
+          return
+        }
+        updateReservation({
+          id: info.id,
+          userId: user.id,
+          meetingRoomId: reservation.meetingRoomId,
+          name: reservation.name,
+          meetingDate: reservation.meetingDate,
+          startTime: reservation.startTime,
+          endTime: reservation.endTime
+        });
+
+        addComponent([
+          <ChatBotLayout><ChatBotText>수정이 완료되었습니다.</ChatBotText></ChatBotLayout>,
+          <ChatBotLayout><ReservationInfoForm reservation={reservation}/></ChatBotLayout>
+        ])
+  
+        setReservation(prev => ({
+          ...prev,
+          done: true,
+        }))
+      }
+
       if(!reservation.name) {
         alert('회의명을 입력해주세요.')
         return
       }
       addReservation({
         userId: user.id,
-        roomId: reservation.roomId,
+        meetingRoomId: reservation.meetingRoomId,
         name: reservation.name,
         meetingDate: reservation.meetingDate,
         startTime: reservation.startTime,
@@ -52,7 +81,16 @@ const ReservationForm = () => {
 
     },
     onCancel: () => {
-      alert("예약이 취소되었습니다.");
+      if (info) {
+        addComponent([
+          <ChatBotLayout><ChatBotText>취소 되었습니다. 변경되지 않은 채 기존과 동일하게 유지 됩니다.</ChatBotText></ChatBotLayout>,
+        ]) 
+      }
+      else{
+        addComponent([
+          <ChatBotLayout><ChatBotText>예약이 취소되었습니다.</ChatBotText></ChatBotLayout>,
+        ]) 
+      }
     },
   });
 
@@ -62,8 +100,14 @@ const ReservationForm = () => {
       name: e.target.value,
     }));
   }
+
+  useEffect(()=>{
+    console.log(reservation)
+    setValues({meetingRoom: info?.meetingRoomId});
+  }, [])
   return (
     <StyledReservationForm>
+      
       <StyledReservationInputContainer>
         <span>회의실</span>
         <StyledReservationFormInput
@@ -71,9 +115,9 @@ const ReservationForm = () => {
           name="meetingRoom"
           id="meetingRoom"
           disabled
-          placeholder={reservation.roomId?.toString()}
+          placeholder={reservation.meetingRoomId?.toString()}
           onChange={handleChange}
-          value={values.meetingRoom}
+          value={reservation.meetingRoomId}
         />
       </StyledReservationInputContainer>
 
@@ -85,7 +129,7 @@ const ReservationForm = () => {
           id="meetingName"
           placeholder="회의명"
           onChange={onChangeMeetingName}
-          // value={values.meetingDate}
+          value={reservation.name}
         />
       </StyledReservationInputContainer>
 
@@ -98,7 +142,7 @@ const ReservationForm = () => {
           placeholder={moment(reservation.meetingDate).format("YYYY년 MM월 DD일")}
           disabled
           onChange={handleChange}
-          value={values.meetingTime}
+          value={moment(reservation.meetingDate).format("YYYY년 MM월 DD일")}
         />  
       </StyledReservationInputContainer>
     
@@ -113,7 +157,7 @@ const ReservationForm = () => {
             .join(' ~ ')}
           disabled
           onChange={handleChange}
-          value={values.attendees}
+          value={reservation.startTime+' ~ '+reservation.endTime}
         />
       </StyledReservationInputContainer>
 
@@ -140,9 +184,15 @@ const ReservationForm = () => {
       </AttendeeButtonContainer>
 
       <ReservationButtonContainer>
-        <ReservationButton onClick={handleSubmit} clickable={!reservation.done}>
-          예약
-        </ReservationButton>
+        {info?
+          <ReservationButton onClick={handleSubmit} clickable={!reservation.done}>
+            수정
+          </ReservationButton>:
+          <ReservationButton onClick={handleSubmit} clickable={!reservation.done}>
+            예약
+          </ReservationButton>
+        }
+        
         <ReservationButton onClick={()=>console.log('취소')} clickable={!reservation.done}>
           취소
         </ReservationButton>

@@ -22,27 +22,28 @@ const CalendarForm = () => {
     const checkDateValidation = () => {
         const today = new Date();
         console.log("입력받은 날짜 : ", value, "오늘 날짜 : ", today);
-        if(value.getFullYear() < today.getFullYear() || 
-        (value.getFullYear() === today.getFullYear() && value.getMonth() < today.getMonth())
-        || (value.getFullYear() === today.getFullYear() && value.getMonth() === today.getMonth() &&
-        value.getDate() < today.getDate())) {
+        if(reservation.meetingDate!.getFullYear() < today.getFullYear() || 
+        (reservation.meetingDate!.getFullYear() === today.getFullYear() && value.getMonth() < today.getMonth())
+        || (reservation.meetingDate!.getFullYear() === today.getFullYear() && value.getMonth() === today.getMonth() &&
+        reservation.meetingDate!.getDate() < today.getDate())) {
             console.log("이미 지난 날짜입니다.");
             return false;
         }
         setReservation(prev => ({
             ...prev,
-            meetingDate: value
+            meetingDate: reservation.meetingDate!
         }))
         return true;
     }
 
     const onClick = () => {
         console.log(value);
-        console.log(`reservation ${reservation.meetingDate}`);
+        console.log(reservation);
 
         // 이 컴포넌트에서는 meetingDate가 설정되
-        if(!reservation.roomId || !reservation.meetingDate || !reservation.startTime ||
+        if(!reservation.meetingRoomId || !reservation.meetingDate || !reservation.startTime ||
             !reservation.endTime) {
+                console.log(reservation)
                 alert('모든 정보를 입력해주세요.');
                 return;
             }

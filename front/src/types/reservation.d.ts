@@ -1,7 +1,7 @@
 export interface Reservation {
     id?: number;
     userId?: number;
-    roomId?: number;
+    meetingRoomId?: number;
     name?: string;
     meetingDate?: Date;
     startTime?: number;
