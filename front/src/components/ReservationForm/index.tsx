@@ -14,6 +14,7 @@ import ReservationInfoForm from "components/ReservationInfoForm";
 import { useEffect, useState } from "react";
 import { Reservation } from "types/reservation";
 import { getRoomById } from "api/meetingRoom";
+import { getTimeFormat } from "utils/util";
 
 const ReservationForm = ({info}: {info?: Reservation} ) => {
   const user = useRecoilValue(userAtom);
@@ -170,7 +171,7 @@ const ReservationForm = ({info}: {info?: Reservation} ) => {
             .join(' ~ ')}
           disabled
           onChange={handleChange}
-          value={reservation.startTime+' ~ '+reservation.endTime}
+          value={getTimeFormat(reservation.startTime!)+' ~ '+ getTimeFormat(reservation.endTime!)}
         />
       </StyledReservationInputContainer>
 
