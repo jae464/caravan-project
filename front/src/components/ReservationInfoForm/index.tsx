@@ -1,6 +1,7 @@
-import React, { MouseEventHandler, useEffect } from 'react'
+import React, { MouseEventHandler, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Reservation } from 'types/reservation'
+import { getRoomById } from "api/meetingRoom";
 
 import useComponentHooks from 'hooks/useComponentAdd';
 import ChatBotLayout from 'layouts/ChatBotLayout';
@@ -17,6 +18,7 @@ type Props = {
 const ReservationInfoForm = ({reservation}: Props): JSX.Element => {
 
     const {components, setComponent, addComponent} = useComponentHooks([]);
+    const [roomName, setRoomName] = useState("");
 
     const onClickModify = () => {
         // alert("수정")
@@ -28,9 +30,14 @@ const ReservationInfoForm = ({reservation}: Props): JSX.Element => {
         addComponent([<ChatBotLayout><CancelForm id={reservation.id!}/></ChatBotLayout>])
     }
 
+    const getRoomName = async () => {
+        const res = await getRoomById(reservation.meetingRoomId!);
+        console.log(res);
+        setRoomName(res.name);
+    }
+
     useEffect(()=>{
-        // console.log(onClickCancel)
-        // console.log(reservation);
+        getRoomName();
     },[]);
 
     return (
@@ -43,7 +50,7 @@ const ReservationInfoForm = ({reservation}: Props): JSX.Element => {
                     <tbody>
                     <tr>
                         <td>
-                            <span>회의실명</span>{reservation.meetingRoomId}
+                            <span>회의실명</span>{roomName}
                         </td>
                     </tr>
                     <tr>
