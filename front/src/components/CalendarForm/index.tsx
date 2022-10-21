@@ -74,6 +74,7 @@ const CalendarForm = () => {
             value={reservation.meetingDate}
             formatDay={(locale, date) => moment(date).format('DD')}
             showNeighboringMonth={false}
+            calendarType="US"
             />
         <DateContainer>
             <span className='date-title'>날짜</span>

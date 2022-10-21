@@ -36,13 +36,17 @@ const StatusItem = ({info}:Props): JSX.Element => {
     ])
   }
 
-  const dDay = (date: Date):string => {
+  const dDay = (date: Date):number => {
     // console.log(typeof(date));
     const today = new Date()
 
     const diff = date.getTime() - today.getTime();
     const result = Math.floor(diff / (1000 * 60 * 60 * 24));
     // console.log(diff);
+    return result;
+  }
+
+  const dDayStr = (result: number) => {
     if (result < 0 && result >= -1) {
       return 'Today';
     }
@@ -56,9 +60,9 @@ const StatusItem = ({info}:Props): JSX.Element => {
 
   return (
     <Container onClick={addInfoItem}>
-      <input type='checkbox'/>
-      <span>{dDay(new Date(info.meetingDate!))}</span>
-        <Content>{new Date(info.meetingDate!).getFullYear()+'-'+(new Date(info.meetingDate!).getMonth()+1)+'-'+new Date(info.meetingDate!).getDate()} {info.startTime!.toString()}</Content>
+      {/* <input type='checkbox'/> */}
+      <Dday day={dDay(new Date(info.meetingDate!))}>{dDayStr(dDay(new Date(info.meetingDate!)))}</Dday>
+      <Content>{new Date(info.meetingDate!).getFullYear()+'-'+(new Date(info.meetingDate!).getMonth()+1)+'-'+new Date(info.meetingDate!).getDate()} {info.startTime!.toString()}</Content>
     </Container>
   )
 }
@@ -68,6 +72,10 @@ const Container = styled.div `
     flex-direction: column;
     width: 100%;
     // border: 1px solid black;
+`
+
+const Dday = styled.span <{day: number}>`
+  background: ${(props) => props.day >= 7 ? 'gray' : (props) => props.day >= 0 ? '#FFC3C3' : '#FD8E9E'}
 `
 
 const Content = styled.h2`

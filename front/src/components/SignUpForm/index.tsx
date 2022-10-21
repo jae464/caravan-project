@@ -32,6 +32,7 @@ const SignUpForm = () => {
             alert("이미 존재하는 사번입니다.");
             return;
         }
+        console.log(values.employeeNumber);
         signUp(values.employeeNumber, values.password, values.name);
         alert("가입이 완료되었습니다.");
         navigate('/login');     
