@@ -32,7 +32,7 @@ router.get("/", async (req: Request, res: Response) => {
 
   res.json(result);
 
-  console.log(result)
+  // console.log(result)
 });
 
 router.delete("/:id", async (req: Request, res: Response) => {
@@ -42,8 +42,10 @@ router.delete("/:id", async (req: Request, res: Response) => {
   res.json(reservations);
 });
 
-router.post('/', async(req: Request, res: Response) => {
-  console.log(req.body.roomId);
+
+router.patch('/update', async(req: Request, res: Response) => {
+  console.log('patch')
+  console.log(req.body);
   const meetingRoomRepository = AppDataSource.getRepository(MeetingRoom);
   const reservationRepository = AppDataSource.getRepository(Reservation);
   const userRepository = AppDataSource.getRepository(User);
@@ -56,7 +58,35 @@ router.post('/', async(req: Request, res: Response) => {
     where: {id: req.body.roomId}
   });
 
-  console.log(room);
+  const result = await reservationRepository.update(req.body.id, {
+    name: req.body.name,
+    meetingRoom: room,
+    meetingDate: req.body.meetingDate,
+    startTime: req.body.startTime,
+    endTime: req.body.endTime,
+    user: user
+  });
+
+  return res.json(result);
+})
+
+router.post('/', async(req: Request, res: Response) => {
+  if(!req.body.id) return;
+  console.log('post');
+  console.log(req.body);
+  const meetingRoomRepository = AppDataSource.getRepository(MeetingRoom);
+  const reservationRepository = AppDataSource.getRepository(Reservation);
+  const userRepository = AppDataSource.getRepository(User);
+
+  const user = await userRepository.findOne({
+    where: {id: req.body.userId}
+  });
+
+  const room = await meetingRoomRepository.findOne({
+    where: {id: req.body.roomId}
+  });
+
+  // console.log(room);
 
   // const reservation = await reservationRepository.create(req.body);
   const reservation = new Reservation()
@@ -71,46 +101,5 @@ router.post('/', async(req: Request, res: Response) => {
   return res.json(result);
 });
 
-router.put('/', async(req: Request, res: Response) => {
-  console.log('put')
-  console.log(req.body);
-  const meetingRoomRepository = AppDataSource.getRepository(MeetingRoom);
-  const reservationRepository = AppDataSource.getRepository(Reservation);
-  const userRepository = AppDataSource.getRepository(User);
-
-  const user = await userRepository.findOne({
-    where: {id: req.body.userId}
-  });
-
-  const room = await meetingRoomRepository.findOne({
-    where: {id: req.body.roomId}
-  });
-
-  console.log(room);
-
-  // const reservation = await reservationRepository.create(req.body);
-  // const reservation = new Reservation()
-  // reservation.name = req.body.name;
-  // reservation.meetingRoom = room;
-  // reservation.meetingDate = req.body.meetingDate;
-  // reservation.startTime = req.body.startTime;
-  // reservation.endTime = req.body.endTime;
-  // reservation.user = user;
-
-  const result = await reservationRepository.update(
-    {
-      id:Number(req.body.id),
-    },
-    {
-      name: req.body.name,
-      meetingRoom: room,
-      meetingDate: req.body.meetingDate,
-      startTime: req.body.startTime,
-      endTime: req.body.endTime,
-      user: user
-    }
-  );
-  return res.json(result);
-})
 
 export default router;

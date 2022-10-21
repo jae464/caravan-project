@@ -20,7 +20,7 @@ router.get('/room/:roomId', async (req, res) => {
         where: {id: roomId}
     });
 
-    console.log(room);
+    // console.log(room);
 
     return res.json(room);
 })

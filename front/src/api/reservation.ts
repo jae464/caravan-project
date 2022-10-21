@@ -35,7 +35,7 @@ export const removeReservation = async (id: number) => {
 
 export const updateReservation =async (reservation:Reservation) => {
     try{
-        const result = await axios.patch(`${API_DESTINATION}/reservation`, reservation);
+        const result = await axios.patch(`${API_DESTINATION}/reservation/update`, reservation);
         console.log(result);    
     }
     catch (e) {
