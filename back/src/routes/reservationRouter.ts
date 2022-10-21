@@ -8,8 +8,31 @@ const router = express.Router();
 
 router.get("/", async (req: Request, res: Response) => {
   // console.log('test')
-  const reservations = await AppDataSource.getRepository(Reservation).find();
-  res.json(reservations);
+  // const reservations = await AppDataSource.getRepository(Reservation).find();
+  const reservations = await AppDataSource.getRepository(Reservation).find(
+    {
+      relations: {
+        meetingRoom: true,
+        user: true,
+        // atendees: true
+      },
+      
+    }
+  )
+  const result = reservations.map((reserv) => ({
+    id: reserv.id,
+    name: reserv.name,
+    meetingDate: reserv.meetingDate,
+    startTime: reserv.startTime,
+    endTime: reserv.endTime,
+    // atendees: reserv.atendees,
+    meetingRoomId: reserv.meetingRoom.id,
+    userId: reserv.user.id
+  }));
+
+  res.json(result);
+
+  console.log(result)
 });
 
 router.delete("/:id", async (req: Request, res: Response) => {

@@ -23,7 +23,7 @@ export class Reservation {
   @JoinTable()
   atendees: User[];
 
-  @ManyToOne(() => MeetingRoom, (meetingRoom) => meetingRoom.id, {cascade: true})
+  @ManyToOne(() => MeetingRoom, (meetingRoom) => meetingRoom.id)
   meetingRoom: MeetingRoom;
 
   @ManyToOne(() => User, (user) => user.id)
