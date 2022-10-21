@@ -43,7 +43,7 @@ router.delete("/:id", async (req: Request, res: Response) => {
 });
 
 
-router.patch('/update', async(req: Request, res: Response) => {
+router.patch('/', async(req: Request, res: Response) => {
   console.log('patch')
   console.log(req.body);
   const meetingRoomRepository = AppDataSource.getRepository(MeetingRoom);
@@ -71,9 +71,11 @@ router.patch('/update', async(req: Request, res: Response) => {
 })
 
 router.post('/', async(req: Request, res: Response) => {
-  if(!req.body.id) return;
   console.log('post');
   console.log(req.body);
+  console.log(req.body.id);
+  // if(req.body.id === 'undefined') return;
+
   const meetingRoomRepository = AppDataSource.getRepository(MeetingRoom);
   const reservationRepository = AppDataSource.getRepository(Reservation);
   const userRepository = AppDataSource.getRepository(User);

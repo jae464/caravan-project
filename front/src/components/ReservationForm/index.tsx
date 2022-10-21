@@ -59,7 +59,8 @@ const ReservationForm = ({info}: {info?: Reservation} ) => {
           done: true,
         }))
       }
-
+      else{
+        
       if(!reservation.name) {
         alert('회의명을 입력해주세요.')
         return
@@ -81,7 +82,7 @@ const ReservationForm = ({info}: {info?: Reservation} ) => {
         ...prev,
         done: true,
       }));
-
+      }
     },
     onCancel: () => {
       if (info) {

@@ -15,7 +15,7 @@ export const getAllReservation = async () => {
 
 export const addReservation = async (reservation: Reservation) => {
     try{
-        const result = await axios.post(`${API_DESTINATION}/reservation`, reservation);
+        const result = await axios.post(`${API_DESTINATION}/reservation/`, reservation);
         console.log(result);    
     }
     catch (e) {
@@ -35,7 +35,7 @@ export const removeReservation = async (id: number) => {
 
 export const updateReservation =async (reservation:Reservation) => {
     try{
-        const result = await axios.patch(`${API_DESTINATION}/reservation/update`, reservation);
+        const result = await axios.patch(`${API_DESTINATION}/reservation/`, reservation);
         console.log(result);    
     }
     catch (e) {
