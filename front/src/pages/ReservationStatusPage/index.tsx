@@ -57,6 +57,7 @@ const ReservationStatusPage = () => {
                 </ChatBotLayout>,
                 <ChatBotLayout>
                     <ItemContainer>
+                    <TitleText>예약 현황</TitleText>
                         {reservationList.map( m => {
                             return (<StatusItem info={m}/>)
                         })}
@@ -101,7 +102,7 @@ const ReservationStatusPage = () => {
 
 
 const MainContainer = styled.div `
-    dispaly: flex;
+    display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
@@ -109,11 +110,19 @@ const MainContainer = styled.div `
 `
 
 const ItemContainer = styled.div `
-    dispaly: flex;
+    display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
     // border: 1px solid black;
+`
+
+const TitleText = styled.h3 `
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #C1C1C1;
+    padding-bottom: 5px;
 `
 
 export default ReservationStatusPage;

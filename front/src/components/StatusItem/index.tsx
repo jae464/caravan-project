@@ -117,7 +117,7 @@ const ContentWrapper = styled.div `
   // flex-direction: column;
   width: 90%;
   // border: 1px solid black;
-  border-bottom:1px solid gray;
+  border-bottom:1px solid #C1C1C1;
   cursor: pointer;
   background: white;
   margin-bottom: 0.1rem;
