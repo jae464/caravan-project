@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { MouseEventHandler, useState } from 'react'
+import React, { MouseEventHandler, useEffect, useState } from 'react'
 import { Reservation } from 'types/reservation'
 
 import useComponentHooks from 'hooks/useComponentAdd';
@@ -8,6 +8,7 @@ import ChatBotLayout from 'layouts/ChatBotLayout';
 import ChatBotText from 'design/ChatBotText';
 import { reservationAtom } from 'recoil/reservation/atom';
 import { useRecoilState } from 'recoil';
+import { getRoomById } from 'api/meetingRoom';
 
 type Props = {
   info: Reservation
@@ -18,6 +19,7 @@ const StatusItem = ({info}:Props): JSX.Element => {
 
   const {components, setComponent, addComponent} = useComponentHooks([]);
   const [reservation, setReservation] = useRecoilState(reservationAtom);
+  const [roomName, setRoomName] = useState("");
 
   const addInfoItem = (e: any) => {
     // 클릭한 item의 key에 따라 컴포넌트 추가
@@ -35,6 +37,12 @@ const StatusItem = ({info}:Props): JSX.Element => {
       <ChatBotLayout><ReservationInfoForm reservation={info}/></ChatBotLayout>
     ])
   }
+
+  const getRoomName = async (meetingRoomId: number) => {
+    const res = await getRoomById(meetingRoomId);
+    console.log(res);
+    setRoomName(res.name);
+}
 
   const dDay = (date: Date):number => {
     // console.log(typeof(date));
@@ -58,32 +66,98 @@ const StatusItem = ({info}:Props): JSX.Element => {
     }
   }
 
+  useEffect(()=>{
+    getRoomName(info.meetingRoomId!);
+  },[]);
+
+
   return (
     <Container onClick={addInfoItem}>
-      {/* <input type='checkbox'/> */}
-      <Dday day={dDay(new Date(info.meetingDate!))}>{dDayStr(dDay(new Date(info.meetingDate!)))}</Dday>
-      <Content>{new Date(info.meetingDate!).getFullYear()+'-'+(new Date(info.meetingDate!).getMonth()+1)+'-'+new Date(info.meetingDate!).getDate()} {info.startTime!.toString()}</Content>
+      <ContentWrapper>
+        {/* <input type='checkbox'/> */}
+        <Dday day={dDay(new Date(info.meetingDate!))}>{dDayStr(dDay(new Date(info.meetingDate!)))}</Dday>
+        <Content>
+          <InfoTable>
+            <tbody>
+              <tr>
+                <Cell>{new Date(info.meetingDate!).getFullYear()+'-'+(new Date(info.meetingDate!).getMonth()+1)+'-'+new Date(info.meetingDate!).getDate()}</Cell>
+                <Cell>{info.startTime!.toString()+'~'+info.endTime!.toString()}</Cell>
+              </tr>
+              <tr>
+                <Cell>{info.name}</Cell>
+                <Cell>{roomName}</Cell>
+              </tr>
+            </tbody>
+          </InfoTable>
+        </Content>
+      </ContentWrapper>
     </Container>
   )
 }
 
 const Container = styled.div `
-    dispaly: flex;
-    flex-direction: column;
-    width: 100%;
-    // border: 1px solid black;
+  display : flex;
+  // align-item: center;
+  justify-content: center;
+  // flex-direction: column;
+  width: 100%;
+  // border: 1px solid black;
+  // border-bottom:1px solid gray;
+  cursor: pointer;
+  background: white;
+  
+  // margin: 0.5rem auto;
+`
+
+const ContentWrapper = styled.div `
+  display : flex;
+  justify-content: flex-start;
+  align-items: center;
+  // align-content: center;
+  // flex-direction: column;
+  width: 90%;
+  // border: 1px solid black;
+  border-bottom:1px solid gray;
+  cursor: pointer;
+  background: white;
+  margin-bottom: 0.1rem;
+  maring-top: 0.1rem;
 `
 
 const Dday = styled.span <{day: number}>`
-  background: ${(props) => props.day >= 7 ? 'gray' : (props) => props.day >= 0 ? '#FFC3C3' : '#FD8E9E'}
+  border-radius: 15px;
+  // align-items: center;
+  width: 55px;
+  // height: 25px;
+  text-align:center;
+  padding: 3px 0 3px;
+  // border: 1px solid black;
+  margin-right: 0.5rem;
+  margin-left: 0.3rem;
+  margin-bottom: 0.1rem;
+  background: ${(props) => props.day >= 7 ? 'gray' : (props) => props.day >= 0 ? '#FFC3C3' : '#FD8E9E'};
 `
 
-const Content = styled.h2`
-    // border: 1px solid black;
-    background: white;
-    cursor: pointer;
-    color: black;
-    padding: 2rem;
+const Content = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 1rem;
+  color: black;
+  width: 80%;
+  // border-bottom:1px solid gray;
+  // border: 1px solid black;
+  margin-bottom: 0.1rem;
+  // text-align:center;
+`
+
+const InfoTable = styled.table `
+  border-spacing: 30px 5px;  
+`
+
+const Cell = styled.td `
+  text-align:left;
+  // margin-right: 10px;
+  // margin-left: 10px;
 `
 
 export default StatusItem;

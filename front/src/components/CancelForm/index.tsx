@@ -109,7 +109,7 @@ const CancelForm = ({ id }: Props): JSX.Element => {
 }
 
 const ItemContainer = styled.div `
-    dispaly: flex;
+    display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;

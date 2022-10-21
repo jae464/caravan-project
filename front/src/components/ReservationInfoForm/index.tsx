@@ -144,40 +144,41 @@ const Container = styled.div`
     margin: auto;
     // margin-top: 160px;
     // background: #0E0E0;
-    width: 40%;
+    width: 100%;
     // border: 1px solid black;
+    background: white;
     justify-content: space-around;
     // bottom: 0px;
 `
 const ButtonContainer = styled.div`
     display: flex;  
-    width: 60%;
-    margin-top: 2rem;
+    width: 80%;
+    margin-top: 1rem;
     flex-direction: row;
     justify-content: space-around;
 `
 
 const ReservationStatusButton = styled.button`
+    width: 8rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 4px;
+    background: #FFC3C3;
+    color: white;
+    font-size: 1.3rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+
     display: flex;
     text-decoration: none;
-    font-size: 1rem;
     outline: none;
-    height: 3rem;
-    width: 8rem;
-    color: white;
-    cursor: pointer;
     align-items: center;
     justify-content: center;
-    // border: 1px solid black;
-    // margin-bottom: 4rem;
-    background: #A5B5EC;
-
-    margin-bottom: 10px;
-    border-radius: 5px;
 `
 
 const ItemContainer = styled.div `
-    dispaly: flex;
+    display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
