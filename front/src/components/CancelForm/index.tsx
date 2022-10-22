@@ -36,62 +36,39 @@ const CancelForm = ({ id }: Props): JSX.Element => {
         console.log(id)
         await removeReservation(id);
         setItemList();
-
-        if (reservationList?.length == 0) {
-            addComponent([
-                <ChatBotLayout><ChatBotText>해당 회의실 예약이 취소되었습니다</ChatBotText></ChatBotLayout>, 
-                // <ChatBotLayout>
-                //     <ChatBotText>
-                //         예약 정보가 없습니다.
-                //     </ChatBotText>
-                // </ChatBotLayout>
-            ]);
-        }
-        else{
-            addComponent([
-                <ChatBotLayout><ChatBotText>해당 회의실 예약이 취소되었습니다</ChatBotText></ChatBotLayout>, 
-                // <ChatBotLayout>
-                //     <ChatBotText>
-                //         예약 상세정보를 확인하고자 할 경우 목록 선택하고, 변경 or 취소를 원하는 경우 체크박스 선택 후 버튼을 눌러주세요. (변경은 1개만 선택가능합니다.)
-                //     </ChatBotText>
-                // </ChatBotLayout>,
-                // <ChatBotLayout>
-                //     <ItemContainer>
-                //         {reservationList!.map( m => {
-                //             return (<StatusItem reservation={m}/>)
-                //         })}
-                //     </ItemContainer>
-                // </ChatBotLayout>
-            ]);
-        }
+        addComponent([
+            <ChatBotLayout><ChatBotText>해당 회의실 예약이 취소되었습니다</ChatBotText></ChatBotLayout>, 
+        ]);
     }
 
     const onClickN = () => {
-        if (reservationList?.length == 0) {
-            addComponent([
-                <ChatBotLayout>
-                    <ChatBotText>
-                        예약 정보가 없습니다.
-                    </ChatBotText>
-                </ChatBotLayout>
-            ])
-        }
-        else{
-            addComponent([
-                <ChatBotLayout>
-                    <ChatBotText>
-                        예약 상세정보를 확인하고자 할 경우 목록 선택하고, 변경 or 취소를 원하는 경우 체크박스 선택 후 버튼을 눌러주세요. (변경은 1개만 선택가능합니다.)
-                    </ChatBotText>
-                </ChatBotLayout>,
-                <ChatBotLayout>
-                    <ItemContainer>
-                        {reservationList!.map( m => {
-                            return (<StatusItem info={m}/>)
-                        })}
-                    </ItemContainer>
-                </ChatBotLayout>
-            ])
-        }
+        setItemList();
+        // if (reservationList?.length == 0) {
+        //     addComponent([
+        //         <ChatBotLayout>
+        //             <ChatBotText>
+        //                 예약 정보가 없습니다.
+        //             </ChatBotText>
+        //         </ChatBotLayout>
+        //     ])
+        // }
+        // else{
+        //     addComponent([
+        //         <ChatBotLayout>
+        //             <ChatBotText>
+        //                 예약 상세정보를 확인하고자 할 경우 목록 선택하고, 변경 or 취소를 원하는 경우 체크박스 선택 후 버튼을 눌러주세요. (변경은 1개만 선택가능합니다.)
+        //             </ChatBotText>
+        //         </ChatBotLayout>,
+        //         <ChatBotLayout>
+        //             <TitleText>예약 현황</TitleText>
+        //             <ItemContainer>
+        //                 {reservationList!.map( m => {
+        //                     return (<StatusItem info={m}/>)
+        //                 })}
+        //             </ItemContainer>
+        //         </ChatBotLayout>
+        //     ])
+        // }
     }
     return (
         
@@ -133,6 +110,16 @@ const ButtonContainer = styled.div`
     justify-content: space-around;
 `
 
+const TitleText = styled.h3 `
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #C1C1C1;
+    padding-bottom: 5px;
+    color: #8A8A8A;
+`
+
+
 const CancelButton = styled.button`
     display: flex;
     text-decoration: none;
@@ -146,8 +133,15 @@ const CancelButton = styled.button`
     justify-content: center;
     // border: 1px solid black;
     margin: 0.5rem;
-    background: #A5B5EC;
+    background: #FFC3C3;
 
     border-radius: 5px;
+    cursor: pointer;
+    // &:active {
+    //     backgroud: #fd8f9e;
+    // }
+    &:hover{  
+        background-color : #fd8f9e;
+      }
 `
 export default CancelForm

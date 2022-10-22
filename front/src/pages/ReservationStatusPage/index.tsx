@@ -57,7 +57,7 @@ const ReservationStatusPage = () => {
                 </ChatBotLayout>,
                 <ChatBotLayout>
                     <ItemContainer>
-                    <TitleText>예약 현황</TitleText>
+                        <TitleText>예약 현황</TitleText>
                         {reservationList.map( m => {
                             return (<StatusItem info={m}/>)
                         })}
@@ -123,6 +123,7 @@ const TitleText = styled.h3 `
     margin-bottom: 10px;
     border-bottom: 1px solid #C1C1C1;
     padding-bottom: 5px;
+    color: #8A8A8A;
 `
 
 export default ReservationStatusPage;

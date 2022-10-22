@@ -285,7 +285,10 @@ const ReservationButton = styled.button<{clickable: boolean}>`
   margin-left: 1rem;
   margin-right: 1rem;
   cursor: pointer;
-  pointer-events: ${(props) => props.clickable ? 'auto' : 'none'}
+  pointer-events: ${(props) => props.clickable ? 'auto' : 'none'};
 
+  &:hover{  
+    background-color : #fd8f9e;
+  } 
 `
 export default ReservationForm;

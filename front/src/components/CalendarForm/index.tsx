@@ -154,6 +154,10 @@ const NextButton = styled.button<{clickable: boolean}>`
     font-size: 1.3rem;
     cursor: pointer;
     pointer-events: ${(props) => props.clickable ? 'auto' : 'none'}
+
+    &:hover{  
+        background-color : #fd8f9e;
+    }
 `
 
 export default CalendarForm

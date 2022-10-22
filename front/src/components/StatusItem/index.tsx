@@ -112,16 +112,21 @@ const Container = styled.div `
 const ContentWrapper = styled.div `
   display : flex;
   justify-content: flex-start;
+  // justify-content: space-around;
   align-items: center;
   // align-content: center;
-  // flex-direction: column;
+  // flex-direction: row;
   width: 90%;
-  // border: 1px solid black;
   border-bottom:1px solid #C1C1C1;
+
   cursor: pointer;
   background: white;
+
   margin-bottom: 0.1rem;
   maring-top: 0.1rem;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 0px;
 `
 
 const Dday = styled.span <{day: number}>`
@@ -130,11 +135,13 @@ const Dday = styled.span <{day: number}>`
   width: 55px;
   // height: 25px;
   text-align:center;
-  padding: 3px 0 3px;
+  padding: 3px;
   // border: 1px solid black;
-  margin-right: 0.5rem;
-  margin-left: 0.3rem;
+  // margin-right: 0.5rem;
+  // margin-left: 0.3rem;
   margin-bottom: 0.1rem;
+  color: white;
+  font-weight: bold;
   background: ${(props) => props.day >= 7 ? 'gray' : (props) => props.day >= 0 ? '#FFC3C3' : '#FD8E9E'};
 `
 
@@ -152,12 +159,17 @@ const Content = styled.div`
 
 const InfoTable = styled.table `
   border-spacing: 30px 5px;  
+  // border: 1px solid black;
 `
 
 const Cell = styled.td `
   text-align:left;
-  // margin-right: 10px;
-  // margin-left: 10px;
+  margin-right: 10px;
+  margin-left: 0px;
+  // padding-left: 10px;
+  color: #565656;
+  width: 10rem;
+  // border: 1px solid black;
 `
 
 export default StatusItem;
