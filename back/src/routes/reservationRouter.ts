@@ -6,7 +6,7 @@ import { User } from "../entity/User";
 
 const router = express.Router();
 
-router.get("/", async (req: Request, res: Response) => {
+router.get("/:id", async (req: Request, res: Response) => {
   // console.log('test')
   // const reservations = await AppDataSource.getRepository(Reservation).find();
   const reservations = await AppDataSource.getRepository(Reservation).find(
@@ -15,20 +15,21 @@ router.get("/", async (req: Request, res: Response) => {
         meetingRoom: true,
         user: true,
         // atendees: true
-      },
-      
+      },   
     }
   )
-  const result = reservations.map((reserv) => ({
-    id: reserv.id,
-    name: reserv.name,
-    meetingDate: reserv.meetingDate,
-    startTime: reserv.startTime,
-    endTime: reserv.endTime,
-    // atendees: reserv.atendees,
-    meetingRoomId: reserv.meetingRoom.id,
-    userId: reserv.user.id
-  }));
+  const result = reservations.map((reserv) => (
+    reserv.user.id== Number(req.params.id) ? {
+      id: reserv.id,
+      name: reserv.name,
+      meetingDate: reserv.meetingDate,
+      startTime: reserv.startTime,
+      endTime: reserv.endTime,
+      // atendees: reserv.atendees,
+      meetingRoomId: reserv.meetingRoom.id,
+      userId: reserv.user.id
+    }: null
+    ));
 
   res.json(result);
 

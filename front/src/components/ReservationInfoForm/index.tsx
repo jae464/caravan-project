@@ -12,6 +12,8 @@ import ChatBotText from 'design/ChatBotText';
 import StatusItem from 'components/StatusItem';
 import { useNavigate } from 'react-router';
 import { getAllReservation } from 'api/reservation';
+import { userAtom } from 'recoil/user/atom';
+import { useRecoilState } from 'recoil';
 
 type Props = {
     // conferenceInformationData: ConferenceInformationData,
@@ -25,11 +27,12 @@ const ReservationInfoForm = ({reservation}: Props): JSX.Element => {
     const {reservationList, setReservationList, addReservation} = useReservationListHooks([]);
     const {components, setComponent, addComponent} = useComponentHooks([]);
     const [roomName, setRoomName] = useState("");
+    const [userState, setUserState] = useRecoilState(userAtom);
     const navigate = useNavigate();
 
     const setItemList = async () => {
         // db에 저장된 data 가져와야함
-        const reservList = await getAllReservation();
+        const reservList = await getAllReservation(userState.id!);
         setReservationList(reservList)
         navigate('/reservationStatus')
         // console.log(reservList)

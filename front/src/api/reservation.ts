@@ -1,10 +1,12 @@
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { userAtom } from "recoil/user/atom";
 import { Reservation } from "types/reservation";
 import { API_DESTINATION } from "utils/consts";
 
-export const getAllReservation = async () => {
+export const getAllReservation = async (userId: number) => {
     try{
-        const result = await axios.get(`${API_DESTINATION}/reservation`);
+        const result = await axios.get(`${API_DESTINATION}/reservation/${userId}`);
         console.log(result);
         return result.data;
     }

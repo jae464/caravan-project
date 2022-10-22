@@ -17,11 +17,13 @@ import useReservationListHooks from 'hooks/useReservationList';
 
 import { getAllReservation } from "api/reservation";
 import reservationListAtom, { ReservationList } from 'recoil/reservationStatusPage/atom';
+import { userAtom } from 'recoil/user/atom';
 
 const ReservationStatusPage = () => {
     // const [reservationList, setReservationList] = useState<Reservation[]>([{ id:0, userId:1, roomId:2, name:'3', meetingDate: new Date(), startTime:5, endTime:6}]);
 
     const {reservationList, setReservationList, addReservation} = useReservationListHooks([]);
+    const [userState, setUserState] = useRecoilState(userAtom);
     const {components, setComponent, addComponent} = useComponentHooks([]);
     const [scrollRef, scrollToBottom] = useAutoScroll();
     const [flag, setFlag] = useState(false);
@@ -29,7 +31,7 @@ const ReservationStatusPage = () => {
       
     const setItemList = async () => {
         // db에 저장된 data 가져와야함
-        const reservList = await getAllReservation();
+        const reservList = await getAllReservation(userState.id!);
         console.log(reservList)
         setReservationList(reservList)
         console.log(reservationList)

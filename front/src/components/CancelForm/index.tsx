@@ -10,6 +10,8 @@ import ChatBotText from 'design/ChatBotText';
 import StatusItem from 'components/StatusItem';
 import { Reservation } from 'types/reservation';
 import useReservationListHooks from 'hooks/useReservationList';
+import { userAtom } from 'recoil/user/atom';
+import { useRecoilState } from 'recoil';
 
 type Props = {
     id: number
@@ -19,10 +21,11 @@ const CancelForm = ({ id }: Props): JSX.Element => {
     const {reservationList, setReservationList, addReservation} = useReservationListHooks([]);
     const {components, setComponent, addComponent} = useComponentHooks([]);
     const [reservList, setReservList] = useState<Reservation[]>([]);
+    const [userState, setUserState] = useRecoilState(userAtom);
     const navigate = useNavigate();
     const setItemList = async () => {
         // db에 저장된 data 가져와야함
-        const reservList = await getAllReservation();
+        const reservList = await getAllReservation(userState.id!);
         setReservationList(reservList)
         navigate('/reservationStatus')
         // console.log(reservList)
@@ -142,6 +145,6 @@ const CancelButton = styled.button`
     // }
     &:hover{  
         background-color : #fd8f9e;
-      }
+    }
 `
 export default CancelForm
