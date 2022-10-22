@@ -16,9 +16,6 @@ import { userAtom } from 'recoil/user/atom';
 import { useRecoilState } from 'recoil';
 
 type Props = {
-    // conferenceInformationData: ConferenceInformationData,
-    // onClickCancel: () => void,
-    // onClickModify: () => void
     reservation: Reservation
 }
 
@@ -27,14 +24,15 @@ const ReservationInfoForm = ({reservation}: Props): JSX.Element => {
     const {reservationList, setReservationList, addReservation} = useReservationListHooks([]);
     const {components, setComponent, addComponent} = useComponentHooks([]);
     const [roomName, setRoomName] = useState("");
+    // const [userName, setUserName] = useState("");
     const [userState, setUserState] = useRecoilState(userAtom);
     const navigate = useNavigate();
 
     const setItemList = async () => {
         // db에 저장된 data 가져와야함
         const reservList = await getAllReservation(userState.id!);
-        setReservationList(reservList)
-        navigate('/reservationStatus')
+        setReservationList(reservList);
+        navigate('/reservationStatus');
         // console.log(reservList)
     }
 
@@ -46,34 +44,7 @@ const ReservationInfoForm = ({reservation}: Props): JSX.Element => {
 
     const onClickConfirm = () => {
         console.log('confirm')
-        // console.log(reservationList.length)
         setItemList();
-        // if (reservationList.length == 0) {
-        //     addComponent([
-        //         <ChatBotLayout>
-        //             <ChatBotText>
-        //                 예약 정보가 없습니다.
-        //             </ChatBotText>
-        //         </ChatBotLayout>
-        //     ])
-        // }
-        // else{
-        //     addComponent([
-        //         <ChatBotLayout>
-        //             <ChatBotText>
-        //                 예약 상세정보를 확인하고자 할 경우 목록 선택하고, 변경 or 취소를 원하는 경우 체크박스 선택 후 버튼을 눌러주세요. (변경은 1개만 선택가능합니다.)
-        //             </ChatBotText>
-        //         </ChatBotLayout>,
-        //         <ChatBotLayout>
-        //             <TitleText>예약 현황</TitleText>
-        //             <ItemContainer>
-        //                 {reservationList.map( m => {
-        //                     return (<StatusItem info={m}/>)
-        //                 })}
-        //             </ItemContainer>
-        //         </ChatBotLayout>
-        //     ])
-        // }
     }
  
     const onClickCancel = () => {
@@ -115,7 +86,7 @@ const ReservationInfoForm = ({reservation}: Props): JSX.Element => {
                     </tr>
                     <tr>
                         <LabelCell>예약자</LabelCell>
-                        <Cell>{reservation.userId}</Cell>
+                        <Cell>{userState.name}</Cell>
                     </tr>
                     <tr>
                         <LabelCell>연락처</LabelCell>

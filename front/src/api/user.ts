@@ -24,6 +24,18 @@ export const getUserByEmployeeNumber = async (employeeNumber: string) => {
     }
 }
 
+export const getUserById = async (id: number) => {
+    try {
+        console.log(id);
+        const result = await axios.get(`${API_DESTINATION}/users/${id}`);
+        console.log(result.data);
+        return result.data;
+    }
+    catch (e) {
+
+    }
+}
+
 export const doLogin = async (employeeNumber: string, password: string) => {
     try {
         console.log(employeeNumber, password)

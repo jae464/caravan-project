@@ -26,9 +26,8 @@ const CancelForm = ({ id }: Props): JSX.Element => {
     const setItemList = async () => {
         // db에 저장된 data 가져와야함
         const reservList = await getAllReservation(userState.id!);
-        setReservationList(reservList)
-        navigate('/reservationStatus')
-        // console.log(reservList)
+        setReservationList(reservList);
+        navigate('/reservationStatus');
     }
 
     useEffect(() => {

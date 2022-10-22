@@ -22,6 +22,17 @@ router.get('/:employeeNumber', async (req: Request, res: Response) => {
   return res.json(user);
 })
 
+router.get('/:id', async (req: Request, res: Response) => {
+  console.log("req.body", req.params);
+  const userId = Number(req.params.id);
+  console.log(userId);
+  const user = await AppDataSource.getRepository(User).findOne({
+    where: {id: userId}
+  })
+  
+  return res.json(user);
+})
+
 router.post("/", async (req: Request, res: Response) => {
   const user = await AppDataSource.getRepository(User).create(req.body);
   const result = await AppDataSource.getRepository(User).save(user);

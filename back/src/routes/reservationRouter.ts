@@ -31,6 +31,10 @@ router.get("/:id", async (req: Request, res: Response) => {
     }: null
     ));
 
+    result.sort((a:any, b:any) => {
+      return a.meetingDate!.valueOf() - b.meetingDate!.valueOf()
+  })
+
   res.json(result);
 
   // console.log(result)
