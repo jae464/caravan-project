@@ -110,7 +110,7 @@ const ReservationForm = ({ info }: { info?: Reservation }) => {
   });
 
   const onChangeMeetingName = (e: any) => {
-    setReservation((prev) => ({
+    setReservation(prev => ({
       ...prev,
       name: e.target.value,
     }));

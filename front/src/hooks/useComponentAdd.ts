@@ -4,7 +4,6 @@ import reservationPageAtom, {
   ReservationPageState,
 } from 'recoil/reservationPage/atom';
 
-
 type useComponentFn = {
   (initialValues?: React.ReactNode[]): {
     components: ReservationPageState;

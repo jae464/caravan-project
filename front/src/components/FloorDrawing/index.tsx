@@ -1,8 +1,8 @@
-import styled from "@emotion/styled";
-import moment from "moment";
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Reservation } from "types/reservation";
+import styled from '@emotion/styled';
+import moment from 'moment';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Reservation } from 'types/reservation';
 
 interface FloorDrawingProps {
   reservationList: Reservation[] | null;
@@ -11,17 +11,17 @@ interface FloorDrawingProps {
 const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
   const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLDivElement;
-    if (!target.className.includes("15")) return;
+    if (!target.className.includes('15')) return;
   };
 
   useEffect(() => {
     reservationList?.map((e: Reservation) => {
       const { name } = e.meetingRoom;
       const target: NodeListOf<Element> = document.querySelectorAll(
-        `[class*="${name}"]`
+        `[class*='${name}']`
       );
       target.forEach((e: any) => {
-        e.style.backgroundColor = "red";
+        e.style.backgroundColor = 'red';
       });
     });
   }, [reservationList]);
@@ -32,25 +32,25 @@ const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
         onClick={handleOnClick}
         onMouseOver={(e: React.MouseEvent<HTMLElement>) => {
           const target = e.target as HTMLDivElement;
-          if (!target.className.includes("15")) return;
+          if (!target.className.includes('15')) return;
         }}
       >
         <>
-          <StyledFloorDrawingColumn className={"firstColumn"}>
+          <StyledFloorDrawingColumn className={'firstColumn'}>
             <StyledFloorDrawingColumnItem
-              style={{ backgroundColor: "transparent", border: "none" }}
+              style={{ backgroundColor: 'transparent', border: 'none' }}
             ></StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
               className="15E.02"
               style={{
-                borderBottom: "none",
+                borderBottom: 'none',
               }}
             ></StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
               className="15E.02"
               style={{
-                borderBottom: "none",
-                borderTop: "none",
+                borderBottom: 'none',
+                borderTop: 'none',
               }}
             >
               15E.02
@@ -58,63 +58,63 @@ const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
             <StyledFloorDrawingColumnItem
               className="15E.02"
               style={{
-                borderTop: "none",
+                borderTop: 'none',
               }}
             ></StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
-              style={{ backgroundColor: "transparent", border: "none" }}
+              style={{ backgroundColor: 'transparent', border: 'none' }}
             ></StyledFloorDrawingColumnItem>
           </StyledFloorDrawingColumn>
         </>
         <>
-          <StyledFloorDrawingColumn className={"firstColumn"}>
+          <StyledFloorDrawingColumn className={'firstColumn'}>
             <StyledFloorDrawingColumnItem
-              style={{ backgroundColor: "transparent", border: "none" }}
+              style={{ backgroundColor: 'transparent', border: 'none' }}
             ></StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem className="15E.01">
               15E.01
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
-              style={{ backgroundColor: "transparent", border: "none" }}
+              style={{ backgroundColor: 'transparent', border: 'none' }}
             ></StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem className="15E.03">
               15E.03
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
-              style={{ backgroundColor: "transparent", border: "none" }}
+              style={{ backgroundColor: 'transparent', border: 'none' }}
             ></StyledFloorDrawingColumnItem>
           </StyledFloorDrawingColumn>
         </>
         <>
-          <StyledFloorDrawingColumn className={"firstColumn"}>
+          <StyledFloorDrawingColumn className={'firstColumn'}>
             <StyledFloorDrawingColumnItem
               className="15C.01"
               style={{
-                marginBottom: "30px",
+                marginBottom: '30px',
               }}
             >
               15C.01
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
               className="15C.02"
-              style={{ borderBottom: "none" }}
+              style={{ borderBottom: 'none' }}
             ></StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
               className="15C.02"
               style={{
-                borderBottom: "none",
-                borderTop: "none",
+                borderBottom: 'none',
+                borderTop: 'none',
               }}
             >
               15C.02
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
               className="15C.02"
-              style={{ borderTop: "none" }}
+              style={{ borderTop: 'none' }}
             ></StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
               className="15C.03"
-              style={{ marginTop: "30px" }}
+              style={{ marginTop: '30px' }}
             >
               15C.03
             </StyledFloorDrawingColumnItem>
@@ -122,8 +122,8 @@ const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
         </>
         <>
           <StyledFloorDrawingColumn
-            className={"firstColumn"}
-            style={{ gap: "15px" }}
+            className={'firstColumn'}
+            style={{ gap: '15px' }}
           >
             <StyledFloorDrawingColumnItem className="15C.08">
               15C.08

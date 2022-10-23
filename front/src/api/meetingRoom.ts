@@ -10,7 +10,6 @@ export const getAllRoom = async (floor: string) => {
   } catch (e) {}
 };
 
-
 export const getRoomById = async (roomId: number) => {
   try {
     const result = await axios.get(
@@ -19,4 +18,3 @@ export const getRoomById = async (roomId: number) => {
     return result.data;
   } catch (e) {}
 };
-

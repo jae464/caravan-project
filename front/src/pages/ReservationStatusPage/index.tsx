@@ -86,7 +86,6 @@ const ReservationStatusPage = () => {
     initComponents();
   }, [flag, reservationList]);
 
-
   useEffect(() => {
     scrollToBottom();
   }, [components]);

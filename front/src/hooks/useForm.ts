@@ -12,7 +12,6 @@ const useForm = ({ initialValues, onSubmit, validate, onCancel }: any) => {
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-
     console.log(values);
     e.preventDefault();
     const result = await validate(values);

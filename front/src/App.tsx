@@ -8,7 +8,7 @@ import ReservationStatusPage from 'pages/ReservationStatusPage';
 import { RecoilRoot } from 'recoil';
 import LoginPage from 'pages/LoginPage';
 import SignUpPage from 'pages/SignUpPage';
-import MeetingRoomStatusPage from "pages/MeetingRoomStatusPage";
+import MeetingRoomStatusPage from 'pages/MeetingRoomStatusPage';
 
 function App() {
   return (

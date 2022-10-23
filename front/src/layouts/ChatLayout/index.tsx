@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import useComponentHooks from 'hooks/useComponentAdd';
 import UserChatLayout from 'layouts/UserChatLayout';
 
-
 type Props = {
   getText?: (text: string) => void;
 };
@@ -26,7 +25,6 @@ const ChatLayout = ({ getText }: Props) => {
       if (chat === '') return;
       addComponent([<UserChatLayout>{chat}</UserChatLayout>]);
       setChat('');
-
     }
   };
   const onChange = (e: any) => {
