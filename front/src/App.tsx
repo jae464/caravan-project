@@ -1,13 +1,13 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import MainPage from "pages/MainPage";
-import DetailPage from "pages/DetailPage";
-import ReservationPage from "pages/ReservationPage";
-import ReservationStatusPage from "pages/ReservationStatusPage";
-import { RecoilRoot } from "recoil";
-import LoginPage from "pages/LoginPage";
-import SignUpPage from "pages/SignUpPage";
+import MainPage from './pages/MainPage';
+import DetailPage from 'pages/DetailPage';
+import ReservationPage from 'pages/ReservationPage';
+import ReservationStatusPage from 'pages/ReservationStatusPage';
+import { RecoilRoot } from 'recoil';
+import LoginPage from 'pages/LoginPage';
+import SignUpPage from 'pages/SignUpPage';
 import MeetingRoomStatusPage from "pages/MeetingRoomStatusPage";
 
 function App() {

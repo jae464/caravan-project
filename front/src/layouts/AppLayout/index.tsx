@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useState } from "react";
-import styled from "@emotion/styled";
-import Header from "layouts/Header";
-import ChatLayout from "layouts/ChatLayout";
-import { useResetRecoilState } from "recoil";
-import reservationPageAtom from "recoil/reservationPage/atom";
+import React, { FC, useEffect, useState } from 'react';
+import styled from '@emotion/styled';
+import Header from 'layouts/Header';
+import ChatLayout from 'layouts/ChatLayout';
+import { useResetRecoilState } from 'recoil';
+import reservationPageAtom from 'recoil/reservationPage/atom';
 
 const AppLayout = ({
   children,
@@ -23,11 +23,11 @@ const AppLayout = ({
 };
 
 const MainContainer = styled.div`
-  min-width: 800px;
-  max-width: 1200px;
+  width: 800px;
+  // width: 100%;
   height: 90vh;
   min-height: 600px;
-  max-height: 1200px;
+  max-height: 800px;
   // border: 1px solid black;
   display: flex;
   flex-direction: column;

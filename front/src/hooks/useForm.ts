@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const useForm = ({ initialValues, onSubmit, validate, onCancel }: any) => {
   const [values, setValues] = useState(initialValues);
@@ -12,8 +12,11 @@ const useForm = ({ initialValues, onSubmit, validate, onCancel }: any) => {
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+
+    console.log(values);
     e.preventDefault();
     const result = await validate(values);
+    console.log(result);
     if (result) return;
     onSubmit(values);
   };
@@ -22,7 +25,7 @@ const useForm = ({ initialValues, onSubmit, validate, onCancel }: any) => {
     onCancel();
   };
 
-  return [values, errors, handleChange, handleSubmit, handleCancel];
+  return [values, errors, setValues, handleChange, handleSubmit, handleCancel];
 };
 
 export default useForm;

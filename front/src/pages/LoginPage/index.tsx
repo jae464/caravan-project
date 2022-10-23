@@ -8,16 +8,18 @@ import useInput from 'hooks/useInput';
 const LoginPage = () => {
   return (
     <>
-      <AppLayout name='로그인'>
+      <AppLayout name="로그인">
         <Container>
           <LoginForm />
-          <Link to='/signup' style={{marginTop: '1rem'}}>회원가입</Link>
+          <Link to="/signup" style={{ marginTop: '1rem' }}>
+            회원가입
+          </Link>
         </Container>
       </AppLayout>
-      <ChatLayout/>
+      <ChatLayout />
     </>
-  )
-}
+  );
+};
 
 const Container = styled.div`
   display: flex;
@@ -25,9 +27,9 @@ const Container = styled.div`
   width: 60%;
   margin: 4rem auto;
   padding: 2rem;
-  background: #EFEFEF;
+  background: #efefef;
   // border: 1px solid black;
   align-items: center;
   justify-content: center;
-`
-export default LoginPage
+`;
+export default LoginPage;

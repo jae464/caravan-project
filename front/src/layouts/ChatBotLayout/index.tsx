@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "@emotion/styled";
-import "react-calendar/dist/Calendar.css";
-import useComponentHooks from "hooks/useComponentAdd";
+import React from 'react';
+import styled from '@emotion/styled';
+import 'react-calendar/dist/Calendar.css';
+import useComponentHooks from 'hooks/useComponentAdd';
 
 const ChatBotLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -50,7 +50,7 @@ const ChatbotNickname = styled.div`
 
 const Content = styled.div`
   display: flex;
-  width: 100%;
+  width: 60%;
   padding: 1rem;
   border-radius: 0.3rem;
   background-color: #efefef;

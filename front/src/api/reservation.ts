@@ -1,27 +1,50 @@
-import axios from "axios";
-import { Reservation } from "types/reservation";
-import { API_DESTINATION } from "utils/consts";
+/* eslint-disable no-empty */
+import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { userAtom } from 'recoil/user/atom';
+import { Reservation } from 'types/reservation';
+import { API_DESTINATION } from 'utils/consts';
+
+export const getAllReservation = async (userId: number) => {
+  try {
+    const result = await axios.get(`${API_DESTINATION}/reservation/${userId}`);
+    console.log(result);
+    return result.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 export const addReservation = async (reservation: Reservation) => {
   try {
     const result = await axios.post(
-      `${API_DESTINATION}/reservation`,
+      `${API_DESTINATION}/reservation/`,
+
       reservation
     );
     console.log(result);
   } catch (e) {}
 };
 
-export const removeReservation = async (key: number) => {
+export const removeReservation = async (id: number) => {
   try {
-    const result = await axios.delete(
-      `${API_DESTINATION}/reservation?id=${key}`
+    const result = await axios.delete(`${API_DESTINATION}/reservation/${id}`);
+    console.log(result);
+  } catch (e) {}
+};
+
+export const updateReservation = async (reservation: Reservation) => {
+  try {
+    const result = await axios.patch(
+      `${API_DESTINATION}/reservation/`,
+      reservation
     );
     console.log(result);
   } catch (e) {}
 };
 
-export const getAllReservation = async (): Promise<Reservation[]> => {
+
+export const fetchAllReservation = async (): Promise<Reservation[]> => {
   try {
     const result = await axios.get(`${API_DESTINATION}/reservation`);
     

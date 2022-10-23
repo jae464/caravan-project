@@ -6,10 +6,9 @@ import {
   JoinTable,
   ManyToOne,
   OneToOne,
-  JoinColumn,
-} from "typeorm";
-import { MeetingRoom } from "./MeetingRoom";
-import { User } from "./User";
+} from 'typeorm';
+import { MeetingRoom } from './MeetingRoom';
+import { User } from './User';
 
 @Entity()
 export class Reservation {
@@ -32,11 +31,9 @@ export class Reservation {
   @JoinTable()
   atendees: User[];
 
-  @ManyToOne(() => MeetingRoom, (meetingRoom) => meetingRoom.id, {
-    cascade: true,
-  })
+  @ManyToOne(() => MeetingRoom, meetingRoom => meetingRoom.id)
   meetingRoom: MeetingRoom;
 
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, user => user.id)
   user: User;
 }

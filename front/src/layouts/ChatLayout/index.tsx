@@ -1,30 +1,32 @@
-import React, { MouseEventHandler, useState } from "react";
-import styled from "@emotion/styled";
-import useComponentHooks from "hooks/useComponentAdd";
-import UserChatLayout from "layouts/UserChatLayout";
+import React, { MouseEventHandler, useState } from 'react';
+import styled from '@emotion/styled';
+import useComponentHooks from 'hooks/useComponentAdd';
+import UserChatLayout from 'layouts/UserChatLayout';
+
 
 type Props = {
   getText?: (text: string) => void;
 };
 const ChatLayout = ({ getText }: Props) => {
-  const [chat, setChat] = useState("");
+  const [chat, setChat] = useState('');
   const { components, setComponent, addComponent } = useComponentHooks([]);
 
   const onClick = (e: any) => {
     e.preventDefault();
     addComponent([<UserChatLayout>{chat}</UserChatLayout>]);
-    setChat("");
+    setChat('');
   };
 
   const onKeyDown = (e: any) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       console.log(e.nativeEvent.isComposing);
-      if (e.nativeEvent.isComposing === true || e.previouseKey === "Shift")
+      if (e.nativeEvent.isComposing === true || e.previouseKey === 'Shift')
         return;
       e.preventDefault();
-      if (chat === "") return;
+      if (chat === '') return;
       addComponent([<UserChatLayout>{chat}</UserChatLayout>]);
-      setChat("");
+      setChat('');
+
     }
   };
   const onChange = (e: any) => {
@@ -47,7 +49,12 @@ const ChatLayout = ({ getText }: Props) => {
 const ChatContainer = styled.div`
   display: flex;
   width: 800px;
+  // position: absolute;
+  // width: 80%;
+  // margin-top: -1rem;
   height: 2.6rem;
+  // border: none;
+  // overflow: scroll;
   bottom: 0px;
   padding: 0px;
   flex-direction: row;

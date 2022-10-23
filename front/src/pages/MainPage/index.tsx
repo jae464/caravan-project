@@ -1,19 +1,19 @@
-import React, { useState, useCallback } from "react";
-import axios, { AxiosRequestConfig } from "axios";
-import styled from "@emotion/styled";
-import Header from "layouts/Header";
-import Information from "components/Information";
-import { Link } from "react-router-dom";
-import ChatLayout from "layouts/ChatLayout";
-import AppLayout from "layouts/AppLayout";
-import UserChatLayout from "layouts/UserChatLayout";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { testAtom } from "recoil/test";
-import { userAtom } from "recoil/user/atom";
+import React, { useState, useCallback } from 'react';
+import axios, { AxiosRequestConfig } from 'axios';
+import styled from '@emotion/styled';
+import Header from 'layouts/Header';
+import Information from 'components/Information';
+import { Link } from 'react-router-dom';
+import ChatLayout from 'layouts/ChatLayout';
+import AppLayout from 'layouts/AppLayout';
+import UserChatLayout from 'layouts/UserChatLayout';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { testAtom } from 'recoil/test';
+import { userAtom } from 'recoil/user/atom';
 
 const MainPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [test, setTest] = useRecoilState(testAtom);
   const userState = useRecoilValue(userAtom);
 
@@ -21,13 +21,13 @@ const MainPage = () => {
 
   const getChat = (text: string) => {
     console.log(text);
-    if (text == "") return;
+    if (text == '') return;
     // setChat([...chat, text]);
     setArr([...arr, <UserChatLayout>{text}</UserChatLayout>]);
     setTest({ test: 2 });
   };
   const axiosConfig: AxiosRequestConfig = {
-    baseURL: "http://localhost:3000",
+    baseURL: 'http://localhost:3000',
     withCredentials: true,
   };
 
@@ -51,7 +51,7 @@ const MainPage = () => {
       id: email,
       password: password,
     };
-    const result = await client.post("/users", data);
+    const result = await client.post('/users', data);
     console.log(result);
   };
 
@@ -60,11 +60,11 @@ const MainPage = () => {
       <AppLayout name="KT 회의실 예약">
         <Information />
         <ItemList>
-          <Item to={userState.id ? "/reservation" : "/login"}>예약하기</Item>
-          <Item to={userState.id ? "/reservationStatus" : "/login"}>
+          <Item to={userState.id ? '/reservation' : '/login'}>예약하기</Item>
+          <Item to={userState.id ? '/reservationStatus' : '/login'}>
             예약현황 및 취소
           </Item>
-          <Item to={userState.id ? "/status" : "/login"}>회의실 현황</Item>
+          <Item to={userState.id ? '/status' : '/login'}>회의실 현황</Item>
         </ItemList>
       </AppLayout>
       <ChatLayout getText={getChat} />

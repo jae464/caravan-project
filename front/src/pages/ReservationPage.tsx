@@ -1,17 +1,16 @@
-import styled from "@emotion/styled";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import styled from '@emotion/styled';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import CalendarForm from "components/CalendarForm";
-import ReservationForm from "components/ReservationForm";
-import AppLayout from "layouts/AppLayout";
-import ChatBotLayout from "layouts/ChatBotLayout";
-import ChatLayout from "layouts/ChatLayout";
-import UserChatLayout from "layouts/UserChatLayout";
-import useAutoScroll from "hooks/useAutoScroll";
-import useComponentHooks from "hooks/useComponentAdd";
-import { useResetRecoilState } from "recoil";
-import reservationPageAtom from "recoil/reservationPage/atom";
-import ChatBotText from "design/ChatBotText";
+import CalendarForm from 'components/CalendarForm';
+import AppLayout from 'layouts/AppLayout';
+import ChatBotLayout from 'layouts/ChatBotLayout';
+import ChatLayout from 'layouts/ChatLayout';
+import UserChatLayout from 'layouts/UserChatLayout';
+import useAutoScroll from 'hooks/useAutoScroll';
+import useComponentHooks from 'hooks/useComponentAdd';
+import { useResetRecoilState } from 'recoil';
+import reservationPageAtom from 'recoil/reservationPage/atom';
+import ChatBotText from 'design/ChatBotText';
 
 const ReservationPage = () => {
   const { components, setComponent, addComponent } = useComponentHooks([]);
@@ -23,6 +22,7 @@ const ReservationPage = () => {
         <CalendarForm />
       </ChatBotLayout>,
     ]);
+    console.log(components);
   };
 
   useEffect(() => {
@@ -39,7 +39,6 @@ const ReservationPage = () => {
       </ChatBotLayout>,
     ]);
   };
-
   useEffect(() => {
     scrollToBottom();
   }, [components]);
@@ -49,7 +48,7 @@ const ReservationPage = () => {
       <Wrapper>
         <AppLayout name="예약하기">
           <div ref={scrollRef}>
-            {components.components.map((v) => {
+            {components.components.map(v => {
               return <>{v}</>;
             })}
           </div>

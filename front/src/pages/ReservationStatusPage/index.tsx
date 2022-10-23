@@ -3,61 +3,53 @@ import React, {
   useCallback,
   MouseEventHandler,
   useEffect,
-} from "react";
-import styled from "@emotion/styled";
+} from 'react';
+import styled from '@emotion/styled';
 
-import { Reservation } from "types/reservation";
+import { Reservation } from 'types/reservation';
 
-import AppLayout from "layouts/AppLayout";
-import ChatBotLayout from "layouts/ChatBotLayout";
-import ChatLayout from "layouts/ChatLayout";
-import UserChatLayout from "layouts/UserChatLayout";
-import StatusItem from "components/StatusItem";
-import ReservationForm from "components/ReservationForm";
-import CancelForm from "components/CancelForm";
-import ReservationInfoForm from "components/ReservationInfoForm";
+import AppLayout from 'layouts/AppLayout';
+import ChatBotLayout from 'layouts/ChatBotLayout';
+import ChatLayout from 'layouts/ChatLayout';
+import StatusItem from 'components/StatusItem';
 
-import ChatBotText from "design/ChatBotText";
+import ChatBotText from 'design/ChatBotText';
 
-import useAutoScroll from "hooks/useAutoScroll";
-import useComponentHooks from "hooks/useComponentAdd";
-import { useRecoilState, useRecoilValue } from "recoil";
-import e from "express";
+import useAutoScroll from 'hooks/useAutoScroll';
+import useComponentHooks from 'hooks/useComponentAdd';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import useReservationListHooks from 'hooks/useReservationList';
+
+import { getAllReservation } from 'api/reservation';
+import reservationListAtom, {
+  ReservationList,
+} from 'recoil/reservationStatusPage/atom';
+import { userAtom } from 'recoil/user/atom';
 
 const ReservationStatusPage = () => {
-  const [reservationList, setReservationList] = useState<Reservation[]>([]);
+  // const [reservationList, setReservationList] = useState<Reservation[]>([{ id:0, userId:1, roomId:2, name:'3', meetingDate: new Date(), startTime:5, endTime:6}]);
 
+  const { reservationList, setReservationList, addReservation } =
+    useReservationListHooks([]);
+  const [userState, setUserState] = useRecoilState(userAtom);
   const { components, setComponent, addComponent } = useComponentHooks([]);
   const [scrollRef, scrollToBottom] = useAutoScroll();
+  const [flag, setFlag] = useState(false);
+  const resetRervRecoil = useResetRecoilState(reservationListAtom);
 
-  const onClick = (info: Reservation) => {
-    addComponent([
-      <ChatBotLayout>
-        <ReservationInfoForm reservation={info} />
-      </ChatBotLayout>,
-    ]);
-  };
-
-  const getItemInfo = (key: string): Reservation => {
+  const setItemList = async () => {
     // db에 저장된 data 가져와야함
-    let tmp: Reservation;
-    tmp = {
-      userId: 1,
-      roomId: 2,
-      name: "3",
-      meetingDate: new Date(4),
-      startTime: 5,
-      endTime: 6,
-    };
-    return tmp;
+    const reservList = await getAllReservation(userState.id!);
+    console.log(reservList);
+    setReservationList(reservList);
+    console.log(reservationList);
+    setFlag(true);
   };
-
-  useEffect(() => {
-    initComponents();
-  }, []);
 
   const initComponents = async () => {
-    if (reservationList?.length == 0) {
+    console.log(reservationList);
+    console.log('initComponents', flag);
+    if (reservationList.length == 0 && flag) {
       addComponent([
         <ChatBotLayout>
           <ChatBotText>예약 정보가 없습니다.</ChatBotText>
@@ -74,14 +66,26 @@ const ReservationStatusPage = () => {
         </ChatBotLayout>,
         <ChatBotLayout>
           <ItemContainer>
-            {reservationList!.map((m) => {
-              return <StatusItem reservation={m} />;
+            <TitleText>예약 현황</TitleText>
+            {reservationList.map(m => {
+              return <StatusItem info={m} />;
             })}
           </ItemContainer>
         </ChatBotLayout>,
       ]);
     }
   };
+
+  useEffect(() => {
+    console.log('첫번째 useEffect');
+    setItemList();
+  }, []);
+
+  useEffect(() => {
+    if (!flag) return;
+    initComponents();
+  }, [flag, reservationList]);
+
 
   useEffect(() => {
     scrollToBottom();
@@ -91,18 +95,21 @@ const ReservationStatusPage = () => {
     <>
       <AppLayout>
         <div ref={scrollRef}>
-          {components.components.map((v) => {
-            return <>{v}</>;
-          })}
+          {components && <></>}
+          {flag &&
+            components.components.map(v => {
+              return <>{v}</>;
+            })}
         </div>
       </AppLayout>
       <ChatLayout />
+      <button onClick={resetRervRecoil}>리코일초기화</button>
     </>
   );
 };
 
 const MainContainer = styled.div`
-  dispaly: flex;
+  display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
@@ -110,11 +117,20 @@ const MainContainer = styled.div`
 `;
 
 const ItemContainer = styled.div`
-  dispaly: flex;
+  display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
   // border: 1px solid black;
+`;
+
+const TitleText = styled.h3`
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #c1c1c1;
+  padding-bottom: 5px;
+  color: #8a8a8a;
 `;
 
 export default ReservationStatusPage;

@@ -1,5 +1,6 @@
-import axios from "axios";
-import { API_DESTINATION } from "utils/consts";
+/* eslint-disable no-empty */
+import axios from 'axios';
+import { API_DESTINATION } from 'utils/consts';
 
 export const getAllRoom = async (floor: string) => {
   try {
@@ -9,4 +10,13 @@ export const getAllRoom = async (floor: string) => {
   } catch (e) {}
 };
 
-export const meetingRoomReservationStatus = async () => {};
+
+export const getRoomById = async (roomId: number) => {
+  try {
+    const result = await axios.get(
+      `${API_DESTINATION}/meetingroom/room/${roomId}`
+    );
+    return result.data;
+  } catch (e) {}
+};
+
