@@ -9,14 +9,12 @@ const useForm = ({ initialValues, onSubmit, validate, onCancel }: any) => {
     setValues({ ...values, [name]: value });
   };
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.log(values);
+  const handleSubmit = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
-    console.log(e);
     const result = await validate(values);
-    console.log(result);
-    if (result)
-    return;
+    if (result) return;
     onSubmit(values);
   };
 
