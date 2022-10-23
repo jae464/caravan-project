@@ -1,6 +1,6 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { ReservationRegisterData } from "types/ReservationRegisterData";
-import { API_DESTINATION } from "utils/consts";
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { ReservationRegisterData } from 'types/ReservationRegisterData';
+import { API_DESTINATION } from 'utils/consts';
 
 const reservationRegister = (data: ReservationRegisterData) => {
   return axios

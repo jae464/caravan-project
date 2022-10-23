@@ -1,8 +1,6 @@
-import {atom} from "recoil";
-
+import { atom } from 'recoil';
 
 export const testAtom = atom<{ test: number }>({
-    key: 'test',
-    default: {test: 1}
-  });
-  
+  key: 'test',
+  default: { test: 1 },
+});

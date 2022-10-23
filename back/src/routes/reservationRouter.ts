@@ -15,7 +15,7 @@ router.get("/:id", async (req: Request, res: Response) => {
         meetingRoom: true,
         user: true,
         // atendees: true
-      },   
+      },
     }
   )
   const result = reservations.map((reserv) => (
