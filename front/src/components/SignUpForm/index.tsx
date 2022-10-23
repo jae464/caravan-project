@@ -3,37 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import useForm from 'hooks/useForm';
 import {getUserByEmployeeNumber, signUp } from 'api/user';
+import useInput from 'hooks/useInput';
 
 
 const SignUpForm = () => {
     const navigate = useNavigate();
-    const [values, errors, handleChange, handleSubmit] = useForm({
-        initialValues: {
-            employeeNumber: '',
-            password: '',
-            name: '',
-        },
-        validate: (values: any) => {
-            return getUserByEmployeeNumber(values.employeeNumber);
-        },
-        onSubmit: (values: any) => {
-            signUp(values.employeeNumber, values.password, values.name);
-        },
-        onCancle: () => {
-            alert("가입 취소")
-        }
-    })
+    const [employeeNumber, onChangeEmployeeNumber] = useInput('')
+    const [password, onChangePassword] = useInput('');
+    const [name, onChangeName] = useInput('');
 
     const onSubmit = async (e: any) => {
         e.preventDefault();
-        const checkUser = await getUserByEmployeeNumber(values.employeeNumber);
+        const checkUser = await getUserByEmployeeNumber(employeeNumber);
         console.log(checkUser);
         if (checkUser) {
             alert("이미 존재하는 사번입니다.");
             return;
         }
-        console.log(values.employeeNumber);
-        signUp(values.employeeNumber, values.password, values.name);
+        console.log(employeeNumber);
+        signUp(employeeNumber, password, name);
         alert("가입이 완료되었습니다.");
         navigate('/login');     
     }
@@ -48,8 +36,8 @@ const SignUpForm = () => {
                 name='employeeNumber'
                 id='employeeNumber'
                 placeholder='사번을 입력하세요.'
-                value={values.employeeNumber}
-                onChange={handleChange}
+                value={employeeNumber}
+                onChange={onChangeEmployeeNumber}
             />
         </InputContainer>
         <InputContainer>
@@ -59,8 +47,8 @@ const SignUpForm = () => {
                 name='password'
                 id='password'
                 placeholder='비밀번호를 입력하세요.'
-                value={values.password}
-                onChange={handleChange}
+                value={password}
+                onChange={onChangePassword}
             />
         </InputContainer>
         <InputContainer>
@@ -70,8 +58,8 @@ const SignUpForm = () => {
                 name='name'
                 id='name'
                 placeholder='이름을 입력하세요.'
-                value={values.name}
-                onChange={handleChange}
+                value={name}
+                onChange={onChangeName}
             />
         </InputContainer>
         <LoginButton onClick={onSubmit}>회원가입</LoginButton>
