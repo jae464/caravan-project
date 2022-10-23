@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne, OneToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  JoinTable,
+  ManyToOne,
+  OneToOne,
+} from "typeorm";
 import { MeetingRoom } from "./MeetingRoom";
 import { User } from "./User";
 
@@ -9,7 +17,7 @@ export class Reservation {
 
   @Column()
   name: string;
-  
+
   @Column()
   meetingDate: Date;
 
@@ -23,10 +31,11 @@ export class Reservation {
   @JoinTable()
   atendees: User[];
 
-  @ManyToOne(() => MeetingRoom, (meetingRoom) => meetingRoom.id, {cascade: true})
+  @ManyToOne(() => MeetingRoom, (meetingRoom) => meetingRoom.id, {
+    cascade: true,
+  })
   meetingRoom: MeetingRoom;
 
   @ManyToOne(() => User, (user) => user.id)
-  user: User
-
+  user: User;
 }
