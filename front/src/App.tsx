@@ -8,6 +8,7 @@ import ReservationStatusPage from 'pages/ReservationStatusPage';
 import { RecoilRoot } from 'recoil';
 import LoginPage from 'pages/LoginPage';
 import SignUpPage from 'pages/SignUpPage';
+import MeetingRoomStatusPage from "pages/MeetingRoomStatusPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               path="/reservationStatus"
               element={<ReservationStatusPage />}
             />
+            <Route path="/status" element={<MeetingRoomStatusPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="*" element={<>404</>} />

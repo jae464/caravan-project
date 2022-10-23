@@ -39,10 +39,10 @@ const ReservationPage = () => {
       </ChatBotLayout>,
     ]);
   };
-
   useEffect(() => {
     scrollToBottom();
   }, [components]);
+
   return (
     <>
       <Wrapper>

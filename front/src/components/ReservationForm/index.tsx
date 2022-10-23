@@ -110,12 +110,11 @@ const ReservationForm = ({ info }: { info?: Reservation }) => {
   });
 
   const onChangeMeetingName = (e: any) => {
-    setReservation(prev => ({
+    setReservation((prev) => ({
       ...prev,
       name: e.target.value,
     }));
   };
-
   const updateRoom = async () => {
     const result = await getRoomById(reservation.meetingRoomId!);
     console.log(result);

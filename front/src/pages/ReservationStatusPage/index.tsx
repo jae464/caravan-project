@@ -75,6 +75,7 @@ const ReservationStatusPage = () => {
       ]);
     }
   };
+
   useEffect(() => {
     console.log('첫번째 useEffect');
     setItemList();
@@ -84,6 +85,7 @@ const ReservationStatusPage = () => {
     if (!flag) return;
     initComponents();
   }, [flag, reservationList]);
+
 
   useEffect(() => {
     scrollToBottom();
