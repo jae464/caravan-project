@@ -6,6 +6,7 @@ import {
   JoinTable,
   ManyToOne,
   OneToOne,
+  JoinColumn,
 } from "typeorm";
 import { MeetingRoom } from "./MeetingRoom";
 import { User } from "./User";

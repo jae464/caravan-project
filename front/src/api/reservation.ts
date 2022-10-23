@@ -24,6 +24,7 @@ export const removeReservation = async (key: number) => {
 export const getAllReservation = async (): Promise<Reservation[]> => {
   try {
     const result = await axios.get(`${API_DESTINATION}/reservation`);
+    
     return result.data;
   } catch (e) {}
   return [];
