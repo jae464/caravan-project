@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import MainPage from "./pages/MainPage";
+import MainPage from "pages/MainPage";
 import DetailPage from "pages/DetailPage";
 import ReservationPage from "pages/ReservationPage";
 import ReservationStatusPage from "pages/ReservationStatusPage";

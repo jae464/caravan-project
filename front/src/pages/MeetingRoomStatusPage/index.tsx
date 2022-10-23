@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { Reservation } from "types/reservation";
 
 const MeetingRoomStatusPage = () => {
-  const { components, clearComponent, addComponent } = useComponentHooks([]);
+  const { components, addComponent } = useComponentHooks([]);
   const [scrollRef, scrollToBottom] = useAutoScroll();
   const currentDate = moment().format("YYYY-MM-DD HHMM");
   const [reservationList, setReservationList] = useState<Reservation[] | null>(
@@ -25,7 +25,7 @@ const MeetingRoomStatusPage = () => {
   useEffect(() => {
     (async () => {
       const data: Reservation[] = await getAllReservation();
-      console.log("data :", data);
+      console.log("data : ", data);
       setReservationList(
         data.filter((e: Reservation) => {
           const startTime = e.startTime ?? 0;
@@ -47,11 +47,10 @@ const MeetingRoomStatusPage = () => {
   };
 
   useEffect(() => {
-    initComponents();
+    reservationList && initComponents();
   }, [reservationList]);
 
   const initComponents = async () => {
-    clearComponent();
     addComponent([
       <>
         <ChatBotLayout>
