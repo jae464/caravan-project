@@ -37,7 +37,13 @@ router.post("/", async (req: Request, res: Response) => {
 
 router.get("/", async (req: Request, res: Response) => {
   const reservationRepository = AppDataSource.getRepository(Reservation);
-  const reservationList = await reservationRepository.find();
+  const meetingRoomRepository = AppDataSource.getRepository(MeetingRoom);
+
+  const reservationList = await reservationRepository
+    .createQueryBuilder("reservation")
+    .leftJoinAndSelect("reservation.meetingRoom", "meetingRoom")
+    .getMany();
+
   return res.json(reservationList);
 });
 

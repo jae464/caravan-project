@@ -6,4 +6,5 @@ export interface Reservation {
   meetingDate?: Date;
   startTime?: number;
   endTime?: number;
+  meetingRoom?: Room;
 }
