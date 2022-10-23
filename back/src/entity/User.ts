@@ -1,22 +1,22 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
-import { Reservation } from "./Reservation";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Reservation } from './Reservation';
 
 @Entity()
 export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column()
+  employeeNumber: number;
 
-    @Column()
-    employeeNumber: number;
+  @Column()
+  password: string;
 
-    @Column()
-    password: string;
+  @Column()
+  name: string;
 
-    @Column()
-    name: string;
-
-    @OneToMany(() => Reservation, (reservation) => reservation.id, {cascade: true})
-    reservation: Reservation[];
-
+  @OneToMany(() => Reservation, reservation => reservation.id, {
+    cascade: true,
+  })
+  reservation: Reservation[];
 }
