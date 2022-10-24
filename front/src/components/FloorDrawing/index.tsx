@@ -89,9 +89,7 @@ const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
           <StyledFloorDrawingColumn className={'firstColumn'}>
             <StyledFloorDrawingColumnItem
               className="15C.01"
-              style={{
-                marginBottom: '30px',
-              }}
+              style={{ borderBottom: 'none' }}
             >
               15C.01
             </StyledFloorDrawingColumnItem>
@@ -110,31 +108,37 @@ const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
               className="15C.02"
-              style={{ borderTop: 'none' }}
+              style={{ borderTop: 'none', borderBottom: 'none' }}
             ></StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem
-              className="15C.03"
-              style={{ marginTop: '30px' }}
-            >
+            <StyledFloorDrawingColumnItem className="15C.03">
               15C.03
             </StyledFloorDrawingColumnItem>
           </StyledFloorDrawingColumn>
         </>
         <>
-          <StyledFloorDrawingColumn
-            className={'firstColumn'}
-            style={{ gap: '15px' }}
-          >
-            <StyledFloorDrawingColumnItem className="15C.08">
+          <StyledFloorDrawingColumn className={'firstColumn'}>
+            <StyledFloorDrawingColumnItem
+              className="15C.08"
+              style={{ borderBottom: 'none' }}
+            >
               15C.08
             </StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem className="15C.07">
+            <StyledFloorDrawingColumnItem
+              className="15C.07"
+              style={{ borderBottom: 'none' }}
+            >
               15C.07
             </StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem className="15C.06">
+            <StyledFloorDrawingColumnItem
+              className="15C.06"
+              style={{ borderBottom: 'none' }}
+            >
               15C.06
             </StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem className="15C.05">
+            <StyledFloorDrawingColumnItem
+              className="15C.05"
+              style={{ borderBottom: 'none' }}
+            >
               15C.05
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem className="15C.04">
@@ -149,7 +153,7 @@ const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
 
 const StyledFloorDrawing = styled.div`
   margin: 0 auto;
-  height: 1000px;
+  height: 650px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -158,15 +162,15 @@ const StyledFloorDrawing = styled.div`
 
 const StyledFloorDrawingColumn = styled.div`
   display: flex;
-  width: 230px;
+  width: 75px;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
 `;
 
 const StyledFloorDrawingColumnItem = styled.div`
-  width: 230px;
+  width: 75px;
   cursor: pointer;
-  height: 150px;
+  height: 100px;
   text-align: center;
   line-height: 150px;
   background-color: #d9d9d9;
