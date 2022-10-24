@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { fetchAllReservation } from 'api/reservation';
+import { fetchAllReservation, getReservationByDate } from 'api/reservation';
 import FloorDrawing from 'components/FloorDrawing';
 import ReservationButton from 'components/ReservationButton';
 import ChatBotText from 'design/ChatBotText';
@@ -24,7 +24,7 @@ const MeetingRoomStatusPage = () => {
 
   useEffect(() => {
     (async () => {
-      const data: Reservation[] = await fetchAllReservation();
+      const data: Reservation[] = await getReservationByDate(new Date());
       console.log('data : ', data);
       setReservationList(
         data.filter((e: Reservation) => {

@@ -22,20 +22,22 @@ const CalendarForm = () => {
   const checkDateValidation = () => {
     const today = new Date();
     console.log('입력받은 날짜 : ', value, '오늘 날짜 : ', today);
+    if (!reservation.meetingDate) return;
+
     if (
-      reservation.meetingDate!.getFullYear() < today.getFullYear() ||
-      (reservation.meetingDate!.getFullYear() === today.getFullYear() &&
+      reservation.meetingDate.getFullYear() < today.getFullYear() ||
+      (reservation.meetingDate.getFullYear() === today.getFullYear() &&
         value.getMonth() < today.getMonth()) ||
-      (reservation.meetingDate!.getFullYear() === today.getFullYear() &&
+      (reservation.meetingDate.getFullYear() === today.getFullYear() &&
         value.getMonth() === today.getMonth() &&
-        reservation.meetingDate!.getDate() < today.getDate())
+        reservation.meetingDate.getDate() < today.getDate())
     ) {
       console.log('이미 지난 날짜입니다.');
       return false;
     }
     setReservation(prev => ({
       ...prev,
-      meetingDate: reservation.meetingDate!,
+      meetingDate: reservation.meetingDate,
     }));
     return true;
   };
@@ -94,7 +96,7 @@ const CalendarForm = () => {
           {moment(reservation.meetingDate).format('YYYY년 MM월 DD일')}
         </span>
       </DateContainer>
-      <MeetingRoomForm />
+      <MeetingRoomForm date={reservation.meetingDate} />
       <NextButton onClick={onClick} clickable={!reservation.done}>
         다음
       </NextButton>

@@ -5,13 +5,21 @@ import { reservationAtom } from 'recoil/reservation/atom';
 import { useRecoilState } from 'recoil';
 import { getAllRoom } from 'api/meetingRoom';
 import { Room } from 'types/room';
+import { Reservation } from 'types/reservation';
+import { getReservationByDate } from 'api/reservation';
+import FloorDrawing from 'components/FloorDrawing';
 
-const MeetingRoomForm = () => {
+const MeetingRoomForm = ({ date }: { date?: Date }) => {
   const [reservation, setReservation] = useRecoilState(reservationAtom);
   const [startTimeArr, setStartTimeArr] = useState(time_range);
   const [endTimeArr, setEndTimeArr] = useState(time_range);
   const [floor, setFloor] = useState('15'); // default 15층
   const [roomList, setRoomList] = useState<Room[]>([]);
+
+  // reservationList 는 해당 시간대에 포함된 예약들만 저장하도록
+  const [reservationList, setReservationList] = useState<Reservation[] | null>(
+    null
+  );
 
   const onChangeFloor = (e: any) => {
     setFloor(e.target.value);
@@ -54,6 +62,10 @@ const MeetingRoomForm = () => {
     console.log(result);
   };
 
+  const fetchReservationList = async (date: Date) => {
+    const result = await getReservationByDate(date);
+    setReservationList(result);
+  };
   useEffect(() => {
     setReservation(prev => ({
       ...prev,
@@ -63,10 +75,15 @@ const MeetingRoomForm = () => {
 
   useEffect(() => {
     console.log(`floor 가 ${floor}층으로 변경되었습니다.`);
-
-    // TODO 해당 Floor 의 회의실을 가져오는 API 호출
     fetchRoomList();
   }, [floor]);
+
+  useEffect(() => {
+    // 날짜가 변할때 마다 해당 날짜의 예약 정보를 가져온다.
+    console.log(date);
+    if (!date) return;
+    fetchReservationList(date);
+  }, [date]);
 
   return (
     <>
@@ -116,7 +133,7 @@ const MeetingRoomForm = () => {
               <span>예약불가</span>
             </div>
           </div>
-          <MeetingRoomImage>
+          {/* <MeetingRoomImage>
             {roomList &&
               roomList.map((room: Room) => {
                 return (
@@ -131,7 +148,8 @@ const MeetingRoomForm = () => {
                   </div>
                 );
               })}
-          </MeetingRoomImage>
+          </MeetingRoomImage> */}
+          <FloorDrawing reservationList={reservationList} />
         </MeetingRoomContainer>
       </Container>
     </>
