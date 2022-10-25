@@ -7,8 +7,7 @@ import moment from 'moment';
 const router = express.Router();
 
 router.get('/:id', async (req: Request, res: Response) => {
-  // console.log('test')
-  // const reservations = await AppDataSource.getRepository(Reservation).find();
+
   const reservations = await AppDataSource.getRepository(Reservation).find({
     relations: {
       meetingRoom: true,
@@ -16,7 +15,8 @@ router.get('/:id', async (req: Request, res: Response) => {
       // atendees: true
     },
   });
-  const result = reservations.map(reserv =>
+  
+  var result = reservations.map(reserv =>
     reserv.user.id == Number(req.params.id)
       ? {
           id: reserv.id,
@@ -30,6 +30,8 @@ router.get('/:id', async (req: Request, res: Response) => {
         }
       : null
   );
+  
+  result = result.filter(v => v);
 
   result.sort((a: any, b: any) => {
     return a.meetingDate!.valueOf() - b.meetingDate!.valueOf();
