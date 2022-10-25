@@ -75,7 +75,8 @@ const MeetingRoomForm = ({ date }: { date?: Date }) => {
   };
   useEffect(() => {
     setStartTimeArr(time_range.slice(0, -1));
-  });
+    setEndTimeArr(time_range.slice(1));
+  }, []);
   useEffect(() => {
     setReservation(prev => ({
       ...prev,
