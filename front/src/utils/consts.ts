@@ -26,4 +26,19 @@ const time_range = [
 
 const floor_list = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
-export { API_DESTINATION, time_range, floor_list };
+const room_list = [
+  '',
+  '15C.07',
+  '15C.01',
+  '15C.03',
+  '15C.06',
+  '15E.01',
+  '15C.08',
+  '15C.04',
+  '15E.05',
+  '15E.03',
+  '15C.02',
+  '15C.05',
+  '15E.02',
+];
+export { API_DESTINATION, time_range, floor_list, room_list };

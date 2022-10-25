@@ -8,6 +8,7 @@ import { Room } from 'types/room';
 import { Reservation } from 'types/reservation';
 import { getReservationByDate } from 'api/reservation';
 import FloorDrawing from 'components/FloorDrawing';
+import { filterAvailableReservation } from 'utils/util';
 
 const MeetingRoomForm = ({ date }: { date?: Date }) => {
   const [reservation, setReservation] = useRecoilState(reservationAtom);
@@ -34,7 +35,7 @@ const MeetingRoomForm = ({ date }: { date?: Date }) => {
 
     // 끝 시간을 현재 시작 시간 기준으로 더 나중 값만 가져옴
     const needEndTimeArr = time_range.filter(v => {
-      return v.value >= e.target.value;
+      return v.value > e.target.value;
     });
 
     setEndTimeArr(needEndTimeArr);
@@ -64,8 +65,17 @@ const MeetingRoomForm = ({ date }: { date?: Date }) => {
 
   const fetchReservationList = async (date: Date) => {
     const result = await getReservationByDate(date);
-    setReservationList(result);
+    const filteredReservationList = filterAvailableReservation(
+      reservation.startTime!,
+      reservation.endTime!,
+      result
+    );
+    console.log(filteredReservationList);
+    setReservationList(filteredReservationList);
   };
+  useEffect(() => {
+    setStartTimeArr(time_range.slice(0, -1));
+  });
   useEffect(() => {
     setReservation(prev => ({
       ...prev,
@@ -83,7 +93,7 @@ const MeetingRoomForm = ({ date }: { date?: Date }) => {
     console.log(date);
     if (!date) return;
     fetchReservationList(date);
-  }, [date]);
+  }, [date, reservation.startTime, reservation.endTime]);
 
   return (
     <>

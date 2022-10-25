@@ -21,7 +21,6 @@ export const addReservation = async (reservation: Reservation) => {
     console.log(reservation);
     const result = await axios.post(
       `${API_DESTINATION}/reservation/`,
-
       reservation
     );
     console.log(result);

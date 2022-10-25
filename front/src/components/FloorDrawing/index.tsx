@@ -2,26 +2,66 @@ import styled from '@emotion/styled';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { reservationAtom } from 'recoil/reservation/atom';
 import { Reservation } from 'types/reservation';
+import { getRoomIdByRoomName } from 'utils/util';
 
 interface FloorDrawingProps {
   reservationList: Reservation[] | null;
 }
 
 const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
+  const [reservation, setReservation] = useRecoilState(reservationAtom);
+
   const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLDivElement;
     if (!target.className.includes('15')) return;
+    console.log(target.className.split(' ')[0]);
+    const meetingRoomName = target.className.split(' ')[0];
+    console.log(`id ${getRoomIdByRoomName(meetingRoomName)}`);
+    setReservation(prev => ({
+      ...prev,
+      meetingRoomId: getRoomIdByRoomName(meetingRoomName),
+    }));
+
+    // 클릭 외 나머지 회의실 색상 초기화
+    resetBackgroundColor();
+    // 클릭 회의실 파란색으로 표시
+    const selectedTarget: NodeListOf<Element> = document.querySelectorAll(
+      `[class*='${meetingRoomName}']`
+    );
+    selectedTarget.forEach((v: any) => {
+      v.style.backgroundColor = 'blue';
+    });
   };
 
+  const resetBackgroundColor = () => {
+    const target: NodeListOf<Element> = document.querySelectorAll('.m');
+    target.forEach((v: any) => {
+      if (v.style.backgroundColor === 'blue') {
+        v.style.backgroundColor = '#d9d9d9';
+        v.style.pointerEvents = 'auto';
+      }
+    });
+  };
   useEffect(() => {
+    console.log('FloorDrawing');
+    const allTarget: NodeListOf<Element> = document.querySelectorAll('.m');
+    allTarget.forEach((v: any) => {
+      v.style.backgroundColor = '#d9d9d9';
+      v.style.pointerEvents = 'auto';
+    });
     reservationList?.map((e: Reservation) => {
+      console.log(e);
       const { name } = e.meetingRoom;
+
       const target: NodeListOf<Element> = document.querySelectorAll(
         `[class*='${name}']`
       );
       target.forEach((e: any) => {
         e.style.backgroundColor = 'red';
+        e.style.pointerEvents = 'none';
       });
     });
   }, [reservationList]);
@@ -41,13 +81,13 @@ const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
               style={{ backgroundColor: 'transparent', border: 'none' }}
             ></StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
-              className="15E.02"
+              className="15E.02 m"
               style={{
                 borderBottom: 'none',
               }}
             ></StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
-              className="15E.02"
+              className="15E.02 m"
               style={{
                 borderBottom: 'none',
                 borderTop: 'none',
@@ -56,7 +96,7 @@ const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
               15E.02
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
-              className="15E.02"
+              className="15E.02 m"
               style={{
                 borderTop: 'none',
               }}
@@ -71,13 +111,13 @@ const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
             <StyledFloorDrawingColumnItem
               style={{ backgroundColor: 'transparent', border: 'none' }}
             ></StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem className="15E.01">
+            <StyledFloorDrawingColumnItem className="15E.01 m">
               15E.01
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
               style={{ backgroundColor: 'transparent', border: 'none' }}
             ></StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem className="15E.03">
+            <StyledFloorDrawingColumnItem className="15E.03 m">
               15E.03
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
@@ -88,17 +128,17 @@ const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
         <>
           <StyledFloorDrawingColumn className={'firstColumn'}>
             <StyledFloorDrawingColumnItem
-              className="15C.01"
+              className="15C.01 m"
               style={{ borderBottom: 'none' }}
             >
               15C.01
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
-              className="15C.02"
+              className="15C.02 m"
               style={{ borderBottom: 'none' }}
             ></StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
-              className="15C.02"
+              className="15C.02 m"
               style={{
                 borderBottom: 'none',
                 borderTop: 'none',
@@ -107,10 +147,10 @@ const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
               15C.02
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
-              className="15C.02"
+              className="15C.02 m"
               style={{ borderTop: 'none', borderBottom: 'none' }}
             ></StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem className="15C.03">
+            <StyledFloorDrawingColumnItem className="15C.03 m">
               15C.03
             </StyledFloorDrawingColumnItem>
           </StyledFloorDrawingColumn>
@@ -118,30 +158,30 @@ const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
         <>
           <StyledFloorDrawingColumn className={'firstColumn'}>
             <StyledFloorDrawingColumnItem
-              className="15C.08"
+              className="15C.08 m"
               style={{ borderBottom: 'none' }}
             >
               15C.08
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
-              className="15C.07"
+              className="15C.07 m"
               style={{ borderBottom: 'none' }}
             >
               15C.07
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
-              className="15C.06"
+              className="15C.06 m"
               style={{ borderBottom: 'none' }}
             >
               15C.06
             </StyledFloorDrawingColumnItem>
             <StyledFloorDrawingColumnItem
-              className="15C.05"
+              className="15C.05 m"
               style={{ borderBottom: 'none' }}
             >
               15C.05
             </StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem className="15C.04">
+            <StyledFloorDrawingColumnItem className="15C.04 m">
               15C.04
             </StyledFloorDrawingColumnItem>
           </StyledFloorDrawingColumn>
