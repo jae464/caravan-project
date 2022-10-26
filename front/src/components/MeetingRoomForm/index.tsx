@@ -65,6 +65,7 @@ const MeetingRoomForm = ({ date }: { date?: Date }) => {
 
   const fetchReservationList = async (date: Date) => {
     const result = await getReservationByDate(date);
+    console.log(result);
     const filteredReservationList = filterAvailableReservation(
       reservation.startTime!,
       reservation.endTime!,

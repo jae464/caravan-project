@@ -5,7 +5,7 @@ import useForm from 'hooks/useForm';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { reservationAtom } from 'recoil/reservation/atom';
 import moment from 'moment';
-import { time_range } from 'utils/consts';
+import { room_list, time_range } from 'utils/consts';
 import { addReservation, updateReservation } from 'api/reservation';
 import { userAtom } from 'recoil/user/atom';
 import useComponentHooks from 'hooks/useComponentAdd';
@@ -115,20 +115,20 @@ const ReservationForm = ({ info }: { info?: Reservation }) => {
       name: e.target.value,
     }));
   };
-  const updateRoom = async () => {
-    const result = await getRoomById(reservation.meetingRoomId!);
-    console.log(result);
-    setRoom(result.name);
-  };
+  // const updateRoom = async () => {
+  //   const result = await getRoomById(reservation.meetingRoomId!);
+  //   console.log(result);
+  //   setRoom(result.name);
+  // };
   useEffect(() => {
     console.log(reservation);
     setValues({ meetingRoom: info?.meetingRoomId });
   }, []);
 
   // room 의 이름 가져오기
-  useEffect(() => {
-    updateRoom();
-  }, []);
+  // useEffect(() => {
+  //   updateRoom();
+  // }, []);
   return (
     <StyledReservationForm>
       <StyledReservationInputContainer>
@@ -140,7 +140,7 @@ const ReservationForm = ({ info }: { info?: Reservation }) => {
           disabled
           placeholder={room}
           onChange={handleChange}
-          value={room}
+          value={room_list[reservation.meetingRoomId!]}
         />
       </StyledReservationInputContainer>
 

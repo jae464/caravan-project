@@ -80,4 +80,20 @@ export const meetingRooms: MeetingRoomState[] = [
     isVideoConference: false,
     capacity: 6,
   },
+  {
+    floor: 15,
+    name: '15C.02',
+    isTv: false,
+    isProjector: false,
+    isVideoConference: false,
+    capacity: 6,
+  },
+  {
+    floor: 15,
+    name: '15E.02',
+    isTv: true,
+    isProjector: true,
+    isVideoConference: true,
+    capacity: 10,
+  },
 ];

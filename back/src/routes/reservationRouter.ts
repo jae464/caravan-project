@@ -29,9 +29,8 @@ router.get('/:id', async (req: Request, res: Response) => {
         }
       : null
   );
-
-  result = result.filter(v => v);
-
+  console.log(result);
+  result = result.filter(v=>v);
   result.sort((a: any, b: any) => {
     return a.meetingDate!.valueOf() - b.meetingDate!.valueOf();
   });

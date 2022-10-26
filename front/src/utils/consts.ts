@@ -31,14 +31,13 @@ const room_list = [
   '15C.07',
   '15C.01',
   '15C.03',
-  '15C.06',
-  '15E.01',
-  '15C.08',
   '15C.04',
-  '15E.05',
+  '15C.06',
+  '15C.08',
+  '15E.01',
   '15E.03',
+  '15E.05',
   '15C.02',
-  '15C.05',
   '15E.02',
 ];
 export { API_DESTINATION, time_range, floor_list, room_list };
