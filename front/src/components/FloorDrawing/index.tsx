@@ -26,22 +26,23 @@ const FloorDrawing = ({ reservationList, isStatusPage }: FloorDrawingProps) => {
       meetingRoomId: getRoomIdByRoomName(meetingRoomName),
     }));
 
-    // 클릭 외 나머지 회의실 색상 초기화
+    // 전에 클릭했던 회의실 색깔 바꾸기
     resetBackgroundColor();
     // 클릭 회의실 파란색으로 표시
     const selectedTarget: NodeListOf<Element> = document.querySelectorAll(
       `[class*='${meetingRoomName}']`
     );
     selectedTarget.forEach((v: any) => {
-      v.style.backgroundColor = 'blue';
+      v.style.backgroundColor = 'lightgrey';
     });
   };
 
   const resetBackgroundColor = () => {
     const target: NodeListOf<Element> = document.querySelectorAll('.m');
     target.forEach((v: any) => {
-      if (v.style.backgroundColor === 'blue') {
-        v.style.backgroundColor = '#d9d9d9';
+      if (v.style.backgroundColor === 'lightgrey') {
+        // v.style.backgroundColor = '#d9d9d9';
+        v.style.backgroundColor = '	#3CB371';
         v.style.pointerEvents = 'auto';
       }
     });
@@ -50,7 +51,9 @@ const FloorDrawing = ({ reservationList, isStatusPage }: FloorDrawingProps) => {
     console.log('FloorDrawing');
     const allTarget: NodeListOf<Element> = document.querySelectorAll('.m');
     allTarget.forEach((v: any) => {
-      v.style.backgroundColor = '#d9d9d9';
+      // v.style.backgroundColor = '#d9d9d9';
+      v.style.backgroundColor = '	#3CB371';
+      v.style.color = 'white';
       isStatusPage
         ? (v.style.pointerEvents = 'none')
         : (v.style.pointerEvents = 'auto');
@@ -63,7 +66,7 @@ const FloorDrawing = ({ reservationList, isStatusPage }: FloorDrawingProps) => {
         `[class*='${name}']`
       );
       target.forEach((e: any) => {
-        e.style.backgroundColor = 'red';
+        e.style.backgroundColor = '#DB4455';
         e.style.pointerEvents = 'none';
       });
     });
@@ -201,6 +204,7 @@ const StyledFloorDrawing = styled.div`
   flex-direction: row;
   justify-content: center;
   gap: 30px;
+  margin-bottom: -6rem;
 `;
 
 const StyledFloorDrawingColumn = styled.div`
@@ -217,7 +221,7 @@ const StyledFloorDrawingColumnItem = styled.div`
   text-align: center;
   line-height: 150px;
   background-color: #d9d9d9;
-  border: 1px solid black;
+  border: 1px solid white;
 `;
 
 export default FloorDrawing;

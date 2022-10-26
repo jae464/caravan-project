@@ -135,7 +135,7 @@ const MeetingRoomForm = ({ date }: { date?: Date }) => {
           </div>
         </TimePicker>
         <MeetingRoomContainer>
-          <div className="meetingroom-status">
+          <div className="meetingroom-status" style={{ marginBottom: '4rem' }}>
             <div className="reserve available">
               <div className="circle green"></div>
               <span>사용가능</span>
@@ -244,10 +244,10 @@ const MeetingRoomContainer = styled.div`
     border: none;
   }
   .green {
-    background: green;
+    background: #3cb371;
   }
   .red {
-    background: red;
+    background: #db4455;
   }
 `;
 

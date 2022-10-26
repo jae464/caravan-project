@@ -11,12 +11,15 @@ import ChatLayout from 'layouts/ChatLayout';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useResetRecoilState } from 'recoil';
+import { reservationAtom } from 'recoil/reservation/atom';
 import { Reservation } from 'types/reservation';
 
 const MeetingRoomStatusPage = () => {
   const { components, addComponent } = useComponentHooks([]);
+  const resetComponent = useResetRecoilState(reservationAtom);
   const [scrollRef, scrollToBottom] = useAutoScroll();
-  const currentDate = moment().format('YYYY-MM-DD HHMM');
+  const currentDate = moment().format('YYYY-MM-DD HH:MM');
   const [reservationList, setReservationList] = useState<Reservation[] | null>(
     null
   );
@@ -30,7 +33,9 @@ const MeetingRoomStatusPage = () => {
         data.filter((e: Reservation) => {
           const startTime = e.startTime ?? 0;
           const endTime = e.endTime ?? 9999;
-          const currentTime = Number(currentDate.split(' ')[1]);
+          const currentTime = Number(
+            currentDate.split(' ')[1].split(':').join(':')
+          );
           return (
             moment(e.meetingDate).format('YYYY-MM-DD') ===
               currentDate.split(' ')[0] &&
@@ -43,7 +48,8 @@ const MeetingRoomStatusPage = () => {
   }, []);
 
   const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
-    navigate('/reservation');
+    resetComponent();
+    navigate('/reservation', { replace: true });
   };
 
   useEffect(() => {
@@ -70,7 +76,7 @@ const MeetingRoomStatusPage = () => {
             </div>
           </div>
         </ChatBotLayout>
-        <ChatLayout />
+        {/* <ChatLayout /> */}
       </>,
     ]);
   };
@@ -88,6 +94,7 @@ const MeetingRoomStatusPage = () => {
           })}
         </div>
       </AppLayout>
+      <ChatLayout />
     </StyledMeetingRoomStatusPage>
   );
 };

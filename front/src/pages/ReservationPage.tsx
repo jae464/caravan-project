@@ -11,11 +11,12 @@ import useComponentHooks from 'hooks/useComponentAdd';
 import { useResetRecoilState } from 'recoil';
 import reservationPageAtom from 'recoil/reservationPage/atom';
 import ChatBotText from 'design/ChatBotText';
+import { reservationAtom } from 'recoil/reservation/atom';
 
 const ReservationPage = () => {
   const { components, setComponent, addComponent } = useComponentHooks([]);
   const [scrollRef, scrollToBottom] = useAutoScroll();
-
+  const resetReservation = useResetRecoilState(reservationAtom);
   const onClick = () => {
     addComponent([
       <ChatBotLayout>
@@ -26,6 +27,7 @@ const ReservationPage = () => {
   };
 
   useEffect(() => {
+    resetReservation();
     initComponents();
   }, []);
 

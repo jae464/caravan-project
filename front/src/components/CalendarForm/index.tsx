@@ -111,14 +111,14 @@ const CalendarForm = () => {
       <NextButton onClick={onClick} clickable={!reservation.done}>
         다음
       </NextButton>
-      <button
+      {/* <button
         onClick={() => {
           console.log(reservation);
         }}
       >
         확인용 버튼
       </button>
-      <button onClick={resetReservation}>리코일 초기화</button>
+      <button onClick={resetReservation}>리코일 초기화</button> */}
     </Container>
   );
 };

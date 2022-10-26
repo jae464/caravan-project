@@ -9,6 +9,7 @@ import ChatBotText from 'design/ChatBotText';
 import { reservationAtom } from 'recoil/reservation/atom';
 import { useRecoilState } from 'recoil';
 import { getRoomById } from 'api/meetingRoom';
+import { getTimeFormat } from 'utils/util';
 
 type Props = {
   info: Reservation;
@@ -91,7 +92,9 @@ const StatusItem = ({ info }: Props): JSX.Element => {
                     new Date(info.meetingDate!).getDate()}
                 </Cell>
                 <Cell>
-                  {info.startTime!.toString() + '~' + info.endTime!.toString()}
+                  {getTimeFormat(info.startTime!) +
+                    '~' +
+                    getTimeFormat(info.endTime!)}
                 </Cell>
               </tr>
               <tr>
