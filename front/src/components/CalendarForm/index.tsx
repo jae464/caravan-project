@@ -85,6 +85,7 @@ const CalendarForm = () => {
   };
 
   useEffect(() => {
+    console.log(`current date ${moment().format('YYYY-MM-DD HHMM')}`);
     setReservation(prev => ({
       ...prev,
       meetingDate: new Date(moment(new Date()).format('YYYY-MM-DD')),

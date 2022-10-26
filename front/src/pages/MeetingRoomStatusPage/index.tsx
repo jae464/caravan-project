@@ -34,8 +34,8 @@ const MeetingRoomStatusPage = () => {
           return (
             moment(e.meetingDate).format('YYYY-MM-DD') ===
               currentDate.split(' ')[0] &&
-            startTime < currentTime &&
-            endTime > currentTime
+            startTime <= currentTime &&
+            endTime >= currentTime
           );
         })
       );
@@ -58,7 +58,10 @@ const MeetingRoomStatusPage = () => {
         </ChatBotLayout>
         <ChatBotLayout>
           <div>
-            <FloorDrawing reservationList={reservationList} />
+            <FloorDrawing
+              reservationList={reservationList}
+              isStatusPage={true}
+            />
             <div style={{ textAlign: 'center' }}>
               <ReservationButton
                 text="예약하기"

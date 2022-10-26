@@ -9,9 +9,10 @@ import { getRoomIdByRoomName } from 'utils/util';
 
 interface FloorDrawingProps {
   reservationList: Reservation[] | null;
+  isStatusPage: boolean | null;
 }
 
-const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
+const FloorDrawing = ({ reservationList, isStatusPage }: FloorDrawingProps) => {
   const [reservation, setReservation] = useRecoilState(reservationAtom);
 
   const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -50,7 +51,9 @@ const FloorDrawing = ({ reservationList }: FloorDrawingProps) => {
     const allTarget: NodeListOf<Element> = document.querySelectorAll('.m');
     allTarget.forEach((v: any) => {
       v.style.backgroundColor = '#d9d9d9';
-      v.style.pointerEvents = 'auto';
+      isStatusPage
+        ? (v.style.pointerEvents = 'none')
+        : (v.style.pointerEvents = 'auto');
     });
     reservationList?.map((e: Reservation) => {
       console.log(e);

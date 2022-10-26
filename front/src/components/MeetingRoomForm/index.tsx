@@ -161,7 +161,10 @@ const MeetingRoomForm = ({ date }: { date?: Date }) => {
                 );
               })}
           </MeetingRoomImage> */}
-          <FloorDrawing reservationList={reservationList} />
+          <FloorDrawing
+            reservationList={reservationList}
+            isStatusPage={false}
+          />
         </MeetingRoomContainer>
       </Container>
     </>
