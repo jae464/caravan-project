@@ -74,6 +74,7 @@ const CalendarForm = () => {
   };
 
   const onChangeDate = (value: Date) => {
+    console.log('onChangeDate');
     console.log(value);
     const date = new Date(moment(value).format('YYYY-MM-DD'));
     console.log(date);
@@ -82,6 +83,13 @@ const CalendarForm = () => {
       meetingDate: date,
     }));
   };
+
+  useEffect(() => {
+    setReservation(prev => ({
+      ...prev,
+      meetingDate: new Date(moment(new Date()).format('YYYY-MM-DD')),
+    }));
+  }, []);
 
   return (
     <Container>
