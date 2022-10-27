@@ -177,20 +177,20 @@ const TimePicker = styled.div`
   // }
 `;
 const NextButton = styled.button<{ clickable: boolean }>`
-    width: 10rem;
-    margin: 1rem auto;
-    height: 3rem;
-    background: #FFC3C3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1.3rem;
-    cursor: pointer;
-    pointer-events: ${props => (props.clickable ? 'auto' : 'none')}
+  width: 10rem;
+  margin: 1rem auto;
+  height: 3rem;
+  background: #ffc3c3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  pointer-events: ${props => (props.clickable ? 'auto' : 'none')};
 
-    &:hover{  
-        background-color : #fd8f9e;
-    }
+  &:hover {
+    background-color: #fd8f9e;
+  }
 `;
 
 export default CalendarForm;
