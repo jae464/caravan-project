@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import styled from '@emotion/styled';
 import { fetchAllReservation, getReservationByDate } from 'api/reservation';
 import FloorDrawing from 'components/FloorDrawing';
@@ -33,12 +34,14 @@ const MeetingRoomStatusPage = () => {
         data.filter((e: Reservation) => {
           const startTime = e.startTime ?? 0;
           const endTime = e.endTime ?? 9999;
+          console.log(currentDate);
           const currentTime = Number(
-            currentDate.split(' ')[1].split(':').join(':')
+            currentDate.split(' ')[1].split(':').join('')
           );
+          console.log(currentTime);
           return (
             moment(e.meetingDate).format('YYYY-MM-DD') ===
-              currentDate.split(' ')[0] &&
+            currentDate.split(' ')[0] &&
             startTime <= currentTime &&
             endTime >= currentTime
           );
