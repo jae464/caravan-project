@@ -1,109 +1,13 @@
 # Caravan-Project
 
-      <>
-          <StyledFloorDrawingColumn className={"firstColumn"}>
-            <StyledFloorDrawingColumnItem
-              style={{ backgroundColor: "transparent", border: "none" }}
-            ></StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem
-              className="15E.02"
-              style={{
-                borderBottom: "none",
-              }}
-            ></StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem
-              className="15E.02"
-              style={{
-                borderBottom: "none",
-                borderTop: "none",
-              }}
-            >
-              15E.02
-            </StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem
-              className="15E.02"
-              style={{
-                borderTop: "none",
-              }}
-            ></StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem
-              style={{ backgroundColor: "transparent", border: "none" }}
-            ></StyledFloorDrawingColumnItem>
-          </StyledFloorDrawingColumn>
-        </>
-        <>
-          <StyledFloorDrawingColumn className={"firstColumn"}>
-            <StyledFloorDrawingColumnItem
-              style={{ backgroundColor: "transparent", border: "none" }}
-            ></StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem className="15E.01">
-              15E.01
-            </StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem
-              style={{ backgroundColor: "transparent", border: "none" }}
-            ></StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem className="15E.03">
-              15E.03
-            </StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem
-              style={{ backgroundColor: "transparent", border: "none" }}
-            ></StyledFloorDrawingColumnItem>
-          </StyledFloorDrawingColumn>
-        </>
-        <>
-          <StyledFloorDrawingColumn className={"firstColumn"}>
-            <StyledFloorDrawingColumnItem
-              className="15C.01"
-              style={{
-                marginBottom: "30px",
-              }}
-            >
-              15C.01
-            </StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem
-              className="15C.02"
-              style={{ borderBottom: "none" }}
-            ></StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem
-              className="15C.02"
-              style={{
-                borderBottom: "none",
-                borderTop: "none",
-              }}
-            >
-              15C.02
-            </StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem
-              className="15C.02"
-              style={{ borderTop: "none" }}
-            ></StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem
-              className="15C.03"
-              style={{ marginTop: "30px" }}
-            >
-              15C.03
-            </StyledFloorDrawingColumnItem>
-          </StyledFloorDrawingColumn>
-        </>
-        <>
-          <StyledFloorDrawingColumn
-            className={"firstColumn"}
-            style={{ gap: "15px" }}
-          >
-            <StyledFloorDrawingColumnItem className="15C.08">
-              15C.08
-            </StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem className="15C.07">
-              15C.07
-            </StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem className="15C.06">
-              15C.06
-            </StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem className="15C.05">
-              15C.05
-            </StyledFloorDrawingColumnItem>
-            <StyledFloorDrawingColumnItem className="15C.04">
-              15C.04
-            </StyledFloorDrawingColumnItem>
-          </StyledFloorDrawingColumn>
-        </>
+### 메인 페이지
+<img width="450" height="500" alt="스크린샷 2022-12-11 오후 11 00 25" src="https://user-images.githubusercontent.com/72593548/206908125-676d2d80-42cb-4b6b-9bdb-e22eff76445f.png">
+
+### 예약하기
+<img width="450px" height="500px" src="https://user-images.githubusercontent.com/72593548/206908412-1b5c3f85-d2c0-4f6a-88b8-5a2daa260f3c.gif">
+
+### 예약확인 & 삭제
+<img width="450px" height="500px" src="https://user-images.githubusercontent.com/72593548/206909145-699a5295-5b3d-4db8-8b65-dd2fa8df2cd8.gif">
+
+### 회의실 현황 확인
+<img width="450px" height="500px" src="https://user-images.githubusercontent.com/72593548/206909557-9d87d87d-ce70-4ef6-92cf-122cfdb47256.gif">
